@@ -8,8 +8,8 @@ Project Neumann is a RISC-V based microcontroller system using the [PULPino] cor
 - [SiFive]: company formed by the original inventors of RISC-V.
 
 # References
-1. Gautschi, M., P. D. Schiavone, A. Traber, I. Loi, A. Pullini, D. Rossi, E. Flamand, F. K. Gürkaynak, and L. Benini. “Near-Threshold RISC-V Core With DSP Extensions for Scalable IoT Endpoint Devices.” IEEE Transactions on Very Large Scale Integration (VLSI) Systems 25, no. 10 (October 2017): 2700–2713. https://doi.org/10.1109/TVLSI.2017.2654506. [ [PVu](https://db.com/s/k938yc0t91bw6wf/2017-gautschi-RISCV-DSP-xtension-RISCY.pdf) ]
-2. Schiavone, P. Davide, F. Conti, D. Rossi, M. Gautschi, A. Pullini, E. Flamand, and L. Benini. “Slow and Steady Wins the Race? A Comparison of Ultra-Low-Power RISC-V Cores for Internet-of-Things Applications.” In 2017 27th International Symposium on Power and Timing Modeling, Optimization and Simulation (PATMOS), 1–8, 2017. https://doi.org/10.1109/PATMOS.2017.8106976. [ [PVu](https://db.com/s/cbnrjv64y11q94h/2017-schiavone2017-comparisonRISCVarchsForIOT.pdf) ]
+1. Gautschi, M., P. D. Schiavone, A. Traber, I. Loi, A. Pullini, D. Rossi, E. Flamand, F. K. Gürkaynak, and L. Benini. “Near-Threshold RISC-V Core With DSP Extensions for Scalable IoT Endpoint Devices.” IEEE Transactions on Very Large Scale Integration (VLSI) Systems 25, no. 10 (October 2017): 2700–2713. https://doi.org/10.1109/TVLSI.2017.2654506. [ [PVu](https://box.com/s/k938yc0t91bw6wf/2017-gautschi-RISCV-DSP-xtension-RISCY.pdf) ]
+2. Schiavone, P. Davide, F. Conti, D. Rossi, M. Gautschi, A. Pullini, E. Flamand, and L. Benini. “Slow and Steady Wins the Race? A Comparison of Ultra-Low-Power RISC-V Cores for Internet-of-Things Applications.” In 2017 27th International Symposium on Power and Timing Modeling, Optimization and Simulation (PATMOS), 1–8, 2017. https://doi.org/10.1109/PATMOS.2017.8106976. [ [PVu](https://box.com/s/cbnrjv64y11q94h/2017-schiavone2017-comparisonRISCVarchsForIOT.pdf) ]
 
 
 * * *
