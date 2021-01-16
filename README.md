@@ -1,6 +1,7 @@
 # Project Neumann
 Project Neumann is a RISC-V based microcontroller system using the [PULPino] core from the [PULP] platform with an 12-bit SAR ADC, internal clock and other analog and digital peripherals to build complete embedded solutions.
 
+# SAR ADC
 # Resources
 - [PULP]: Joint effort between ETH Zurich and U. of Bologna for effcient architectures for Ultra Low Power application.
 - [PULPino]: Single-core microcontroller system using [RISCY] or zero-riscy. 
