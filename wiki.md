@@ -1,9 +1,9 @@
 # Wiki
 This wiki holds the knowledgebase for Project Neumann.
 
-# RISC-V Tool Chain Setup
+## RISC-V Tool Chain Setup
 
-# Creating Cadence Work Area
+## Creating Cadence Work Area
 Check the video https://youtu.be/zQdRLo1zv2M
 - After loging in to a a Linux workstation in the Lab, bring up a fresh terminal.
 - Type `siproj` and you should see a list of projects.
