@@ -1,5 +1,5 @@
 # Project Neumann
-Project Neumann is a RISC-V based microcontroller system using the [PULPino] core from the [PULP] platform with an 12-bit SAR ADC, internal clock and other analog and digital peripherals to build complete embedded solutions.
+Project Neumann is a 32-bit RISC-V based microcontroller system as part of 1-TOPS project.
 
 # SAR ADC
 Successive Approximation Register (SAR) ADCs are great for low-power SoCs.
