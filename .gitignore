@@ -1,0 +1,85 @@
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+*~
+.*.swp
+.vscode/
+.idea/
+
+# --- Logs ---
+*.log
+logs/
+log/
+
+# --- Generic simulation waveforms / debug ---
+*.vcd
+*.fst
+*.wlf
+*.ghw
+*.vpd
+*.fsdb
+*.trn
+*.key
+*.jou
+
+# --- Icarus Verilog (iverilog) ---
+*.vvp
+a.out
+
+# --- Verilator ---
+obj_dir/
+*.verilator
+verilator_*
+
+# --- ModelSim / Questa ---
+work/
+modelsim.ini
+transcript
+vsim.wlf
+wlf*/
+
+# --- Synopsys VCS ---
+simv
+simv.daidir/
+csrc/
+ucli.key
+vc_hdrs.h
+*.vpd
+
+# --- Cadence Xcelium / Incisive ---
+xcelium.d/
+INCA_libs/
+irun.*
+xrun.*
+*.shm
+*.diag
+*.history
+
+# --- Common build/run dirs (only if they are purely generated in your repo) ---
+build/
+out/
+output/
+run/
+runs/
+tmp/
+
+# --- SW build artifacts (common for RISC-V tests/firmware) ---
+*.o
+*.a
+*.elf
+*.map
+*.d
+*.lst
+*.srec
+*.bin
+*.dump
+*.dis
+build-*/
+
+# --- Coverage ---
+coverage/
+*.gcno
+*.gcda
+*.gcov
+*.info
+*.lcov

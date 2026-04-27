@@ -1,6 +1,8 @@
 # Project Neumann
 Project Neumann is a 32-bit RISC-V based microcontroller system as part of 1-TOPS project.
 
+Please see [CONTRIB.md](CONTRIB.md) for detail guidelines for collaborators to contribute to this project.
+
 # Resources
 - [PULP]: Joint effort between ETH Zurich and U. of Bologna for effcient architectures for Ultra Low Power application.
 - [PULPino]: Single-core microcontroller system using [RISCY] or zero-riscy. 
