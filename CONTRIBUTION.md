@@ -30,6 +30,19 @@ Below is the full external contributor flow (commands + what each command/option
   - Commit
     - `git commit -m "Add UART testbench for RX oversampling"`
 
+- Open a **Pull Request** (PR) (fork → upstream)
+
+- Go to your fork on GitHub and you should see something like "This branch is 2 commits ahead of `silicon-vlsi/neumann:main`
+- Click `Contribute` → `Open Pull Request`
+- Add a `title` and `description` to describe your contribution.
+  - What changed + why
+  - How to run (at least one) simulation, e.g.
+    - `iverilog ...`
+- Any wave capture / expected output (if applicable)
+- *Check* All the chages shown in the tab below.
+- Click `Create pull request` 
+- If there are no conficts, it should show a badge `No conflicts with base branch`
+- This will allow the maintainer to merge with the *upstream* repo.
 ---
 
 # Detail Guide
@@ -166,38 +179,18 @@ Meaning:
 ## Open a Pull Request (PR) (fork → upstream)
 
 ### Create PR on GitHub
-Go to your fork on GitHub and click **Compare & pull request**, or:
-- Base repo: `silicon-vlsi/neumann`
-- Base branch: `main`
-- Head repo: `<you>/neumann`
 
-In the PR description, include:
-- What changed + why
-- How to run (at least one) simulation, e.g.
-  - `iverilog ...`
-  - `verilator --lint-only ...`
+- Go to your fork on GitHub and you should see something like "This branch is 2 commits ahead of `silicon-vlsi/neumann:main`
+- Click `Contribute` → `Open Pull Request`
+- Add a `title` and `description` to describe your contribution.
+  - What changed + why
+  - How to run (at least one) simulation, e.g.
+    - `iverilog ...`
 - Any wave capture / expected output (if applicable)
+- *Check* All the chages shown in the tab below.
+- Click `Create pull request` 
+- If there are no conficts, it should show a badge `No conflicts with base branch`
+- This will allow the maintainer to merge with the *upstream* repo.
 
 ---
 
-## I. Keep the PR branch updated if upstream changed
-
-### 12) Sync changes from upstream into your branch
-```bash
-git fetch upstream
-git checkout feature/add-uart-tb
-git merge upstream/main
-git push
-```
-
-Meaning:
-- Brings your PR branch up-to-date with latest upstream `main`.
-- If merge conflicts occur:
-  - edit conflict markers
-  - `git add <resolved files>`
-  - `git commit`
-  - `git push`
-
-(Alternative approach is “rebase”, but merge is easier/safer for beginners.)
-
----
