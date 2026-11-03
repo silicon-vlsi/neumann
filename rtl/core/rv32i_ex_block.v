@@ -2,10 +2,8 @@
  
 module rv32i_ex_block
 (
-    /* verilator lint_off UNUSEDSIGNAL */   // EX block is combinational; ports kept for interface
     input clk,
     input rst_n,
-    /* verilator lint_on UNUSEDSIGNAL */
     input  [5:0]  alu_operator_i,        
     input  [31:0] alu_operand_a_i,
     input  [31:0] alu_operand_b_i,
