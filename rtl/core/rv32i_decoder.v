@@ -10,7 +10,9 @@ module rv32i_decoder
   output reg mret_insn_o,            // MRET instruction
   output reg ecall_insn_o,           // ECALL instruction
   output reg pipe_flush_o,           // pipeline flush requested (WFI)
+  /* verilator lint_off UNUSEDSIGNAL */   // rs1/rd fields are decoded in the ID stage
   input  [31:0] instr_rdata_i,
+  /* verilator lint_on UNUSEDSIGNAL */
   input  illegal_c_insn_i,       // compressed instruction decode failed
   // ALU signals
   output reg  [`ALU_OP_WIDTH-1:0] alu_operator_o,   // ALU operation select
@@ -283,16 +285,16 @@ module rv32i_decoder
             // Standard RV32I and RV32M (bit28 = 0)
             case ({instr_rdata_i[30:25], instr_rdata_i[14:12]})
                // ---- RV32I ALU ----
-              10'b00_0000_000: alu_operator_o = `ALU_ADD;   // ADD
-              10'b10_0000_000: alu_operator_o = `ALU_SUB;   // SUB
-              10'b00_0000_010: alu_operator_o = `ALU_SLTS;  // SLT
-              10'b00_0000_011: alu_operator_o = `ALU_SLTU;  // SLTU
-              10'b00_0000_100: alu_operator_o = `ALU_XOR;   // XOR
-              10'b00_0000_110: alu_operator_o = `ALU_OR;    // OR
-              10'b00_0000_111: alu_operator_o = `ALU_AND;   // AND
-              10'b00_0000_001: alu_operator_o = `ALU_SLL;   // SLL
-              10'b00_0000_101: alu_operator_o = `ALU_SRL;   // SRL
-              10'b10_0000_101: alu_operator_o = `ALU_SRA;   // SRA
+              9'b00_0000_000: alu_operator_o = `ALU_ADD;   // ADD
+              9'b10_0000_000: alu_operator_o = `ALU_SUB;   // SUB
+              9'b00_0000_010: alu_operator_o = `ALU_SLTS;  // SLT
+              9'b00_0000_011: alu_operator_o = `ALU_SLTU;  // SLTU
+              9'b00_0000_100: alu_operator_o = `ALU_XOR;   // XOR
+              9'b00_0000_110: alu_operator_o = `ALU_OR;    // OR
+              9'b00_0000_111: alu_operator_o = `ALU_AND;   // AND
+              9'b00_0000_001: alu_operator_o = `ALU_SLL;   // SLL
+              9'b00_0000_101: alu_operator_o = `ALU_SRL;   // SRL
+              9'b10_0000_101: alu_operator_o = `ALU_SRA;   // SRA
               default: illegal_insn_o = 1'b1;
             endcase
           end
