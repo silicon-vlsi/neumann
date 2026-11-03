@@ -43,7 +43,9 @@ module rv32i_core
     input debug_resume_i,
     input fetch_enable_i,
     output core_busy_o,
+    /* verilator lint_off ASCRANGE */   // [-1:0] when N_EXT_PERF_COUNTER = 0
     input [N_EXT_PERF_COUNTER-1:0]ext_perf_counters_i 
+    /* verilator lint_on ASCRANGE */
 );
 wire instr_valid_id;
 wire [31:0] instr_rdata_id;
@@ -57,7 +59,10 @@ wire lsu_load_err,lsu_store_err;
 wire is_decoding,data_misaligned;
 wire [31:0] misaligned_addr;
 wire [31:0] jump_target_ex;
-wire branch_in_exc,branch_decision,ctrl_busy,if_busy,lsu_busy;
+/* verilator lint_off UNUSEDSIGNAL */
+wire branch_in_exc;   // id_stage status output, not used at core level
+/* verilator lint_on UNUSEDSIGNAL */
+wire branch_decision,ctrl_busy,if_busy,lsu_busy;
 wire [`ALU_OP_WIDTH-1:0] alu_operator_ex;
 wire [31:0] alu_operand_a_ex,alu_operand_b_ex;
 wire [31:0] alu_adder_result_ex, regfile_wdata_ex;
@@ -268,7 +273,9 @@ rv32i_load_store_unit load_store
     .misaligned_addr_o(misaligned_addr),
     .load_err_o(lsu_load_err),
     .store_err_o(lsu_store_err),
+    /* verilator lint_off PINCONNECTEMPTY */
     .lsu_update_addr_o(),
+    /* verilator lint_on PINCONNECTEMPTY */
     .data_valid_o(data_valid_lsu),
     .busy_o(lsu_busy)
 );
