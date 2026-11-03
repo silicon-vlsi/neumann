@@ -5,7 +5,9 @@ module rv32i_if_stage
     input         clk,
     input         rst_n,
 
+    /* verilator lint_off UNUSEDSIGNAL */   // boot address is 256-byte aligned
     input  [31:0] boot_addr_i,
+    /* verilator lint_on UNUSEDSIGNAL */
     input         req_i,
 
     // Instruction memory interface
@@ -46,7 +48,9 @@ module rv32i_if_stage
     reg        valid;
     reg        branch_req; 
     reg        fetch_ready;
+    /* verilator lint_off UNUSEDSIGNAL */   // bit 0 always 0 (halfword aligned)
     reg [31:0] fetch_addr_n;
+    /* verilator lint_on UNUSEDSIGNAL */
     reg [31:0] exc_pc;
 
     wire        prefetch_busy;
