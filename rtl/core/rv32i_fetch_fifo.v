@@ -27,14 +27,15 @@ module rv32i_fetch_fifo
     reg [31:0] addr_n  [0:DEPTH-1];
     reg [31:0] rdata_n [0:DEPTH-1];
     reg valid_n [0:DEPTH-1];
+    /* verilator lint_off UNUSEDSIGNAL */   // only word address [31:2] is used
     wire [31:0] addr_next;
+    /* verilator lint_on UNUSEDSIGNAL */
     wire [31:0] rdata;
     wire [31:0] rdata_unaligned;
     wire valid;
     wire valid_unaligned;
     wire aligned_is_compressed;
     wire unaligned_is_compressed;
-    wire aligned_is_compressed_st;
     wire unaligned_is_compressed_st;
     assign rdata = valid_Q[0] ? rdata_Q[0] : in_rdata_i;
     assign valid = valid_Q[0] | in_valid_i;
@@ -43,7 +44,6 @@ module rv32i_fetch_fifo
     assign unaligned_is_compressed = (rdata[17:16] != 2'b11);
     assign aligned_is_compressed = (rdata[1:0] != 2'b11);
     assign unaligned_is_compressed_st = (rdata_Q[0][17:16] != 2'b11);
-    assign aligned_is_compressed_st = (rdata_Q[0][1:0] != 2'b11);
     always @(*) 
     begin
         if (out_addr_o[1]) 
