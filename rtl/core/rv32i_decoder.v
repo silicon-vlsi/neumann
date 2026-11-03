@@ -10,9 +10,7 @@ module rv32i_decoder
   output reg mret_insn_o,            // MRET instruction
   output reg ecall_insn_o,           // ECALL instruction
   output reg pipe_flush_o,           // pipeline flush requested (WFI)
-  /* verilator lint_off UNUSEDSIGNAL */   // rs1/rd fields are decoded in the ID stage
   input  [31:0] instr_rdata_i,
-  /* verilator lint_on UNUSEDSIGNAL */
   input  illegal_c_insn_i,       // compressed instruction decode failed
   // ALU signals
   output reg  [`ALU_OP_WIDTH-1:0] alu_operator_o,   // ALU operation select

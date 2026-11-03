@@ -28,7 +28,7 @@ module rv32i_prefetch_buffer
     reg fifo_valid;
     wire fifo_ready;
     wire fifo_clear;
-    wire valid_stored;
+    wire valid_stored;   // FIFO status output, not needed here
     assign busy_o = (CS != IDLE) | instr_req_o;
     rv32i_fetch_fifo fifo_i
     (

@@ -51,7 +51,7 @@ always @(*)
 begin
   for(i=1;i<NUM_WORDS;i=i+1) 
   begin
-    if((we_a_i==1'b1)&&(waddr_a_int==i))
+    if((we_a_i==1'b1)&&(waddr_a_int==i[ADDR_WIDTH-1:0]))
       waddr_onehot_a[i]=1'b1;
     else
       waddr_onehot_a[i]=1'b0;

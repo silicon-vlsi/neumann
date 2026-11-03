@@ -44,9 +44,7 @@ module rv32i_debug_unit
   // PC
   input  [31:0] pc_if_i,
   input  [31:0] pc_id_i,
-  /* verilator lint_off UNUSEDSIGNAL */
   input         instr_valid_id_i,
-  /* verilator lint_on UNUSEDSIGNAL */
   input         sleeping_i,
   output        jump_req_o,
   output [31:0] jump_addr_o
@@ -60,9 +58,7 @@ module rv32i_debug_unit
   reg        state_q, state_n;
   reg  [`DBG_SETS_W-1:0] settings_q, settings_n;
 
-  /* verilator lint_off UNUSEDSIGNAL */   // word-aligned debug address: bits 1:0 and 14 not decoded
   reg  [14:0] addr_q;
-  /* verilator lint_on UNUSEDSIGNAL */
   reg  [31:0] wdata_q;
   reg         regfile_rreq_q, regfile_rreq_n;
   reg         jump_req_q, jump_req_n;

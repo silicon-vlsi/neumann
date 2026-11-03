@@ -30,9 +30,7 @@ module rv32i_cs_registers
     input  [5:0] csr_cause_i,
     input  csr_save_cause_i,
     // Performance counter inputs
-    /* verilator lint_off UNUSEDSIGNAL */   // kept for interface compatibility (counter 1 uses id_valid_i)
     input if_valid_i,
-    /* verilator lint_on UNUSEDSIGNAL */
     input id_valid_i,
     input is_compressed_i,
     input is_decoding_i,
@@ -43,11 +41,7 @@ module rv32i_cs_registers
     input branch_taken_i,
     input mem_load_i,
     input mem_store_i,
-    /* verilator lint_off ASCRANGE */
-    /* verilator lint_off UNUSEDSIGNAL */   // [-1:0] and unused when N_EXT_CNT = 0
     input  [N_EXT_CNT-1:0] ext_counters_i
-    /* verilator lint_on UNUSEDSIGNAL */
-    /* verilator lint_on ASCRANGE */
 );
     localparam N_PERF_COUNTERS = N_PERF_CNT + N_EXT_CNT;
     localparam N_PERF_REGS     = N_PERF_COUNTERS;
@@ -170,9 +164,7 @@ module rv32i_cs_registers
     // =========================================================
     // Full event list. Only the first N_PERF_CNT entries get a counter;
     // the rest are left unconnected and removed by synthesis.
-    /* verilator lint_off UNUSEDSIGNAL */
     wire [10:0] perf_events;
-    /* verilator lint_on UNUSEDSIGNAL */
     assign perf_events[0]  = 1'b1;                                      // cycles
     assign perf_events[1]  = id_valid_i & is_decoding_i;                // instructions issued
     assign perf_events[2]  = 1'b0;                                      // reserved

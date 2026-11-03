@@ -28,9 +28,7 @@ module rv32i_ex_block
         .adder_result_o(alu_adder_result_ex_o),
         .result_o(alu_result),
         .comparison_result_o(alu_cmp_result),
-        /* verilator lint_off PINCONNECTEMPTY */
         .is_equal_result_o()
-        /* verilator lint_on PINCONNECTEMPTY */
     );
     always @(*) begin
          if (lsu_en_i)

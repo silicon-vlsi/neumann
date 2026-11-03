@@ -1,9 +1,7 @@
 `include "rv32i_defines.vh"
 module rv32i_controller
 #(
-  /* verilator lint_off UNUSEDPARAM */
   parameter REG_ADDR_WIDTH = 5
-  /* verilator lint_on UNUSEDPARAM */
 )
 (
   input  wire clk,
@@ -54,9 +52,7 @@ module rv32i_controller
   output reg  dbg_ack_o, // Stopped; debug unit has control
   input  wire dbg_stall_i,      // Pipeline stall requested by debug
   input  wire dbg_jump_req_i,   // Change PC to debug NPC
-  /* verilator lint_off UNUSEDSIGNAL */   // only some debug settings are used here
   input  wire [`DBG_SETS_W-1:0] dbg_settings_i,
-  /* verilator lint_on UNUSEDSIGNAL */
   output reg  dbg_trap_o,
   // Forwarding signals
   output wire [1:0]  operand_a_fw_mux_sel_o,  // Operand A forward select

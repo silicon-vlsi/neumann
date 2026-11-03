@@ -27,9 +27,7 @@ module rv32i_fetch_fifo
     reg [31:0] addr_n  [0:DEPTH-1];
     reg [31:0] rdata_n [0:DEPTH-1];
     reg valid_n [0:DEPTH-1];
-    /* verilator lint_off UNUSEDSIGNAL */   // only word address [31:2] is used
     wire [31:0] addr_next;
-    /* verilator lint_on UNUSEDSIGNAL */
     wire [31:0] rdata;
     wire [31:0] rdata_unaligned;
     wire valid;
