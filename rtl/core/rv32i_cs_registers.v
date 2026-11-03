@@ -30,7 +30,9 @@ module rv32i_cs_registers
     input  [5:0] csr_cause_i,
     input  csr_save_cause_i,
     // Performance counter inputs
+    /* verilator lint_off UNUSEDSIGNAL */   // kept for interface compatibility (counter 1 uses id_valid_i)
     input if_valid_i,
+    /* verilator lint_on UNUSEDSIGNAL */
     input id_valid_i,
     input is_compressed_i,
     input is_decoding_i,
@@ -41,7 +43,11 @@ module rv32i_cs_registers
     input branch_taken_i,
     input mem_load_i,
     input mem_store_i,
+    /* verilator lint_off ASCRANGE */
+    /* verilator lint_off UNUSEDSIGNAL */   // [-1:0] and unused when N_EXT_CNT = 0
     input  [N_EXT_CNT-1:0] ext_counters_i
+    /* verilator lint_on UNUSEDSIGNAL */
+    /* verilator lint_on ASCRANGE */
 );
     localparam N_PERF_COUNTERS = N_PERF_CNT + N_EXT_CNT;
     localparam N_PERF_REGS     = N_PERF_COUNTERS;
@@ -56,7 +62,6 @@ module rv32i_cs_registers
     reg [31:0] csr_rdata_int;
     reg csr_we_int;
     // Performance counters
-    reg  id_valid_q;
     wire [N_PERF_COUNTERS-1:0]  PCCR_in;
     reg  [N_PERF_COUNTERS-1:0]  PCCR_inc, PCCR_inc_q;
     reg  [31:0] PCCR_q [0:N_PERF_REGS-1];
@@ -165,7 +170,9 @@ module rv32i_cs_registers
     // =========================================================
     // Full event list. Only the first N_PERF_CNT entries get a counter;
     // the rest are left unconnected and removed by synthesis.
+    /* verilator lint_off UNUSEDSIGNAL */
     wire [10:0] perf_events;
+    /* verilator lint_on UNUSEDSIGNAL */
     assign perf_events[0]  = 1'b1;                                      // cycles
     assign perf_events[1]  = id_valid_i & is_decoding_i;                // instructions issued
     assign perf_events[2]  = 1'b0;                                      // reserved
@@ -188,6 +195,7 @@ module rv32i_cs_registers
         end
     endgenerate
     // perf counter address decoder
+    integer rdi;
     always @(*) 
     begin
         is_pccr      = 1'b0;
@@ -222,7 +230,10 @@ module rv32i_cs_registers
                 is_pccr    = 1'b1;
                 pccr_index = csr_addr_i[4:0];
                 // counters above N_PERF_REGS do not exist, read them as 0 instead of X
-                perf_rdata = (csr_addr_i[4:0] < N_PERF_REGS) ? PCCR_q[csr_addr_i[4:0]] : 32'b0;
+                perf_rdata = 32'b0;
+                for (rdi = 0; rdi < N_PERF_REGS; rdi = rdi + 1)
+                    if (csr_addr_i[4:0] == rdi[4:0])
+                        perf_rdata = PCCR_q[rdi];
             end
         end
     end
@@ -236,7 +247,7 @@ module rv32i_cs_registers
             PCCR_n[pi]   = PCCR_q[pi];
             if ((PCCR_inc_q[pi] == 1'b1) && ((PCCR_q[pi] != 32'hFFFFFFFF) || (PCMR_q[1] == 1'b0)))
                 PCCR_n[pi] = PCCR_q[pi] + 32'd1;
-            if (is_pccr == 1'b1 && (pccr_all_sel == 1'b1 || pccr_index == pi)) 
+            if (is_pccr == 1'b1 && (pccr_all_sel == 1'b1 || pccr_index == pi[4:0])) 
             begin
                 case (csr_op_i)
                     `CSR_OP_NONE:  ;
@@ -277,7 +288,6 @@ module rv32i_cs_registers
     begin
         if (!rst_n) 
         begin
-            id_valid_q <= 1'b0;
             PCER_q     <= {N_PERF_COUNTERS{1'b0}};
             PCMR_q     <= 2'h3;
             for(ri = 0; ri < N_PERF_REGS; ri = ri + 1) 
@@ -288,7 +298,6 @@ module rv32i_cs_registers
         end 
         else 
         begin
-            id_valid_q <= id_valid_i;
             PCER_q <= PCER_n;
             PCMR_q <= PCMR_n;
             for (ri = 0; ri < N_PERF_REGS; ri = ri + 1) 
