@@ -1,4 +1,6 @@
 `include "rv32i_defines.vh"
+// File name (rv32i_Alu.v) kept for existing scripts; module is rv32i_alu.
+/* verilator lint_off DECLFILENAME */
 
 module rv32i_alu
 (
@@ -29,7 +31,9 @@ module rv32i_alu
     wire [32:0] adder_in_a;
     wire [32:0] adder_in_b;
     wire [32:0] operand_b_neg;
-    wire [33:0] adder_ext;       // internal 34-bit result
+    /* verilator lint_off UNUSEDSIGNAL */
+    wire [33:0] adder_ext;       // internal 34-bit result (bit 0 = carry-in trick, bit 33 = carry out, unused)
+    /* verilator lint_on UNUSEDSIGNAL */
     wire [31:0] adder_result;
 
     always @(*) begin
@@ -78,7 +82,10 @@ module rv32i_alu
     assign shift_arithmetic = (operator_i == `ALU_SRA);
     assign shift_op_a       = shift_left ? operand_a_rev : operand_a_i;
     assign shift_op_a_32    = {shift_arithmetic & shift_op_a[31], shift_op_a};
-    assign shift_right_result = $signed(shift_op_a_32) >>> operand_b_i[4:0];
+    /* verilator lint_off UNUSEDSIGNAL */   // bit 32 only carries the sign during the shift
+    wire [32:0] shift_right_full = $signed(shift_op_a_32) >>> operand_b_i[4:0];
+    /* verilator lint_on UNUSEDSIGNAL */
+    assign shift_right_result = shift_right_full[31:0];
 
     genvar j;
     generate
