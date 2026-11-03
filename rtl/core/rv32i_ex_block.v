@@ -2,8 +2,10 @@
  
 module rv32i_ex_block
 (
+    /* verilator lint_off UNUSEDSIGNAL */   // EX block is combinational; ports kept for interface
     input clk,
     input rst_n,
+    /* verilator lint_on UNUSEDSIGNAL */
     input  [5:0]  alu_operator_i,        
     input  [31:0] alu_operand_a_i,
     input  [31:0] alu_operand_b_i,
@@ -28,7 +30,9 @@ module rv32i_ex_block
         .adder_result_o(alu_adder_result_ex_o),
         .result_o(alu_result),
         .comparison_result_o(alu_cmp_result),
-        .is_equal_result_o()                
+        /* verilator lint_off PINCONNECTEMPTY */
+        .is_equal_result_o()
+        /* verilator lint_on PINCONNECTEMPTY */
     );
     always @(*) begin
          if (lsu_en_i)
