@@ -8,17 +8,17 @@ A Verilog implementation of the **RV32I** RV32I core — a minimal, area-optimiz
 ┌──────────────────────────────────────────────────┐
 │  top_soc                                         │
 │  ┌────────────────────────┐  ┌────────────────┐  │
-│  │   rv32i_core       │  │ uart_debug_unit│  │
-│  │  ┌─────┐  ┌─────────┐ │  │  ┌────┐ ┌────┐ │  │
-│  │  │ IF  │→ │  ID/EX  │ │  │  │ RX │ │ TX │ │  │
-│  │  │stage│  │  stage   │ │  │  └────┘ └────┘ │  │
-│  │  └─────┘  └─────────┘ │  │    debug bus    │  │
-│  │    ↕          ↕        │  │    mem master   │  │
+│  │   rv32i_core       │   │  │uart_debug_unit │  │
+│  │  ┌─────┐  ┌─────────┐  │  │  ┌────┐ ┌────┐ │  │
+│  │  │ IF  │→ │  ID/EX  │  │  │  │ RX │ │ TX │ │  │
+│  │  │stage│  │  stage  │  │  │  └────┘ └────┘ │  │
+│  │  └─────┘  └─────────┘  │  │    debug bus   │  │
+│  │    ↕          ↕        │  │    mem master  │  │
 │  │  fetch    ALU / LSU    │  └───────┬────────┘  │
 │  │  fifo     reg file     │          │           │
 │  └────────┬───────────────┘    ┌─────┴─────┐     │
-│           │ instr bus          │  data bus  │     │
-│           │                    │  arbiter   │     │
+│           │ instr bus          │  data bus │     │
+│           │                    │  arbiter  │     │
 └───────────┼────────────────────┼───────────┼─────┘
             ↕                    ↕           ↕
        ┌─────────┐         ┌─────────┐
