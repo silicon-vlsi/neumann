@@ -1,0 +1,54 @@
+================================================================================
+             ALU VERIFICATION RUN SCRIPT WALKTHROUGH
+================================================================================
+
+I have provided a flexible Python script (`run.py`) to run your SystemVerilog 
+verification framework in QuestaSim. Here is a breakdown of how to use it.
+
+1. WHAT CHANGED IN THE RTL?
+--------------------------------------------------------------------------------
+In `test.sv`, the number of transactions is now dynamic. It uses SystemVerilog's 
+`$value$plusargs` to read `num_trans` directly from the command line:
+
+    if (!$value$plusargs("num_trans=%d", env.gen.num_per_op)) begin
+        env.gen.num_per_op = 200;    // default
+    end
+
+
+2. USING THE `run.py` SCRIPT
+--------------------------------------------------------------------------------
+The script `run.py` automatically handles creating the `work` library, 
+compiling the files (`vlog`), and running the simulation (`vsim`).
+
+Open your terminal in the `1TOPS_VERIFICATION/ALU` folder and use these commands:
+
+[A] Basic Run
+Run the simulation in batch mode with the default 200 transactions per opcode:
+> python run.py
+
+[B] Change the Number of Transactions
+Use the `--trans` argument to increase or decrease the number of random 
+transactions generated per opcode. (e.g., to run 500 transactions per opcode):
+> python run.py --trans 500
+
+[C] Enable Coverage
+Use the `--cov` flag to enable both Code Coverage (branches, statements, toggles) 
+and Functional Coverage (your covergroups). 
+> python run.py --cov
+Note: When this finishes, it automatically runs `vcover report` and generates a 
+nice HTML coverage report in the `covhtmlreport/` folder!
+
+[D] Run with the Questa GUI
+If you want to view the waveforms, use the `--gui` flag. This will open the 
+QuestaSim graphical interface and load all signals into the wave viewer automatically.
+> python run.py --gui
+
+[E] Clean Previous Builds
+If you want to delete the old `work` library and compiled database before running, 
+use the `--clean` flag:
+> python run.py --clean
+
+[F] Combining Flags
+You can combine these flags to do exactly what you want! For example, to clean 
+the directory, compile with coverage, run 1000 transactions, and open the GUI:
+> python run.py --clean --cov --trans 1000 --gui

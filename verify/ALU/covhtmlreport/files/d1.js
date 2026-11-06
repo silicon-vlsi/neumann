@@ -1,0 +1,2 @@
+var g_data = {"9":{"pr":"/alu_top/dut/u_alu_sva","ty":2,"dui":5,"dun":"work.alu_assertions","direct":[{"n":["c_add",13,187],"h":249},{"n":["c_sub",13,188],"h":249},{"n":["c_sll",13,189],"h":249},{"n":["c_lts",13,190],"h":249}]}};
+processDirectivesData(g_data);

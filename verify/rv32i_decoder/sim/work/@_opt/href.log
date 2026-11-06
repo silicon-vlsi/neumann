@@ -1,0 +1,36 @@
+BEGIN 1:Decoder_tb_top:fast:work
+    clk :  1:rv32i_decoder:fast:work
+END 
+BEGIN 3:Decoder_interface:fast__2:work
+    branch_in_id_o :  1:Decoder_tb_top:fast:work
+    regfile_we_o :  1:Decoder_tb_top:fast:work
+    ebrk_insn_o :  1:Decoder_tb_top:fast:work
+    data_sign_extension_o :  1:Decoder_tb_top:fast:work
+    alu_op_a_mux_sel_o :  1:Decoder_tb_top:fast:work
+    data_misaligned_i :  1:Decoder_tb_top:fast:work
+    csr_status_o :  1:Decoder_tb_top:fast:work
+    pipe_flush_o :  1:Decoder_tb_top:fast:work
+    jump_in_id_o :  1:Decoder_tb_top:fast:work
+    imm_b_mux_sel_o :  1:Decoder_tb_top:fast:work
+    illegal_insn_o :  1:Decoder_tb_top:fast:work
+    data_type_o :  1:Decoder_tb_top:fast:work
+    alu_operator_o :  1:Decoder_tb_top:fast:work
+    deassert_we_i :  1:Decoder_tb_top:fast:work
+    csr_op_o :  1:Decoder_tb_top:fast:work
+    ecall_insn_o :  1:Decoder_tb_top:fast:work
+    data_load_event_o :  1:Decoder_tb_top:fast:work
+    imm_a_mux_sel_o :  1:Decoder_tb_top:fast:work
+    jump_mux_i :  1:Decoder_tb_top:fast:work
+    data_we_o :  1:Decoder_tb_top:fast:work
+    illegal_c_insn_i :  1:Decoder_tb_top:fast:work
+    csr_access_o :  1:Decoder_tb_top:fast:work
+    mret_insn_o :  1:Decoder_tb_top:fast:work
+    data_reg_offset_o :  1:Decoder_tb_top:fast:work
+    alu_op_b_mux_sel_o :  1:Decoder_tb_top:fast:work
+    branch_mux_i :  1:Decoder_tb_top:fast:work
+    data_req_o :  1:Decoder_tb_top:fast:work
+    instr_rdata_i :  1:Decoder_tb_top:fast:work
+END 
+BEGIN 3:Decoder_interface:fast__1:work
+    clk :  1:rv32i_decoder_v_unit:fast:work
+END 

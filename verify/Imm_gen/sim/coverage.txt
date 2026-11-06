@@ -1,0 +1,528 @@
+Coverage Report by instance with details
+
+=================================================================================
+=== Instance: /tb_top/imm
+=== Design Unit: work.imm_interface
+=================================================================================
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                        136       136         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /tb_top/imm --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+
+Total Node Count     =         68 
+Toggled Node Count   =         68 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (136 of 136 bins)
+
+=================================================================================
+=== Instance: /tb_top/dut
+=== Design Unit: work.rv32i_imm_gen
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         7         7         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /tb_top/dut
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/RTL/rv32i_imm_gen.v
+------------------------------------CASE Branch------------------------------------
+    9                                       1000     Count coming in to CASE
+    10              1                         75     
+    16              1                         75     
+    22              1                         75     
+    28              1                         73     
+    34              1                         61     
+    41              1                         73     
+    45              1                        568     
+Branch totals: 7 hits of 7 branches = 100.00%
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       8         8         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /tb_top/dut --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/RTL/rv32i_imm_gen.v
+    8               1                       1000     
+    14              1                         75     
+    20              1                         75     
+    26              1                         75     
+    32              1                         73     
+    38              1                         61     
+    43              1                         73     
+    46              1                        568     
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                        136       136         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /tb_top/dut --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+
+Total Node Count     =         68 
+Toggled Node Count   =         68 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (136 of 136 bins)
+
+=================================================================================
+=== Instance: /tb_top
+=== Design Unit: work.tb_top
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         2         1         1    50.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /tb_top
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/SV_TB/tb_top.sv
+------------------------------------IF Branch------------------------------------
+    25                                         1     Count coming in to IF
+    25              1                          1     
+                                         ***0***     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       7         6         1    85.71%
+
+================================Statement Details================================
+
+Statement Coverage for instance /tb_top --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/SV_TB/tb_top.sv
+    24              1                          1     
+    26              1                          1     
+    27              1                          1     
+    28              1                          1     
+    29              1                          1     
+    32              1                          1     
+    33              1                    ***0***     
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         64         0        64     0.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /tb_top --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                     num_txn[0-31]           0           0        0.00 
+
+Total Node Count     =         32 
+Toggled Node Count   =          0 
+Untoggled Node Count =         32 
+
+Toggle Coverage      =       0.00% (0 of 64 bins)
+
+=================================================================================
+=== Instance: /tb_top_sv_unit
+=== Design Unit: work.tb_top_sv_unit
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                        13        10         3    76.92%
+
+================================Branch Details================================
+
+Branch Coverage for instance /tb_top_sv_unit
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/SV_TB/Generator.sv
+------------------------------------IF Branch------------------------------------
+    17                                      1000     Count coming in to IF
+    17              1                    ***0***     
+                                            1000     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+
+  File C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/SV_TB/Scoreboard.sv
+------------------------------------IF Branch------------------------------------
+    19                                      1000     Count coming in to IF
+    19              1                       1000     
+    21              1                    ***0***     
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------CASE Branch------------------------------------
+    31                                      1000     Count coming in to CASE
+    32              1                         75     
+    33              1                         75     
+    34              1                         75     
+    36              1                         73     
+    37              1                         61     
+    39              1                         73     
+    40              1                        568     
+Branch totals: 7 hits of 7 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    49                                         1     Count coming in to IF
+    49              1                          1     
+    51              1                    ***0***     
+Branch totals: 1 hit of 2 branches = 50.00%
+
+
+Condition Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Conditions                       3         0         3     0.00%
+
+================================Condition Details================================
+
+Condition Coverage for instance /tb_top_sv_unit --
+
+  File C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/SV_TB/Scoreboard.sv
+----------------Focused Condition View-------------------
+Line       19 Item    1  (expected_data === tx.imm_o)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+                    Input Term   Covered  Reason for no coverage   Hint
+                   -----------  --------  -----------------------  --------------
+  (expected_data === tx.imm_o)         N  '_0' not hit             Hit '_0'
+
+     Rows:       Hits  FEC Target                      Non-masking condition(s)      
+ ---------  ---------  --------------------            -------------------------     
+  Row   1:    ***0***  (expected_data === tx.imm_o)_0  -                             
+  Row   2:          1  (expected_data === tx.imm_o)_1  -                             
+
+----------------Focused Condition View-------------------
+Line       49 Item    1  ((this.fail_count == 0) && (this.total_count > 0))
+Condition totals: 0 of 2 input terms covered = 0.00%
+
+              Input Term   Covered  Reason for no coverage   Hint
+             -----------  --------  -----------------------  --------------
+  (this.fail_count == 0)         N  '_0' not hit             Hit '_0'
+  (this.total_count > 0)         N  '_0' not hit             Hit '_0'
+
+     Rows:       Hits  FEC Target                Non-masking condition(s)      
+ ---------  ---------  --------------------      -------------------------     
+  Row   1:    ***0***  (this.fail_count == 0)_0  -                             
+  Row   2:          1  (this.fail_count == 0)_1  (this.total_count > 0)        
+  Row   3:    ***0***  (this.total_count > 0)_0  (this.fail_count == 0)        
+  Row   4:          1  (this.total_count > 0)_1  (this.fail_count == 0)        
+
+
+
+
+
+Covergroup Coverage:
+    Covergroups                      1        na        na   100.00%
+        Coverpoints/Crosses          3        na        na        na
+            Covergroup Bins         20        20         0   100.00%
+----------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status               
+                                                                                                         
+----------------------------------------------------------------------------------------------------------
+ TYPE /tb_top_sv_unit/Coverage_file/cg                100.00%        100          -    Covered              
+    covered/total bins:                                    20         20          -                      
+    missing/total bins:                                     0         20          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint cp_sel                                 100.00%        100          -    Covered              
+        covered/total bins:                                 6          6          -                      
+        missing/total bins:                                 0          6          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin i_type                                         75          1          -    Covered              
+        bin s_type                                         75          1          -    Covered              
+        bin u_type                                         73          1          -    Covered              
+        bin pcincr                                         73          1          -    Covered              
+        bin uj_type                                        61          1          -    Covered              
+        bin sb_type                                        75          1          -    Covered              
+        default bin dflt                                  568                     -    Occurred             
+    Coverpoint cp_sign                                100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin neg                                           516          1          -    Covered              
+        bin pos                                           484          1          -    Covered              
+    Cross x_sel_sign                                  100.00%        100          -    Covered              
+        covered/total bins:                                12         12          -                      
+        missing/total bins:                                 0         12          -                      
+        % Hit:                                        100.00%        100          -                      
+        Auto, Default and User Defined Bins:
+            bin <sb_type,pos>                              37          1          -    Covered              
+            bin <uj_type,pos>                              27          1          -    Covered              
+            bin <pcincr,pos>                               34          1          -    Covered              
+            bin <u_type,pos>                               40          1          -    Covered              
+            bin <s_type,pos>                               38          1          -    Covered              
+            bin <i_type,pos>                               32          1          -    Covered              
+            bin <sb_type,neg>                              38          1          -    Covered              
+            bin <uj_type,neg>                              34          1          -    Covered              
+            bin <pcincr,neg>                               39          1          -    Covered              
+            bin <u_type,neg>                               33          1          -    Covered              
+            bin <s_type,neg>                               37          1          -    Covered              
+            bin <i_type,neg>                               43          1          -    Covered              
+ Covergroup instance \/tb_top_sv_unit::Coverage_file::cg  
+                                                      100.00%        100          -    Covered              
+    covered/total bins:                                    20         20          -                      
+    missing/total bins:                                     0         20          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint cp_sel                                 100.00%        100          -    Covered              
+        covered/total bins:                                 6          6          -                      
+        missing/total bins:                                 0          6          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin i_type                                         75          1          -    Covered              
+        bin s_type                                         75          1          -    Covered              
+        bin u_type                                         73          1          -    Covered              
+        bin pcincr                                         73          1          -    Covered              
+        bin uj_type                                        61          1          -    Covered              
+        bin sb_type                                        75          1          -    Covered              
+        default bin dflt                                  568                     -    Occurred             
+    Coverpoint cp_sign                                100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin neg                                           516          1          -    Covered              
+        bin pos                                           484          1          -    Covered              
+    Cross x_sel_sign                                  100.00%        100          -    Covered              
+        covered/total bins:                                12         12          -                      
+        missing/total bins:                                 0         12          -                      
+        % Hit:                                        100.00%        100          -                      
+        Auto, Default and User Defined Bins:
+            bin <sb_type,pos>                              37          1          -    Covered              
+            bin <uj_type,pos>                              27          1          -    Covered              
+            bin <pcincr,pos>                               34          1          -    Covered              
+            bin <u_type,pos>                               40          1          -    Covered              
+            bin <s_type,pos>                               38          1          -    Covered              
+            bin <i_type,pos>                               32          1          -    Covered              
+            bin <sb_type,neg>                              38          1          -    Covered              
+            bin <uj_type,neg>                              34          1          -    Covered              
+            bin <pcincr,neg>                               39          1          -    Covered              
+            bin <u_type,neg>                               33          1          -    Covered              
+            bin <s_type,neg>                               37          1          -    Covered              
+            bin <i_type,neg>                               43          1          -    Covered              
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                      95        91         4    95.78%
+
+================================Statement Details================================
+
+Statement Coverage for instance /tb_top_sv_unit --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/SV_TB/Transaction.sv
+    9               1                       3000     
+  File C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/SV_TB/Generator.sv
+    3               1                          1     
+    4               1                          1     
+    8               1                          1     
+    9               1                          1     
+    14              1                       1000     
+    16              1                       1000     
+    19              1                    ***0***     
+    21              1                       1000     
+    22              1                       1000     
+    23              1                       1000     
+  File C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/SV_TB/Driver.sv
+    4               1                          1     
+    7               1                          1     
+    8               1                          1     
+    13              1                          1     
+    14              1                       1001     
+    15              1                       1000     
+    16              1                       1000     
+    17              1                       1000     
+    18              1                       1000     
+    19              1                       1000     
+  File C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/SV_TB/Monitor.sv
+    5               1                          1     
+    8               1                          1     
+    9               1                          1     
+    10              1                          1     
+    19              1                          1     
+    20              1                          1     
+    21              1                       1000     
+    22              1                       1000     
+    23              1                       1000     
+    24              1                       1000     
+    25              1                       1000     
+    26              1                       1000     
+    27              1                       1000     
+    28              1                       1000     
+    29              1                       1000     
+  File C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/SV_TB/Scoreboard.sv
+    3               1                          1     
+    4               1                          1     
+    5               1                          1     
+    9               1                          1     
+    15              1                          1     
+    16              1                       1001     
+    17              1                       1000     
+    18              1                       1000     
+    20              1                       1000     
+    22              1                    ***0***     
+    23              1                    ***0***     
+    32              1                         75     
+    33              1                         75     
+    34              1                         75     
+    36              1                         73     
+    37              1                         61     
+    39              1                         73     
+    40              1                        568     
+    45              1                          1     
+    46              1                          1     
+    48              1                          1     
+    50              1                          1     
+    52              1                    ***0***     
+  File C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/SV_TB/Coverage_file.sv
+    33              1                          1     
+    34              1                          1     
+    38              1                          1     
+    39              1                       1001     
+    40              1                       1000     
+    41              1                       1000     
+    42              1                       1000     
+    43              1                       1000     
+    48              1                          1     
+    49              1                          1     
+    50              1                          1     
+  File C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/SV_TB/Environment.sv
+    16              1                          1     
+    17              1                          1     
+    21              1                          1     
+    22              1                          1     
+    23              1                          1     
+    25              1                          1     
+    26              1                          1     
+    27              1                          1     
+    28              1                          1     
+    29              1                          1     
+    34              1                          1     
+    35              1                          1     
+    36              1                          1     
+    37              1                          1     
+    38              1                          1     
+    43              1                          1     
+    44              1                          1     
+    48              1                          1     
+    49              1                          1     
+    50              1                          1     
+    51              1                          1     
+    52              1                          1     
+    56              1                          1     
+    57              1                          1     
+    58              1                          1     
+
+COVERGROUP COVERAGE:
+----------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status               
+                                                                                                         
+----------------------------------------------------------------------------------------------------------
+ TYPE /tb_top_sv_unit/Coverage_file/cg                100.00%        100          -    Covered              
+    covered/total bins:                                    20         20          -                      
+    missing/total bins:                                     0         20          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint cp_sel                                 100.00%        100          -    Covered              
+        covered/total bins:                                 6          6          -                      
+        missing/total bins:                                 0          6          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin i_type                                         75          1          -    Covered              
+        bin s_type                                         75          1          -    Covered              
+        bin u_type                                         73          1          -    Covered              
+        bin pcincr                                         73          1          -    Covered              
+        bin uj_type                                        61          1          -    Covered              
+        bin sb_type                                        75          1          -    Covered              
+        default bin dflt                                  568                     -    Occurred             
+    Coverpoint cp_sign                                100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin neg                                           516          1          -    Covered              
+        bin pos                                           484          1          -    Covered              
+    Cross x_sel_sign                                  100.00%        100          -    Covered              
+        covered/total bins:                                12         12          -                      
+        missing/total bins:                                 0         12          -                      
+        % Hit:                                        100.00%        100          -                      
+        Auto, Default and User Defined Bins:
+            bin <sb_type,pos>                              37          1          -    Covered              
+            bin <uj_type,pos>                              27          1          -    Covered              
+            bin <pcincr,pos>                               34          1          -    Covered              
+            bin <u_type,pos>                               40          1          -    Covered              
+            bin <s_type,pos>                               38          1          -    Covered              
+            bin <i_type,pos>                               32          1          -    Covered              
+            bin <sb_type,neg>                              38          1          -    Covered              
+            bin <uj_type,neg>                              34          1          -    Covered              
+            bin <pcincr,neg>                               39          1          -    Covered              
+            bin <u_type,neg>                               33          1          -    Covered              
+            bin <s_type,neg>                               37          1          -    Covered              
+            bin <i_type,neg>                               43          1          -    Covered              
+ Covergroup instance \/tb_top_sv_unit::Coverage_file::cg  
+                                                      100.00%        100          -    Covered              
+    covered/total bins:                                    20         20          -                      
+    missing/total bins:                                     0         20          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint cp_sel                                 100.00%        100          -    Covered              
+        covered/total bins:                                 6          6          -                      
+        missing/total bins:                                 0          6          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin i_type                                         75          1          -    Covered              
+        bin s_type                                         75          1          -    Covered              
+        bin u_type                                         73          1          -    Covered              
+        bin pcincr                                         73          1          -    Covered              
+        bin uj_type                                        61          1          -    Covered              
+        bin sb_type                                        75          1          -    Covered              
+        default bin dflt                                  568                     -    Occurred             
+    Coverpoint cp_sign                                100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin neg                                           516          1          -    Covered              
+        bin pos                                           484          1          -    Covered              
+    Cross x_sel_sign                                  100.00%        100          -    Covered              
+        covered/total bins:                                12         12          -                      
+        missing/total bins:                                 0         12          -                      
+        % Hit:                                        100.00%        100          -                      
+        Auto, Default and User Defined Bins:
+            bin <sb_type,pos>                              37          1          -    Covered              
+            bin <uj_type,pos>                              27          1          -    Covered              
+            bin <pcincr,pos>                               34          1          -    Covered              
+            bin <u_type,pos>                               40          1          -    Covered              
+            bin <s_type,pos>                               38          1          -    Covered              
+            bin <i_type,pos>                               32          1          -    Covered              
+            bin <sb_type,neg>                              38          1          -    Covered              
+            bin <uj_type,neg>                              34          1          -    Covered              
+            bin <pcincr,neg>                               39          1          -    Covered              
+            bin <u_type,neg>                               33          1          -    Covered              
+            bin <s_type,neg>                               37          1          -    Covered              
+            bin <i_type,neg>                               43          1          -    Covered              
+
+TOTAL COVERGROUP COVERAGE: 100.00%  COVERGROUP TYPES: 1
+
+Total Coverage By Instance (filtered view): 71.64%
+

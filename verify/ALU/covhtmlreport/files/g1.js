@@ -1,0 +1,2 @@
+var g_data = {"10":{"pr":"/alu_pkg","ty":2,"dui":2,"dun":"work.alu_pkg","cvgs":[{"h":["\\/alu_pkg::coverage_inf::cg ",2,1,21,11],"sc":[3,16],"cov":[88,88,100.00],"opts":{"goal":"100","per_instance":"true"}},{"h":["/alu_pkg/coverage_inf/cg",1,1,11],"sc":[3,16],"cov":[88,88,100.00],"opts":{"goal":"100","merge_instance":"auto(true)"}}]}};
+processCovergroupsData(g_data);

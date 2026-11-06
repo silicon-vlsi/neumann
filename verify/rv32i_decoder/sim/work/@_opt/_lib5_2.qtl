@@ -1,0 +1,505 @@
+m255
+K4
+z2
+Z0 !s12c _opt
+Z1 !s99 nomlopt
+R0
+R1
+R0
+R1
+R0
+R1
+!s11f vlog 2024.1 2024.02, Feb  1 2024
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z2 dC:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/rv32i_decoder/sim
+T_opt
+!s11d rv32i_decoder_v_unit C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/rv32i_decoder/sim/work 1 Decoder_interface 1 C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/rv32i_decoder/sim/work 
+!s110 1791648574
+VNWOiC@PC9@e8Je18Ak>b=0
+04 14 4 work Decoder_tb_top fast 0
+=1-f0d415673dab-6aca633e-1a3-201c
+R1
+!s12f OEM100
+!s12b OEM100
+!s124 OEM100
+o-quiet -auto_acc_if_foreign -work work +acc
+Z3 tCvgOpt 0
+n@_opt
+OL;O;2024.1;79
+vDecoder_Assertions
+Z4 2C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL\rv32i_decoder.v|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_interface.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_Assertions.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_tb_top.sv
+Z5 !s105 rv32i_decoder_v_unit
+Z6 DXx4 work 20 rv32i_decoder_v_unit 0 22 ]_HPf6Ugol0Z1ok=f_fdR1
+Z7 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z8 !s110 1791648573
+!i10b 1
+!s100 XjkE7>G^<Ai`ZK7ZoD?CM0
+IZ3ZA4iNEWF=7dBcdB1CN70
+S1
+R2
+w1791648558
+Z9 8C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_Assertions.sv
+Z10 FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_Assertions.sv
+Z11 8C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_interface.sv
+Z12 FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_interface.sv
+!i122 6
+L0 4 198
+Z13 VDg1SIo80bB@j0V0VzS_@n1
+Z14 OL;L;2024.1;79
+r1
+!s85 0
+31
+!i113 0
+Z15 o-sv -mfcu -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R3
+n@decoder_@assertions
+YDecoder_interface
+R4
+R5
+R6
+R7
+R8
+!i10b 1
+!s100 7`C^g?HDT304izU[z0lzk0
+IJFP9PViZUT_El]n7J5D1X3
+S1
+R2
+w1791648359
+R11
+R12
+!i122 6
+L0 3 0
+R13
+R14
+r1
+!s85 0
+31
+!i113 0
+R15
+R3
+n@decoder_interface
+vDecoder_tb_top
+R4
+R7
+R6
+R8
+R13
+r1
+!s85 0
+!i10b 1
+!s100 7CZ_ha6]NWh?Z6MRf<^DW2
+ImhHWVjXW=KiSkGYG6LDGN2
+R5
+S1
+R2
+w1791648478
+Z16 8C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_tb_top.sv
+Z17 FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_tb_top.sv
+!i122 6
+L0 11 45
+R14
+31
+!i113 0
+R15
+R3
+n@decoder_tb_top
+vrv32i_decoder
+R4
+R5
+R6
+R7
+R8
+!i10b 1
+!s100 90ZlJ:;AYOg7;HeI5Jf=g3
+Ii6zDH;gCi4OR^:>Y^[gAP0
+S1
+R2
+w1787680463
+Z18 8C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL\rv32i_decoder.v
+Z19 FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL\rv32i_decoder.v
+!i122 6
+L0 2 389
+R13
+R14
+r1
+!s85 0
+31
+!i113 0
+R15
+R3
+Xrv32i_decoder_v_unit
+R4
+!s115 Decoder_interface
+R7
+R8
+V]_HPf6Ugol0Z1ok=f_fdR1
+r1
+!s85 0
+!i10b 1
+!s100 mX=1VFF9`XNW8aJVaI95G1
+I]_HPf6Ugol0Z1ok=f_fdR1
+!i103 1
+S1
+R2
+w1791648573
+R18
+R19
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL/rv32i_defines.vh
+R11
+R12
+R9
+R10
+R16
+R17
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Transaction.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Generator.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Driver.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Monitor.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Scoreboard.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Coverage.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Env.sv
+!i122 6
+L0 204 0
+R14
+31
+!i113 0
+R15
+R3
+m255
+K4
+z2
+!s8c locked
+!s11f vlog 2024.1 2024.02, Feb  1 2024
+!s95 MTI
+cModel Technology Builtin Library
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+dD:/scratch/bata/job_data/jobid.53455/modeltech
+XMTI_CSTDLIB
+Z0 2verilog_src/dpi_cpack/dpi_cpackages.sv
+Z1 DXx4 work 3 STD 0 22 C5P`]aF5g@jYQiTVH86>n3
+Z2 !s110 1706807339
+!i10b 1
+!s100 icQCI_Oj3>0h:SB`A4JWn0
+IlY=Pl=0YP8e0Fb9V:8Y]l2
+S1
+!s86 1
+Z3 d$MODEL_TECH/..
+Z4 w1706807056
+Z5 8verilog_src/dpi_cpack/dpi_cpackages.sv
+Z6 Fverilog_src/dpi_cpack/dpi_cpackages.sv
+!i122 3
+Z7 L0 17 0
+VlY=Pl=0YP8e0Fb9V:8Y]l2
+Z8 OL;L;2024.1;79
+r1
+!s85 0
+31
+!i113 1
+Z9 o-suppress 12110 -debuglib -u -sv -s -work sv_std -dirpath {$MODEL_TECH/..} -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z10 tCvgOpt 0
+n@m@t@i_@c@s@t@d@l@i@b
+Xmti_cstdlib
+R0
+Z11 DXx4 work 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z12 !s110 1706807338
+!i10b 1
+!s100 OW0mb1CF=jV3nlik?oMRV0
+Ia0dXb5F0hUR?fQVQG@QWZ1
+S1
+R3
+R4
+R5
+R6
+!i122 2
+R7
+Va0dXb5F0hUR?fQVQG@QWZ1
+R8
+r1
+!s85 0
+31
+!i113 1
+Z13 o-suppress 12110 -debuglib -sv -s -work sv_std -dirpath {$MODEL_TECH/..} -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R10
+XMTI_CSTRING
+R0
+R1
+R2
+!i10b 1
+!s100 kDlQo?nkDBVoK<AS]3QjD1
+I;FB]TGzSL?]ZEk0<;P[U22
+S1
+!s86 1
+R3
+R4
+R5
+R6
+!i122 3
+Z14 L0 28 0
+V;FB]TGzSL?]ZEk0<;P[U22
+R8
+r1
+!s85 0
+31
+!i113 1
+R9
+R10
+n@m@t@i_@c@s@t@r@i@n@g
+Xmti_cstring
+R0
+R11
+R12
+!i10b 1
+!s100 KaVS423PbHN8BiZUD@GGL2
+IU67k<cfHhm_z@1BAzL<oL1
+S1
+R3
+R4
+R5
+R6
+!i122 2
+R14
+VU67k<cfHhm_z@1BAzL<oL1
+R8
+r1
+!s85 0
+31
+!i113 1
+R13
+R10
+XMTI_DEBUG
+R0
+R1
+R2
+!i10b 1
+!s100 TB]^ezUTiRTalgCgbO]<l3
+IDebng4SF<I2j^53dmWlN]1
+S1
+!s86 1
+R3
+R4
+R5
+R6
+!i122 3
+Z15 L0 47 0
+VDebng4SF<I2j^53dmWlN]1
+R8
+r1
+!s85 0
+31
+!i113 1
+R9
+R10
+n@m@t@i_@d@e@b@u@g
+Xmti_debug
+R0
+R11
+R12
+!i10b 1
+!s100 ^b=Bi@Q2JjgYiFl;:40Sc1
+IZ14nbP:9GT9DeOXfRLg<=1
+S1
+R3
+R4
+R5
+R6
+!i122 2
+R15
+VZ14nbP:9GT9DeOXfRLg<=1
+R8
+r1
+!s85 0
+31
+!i113 1
+R13
+R10
+XMTI_FCOVER
+Z16 2verilog_src/mti_sv/fcover.sv
+R1
+Z17 !s110 1706807340
+!i10b 1
+!s100 fK:8]FFZh3P`7Fl@:5aC70
+IT32`z;gYePkf>4[V8=Jkm1
+S1
+!s86 1
+R3
+Z18 w1706807055
+Z19 8verilog_src/mti_sv/fcover.sv
+Z20 Fverilog_src/mti_sv/fcover.sv
+!i122 7
+Z21 L0 5 0
+VT32`z;gYePkf>4[V8=Jkm1
+R8
+r1
+!s85 0
+31
+!i113 1
+R9
+R10
+n@m@t@i_@f@c@o@v@e@r
+Xmti_fcover
+R16
+R11
+R17
+!i10b 1
+!s100 efa[11Ul`>0g6:zg_Xi1E0
+I;;HZAWbg?XRd`ZQXPLGEk3
+S1
+R3
+R18
+R19
+R20
+!i122 6
+R21
+V;;HZAWbg?XRd`ZQXPLGEk3
+R8
+r1
+!s85 0
+31
+!i113 1
+R13
+R10
+XMTI_FLI
+R0
+R1
+R2
+!i10b 1
+!s100 n_2PQUlSo15MDNG48]QWl2
+ILloi]^ZFX]I<CTC2Jf@2>3
+S1
+!s86 1
+R3
+R4
+R5
+R6
+!i122 3
+Z22 L0 4 0
+VLloi]^ZFX]I<CTC2Jf@2>3
+R8
+r1
+!s85 0
+31
+!i113 1
+R9
+R10
+n@m@t@i_@f@l@i
+Xmti_fli
+R0
+R11
+R12
+!i10b 1
+!s100 kSbeP86I0@SfQi;i57@W00
+IIAZokbNDf2ed8X7:QV>T22
+S1
+R3
+R4
+R5
+R6
+!i122 2
+R22
+VIAZokbNDf2ed8X7:QV>T22
+R8
+r1
+!s85 0
+31
+!i113 1
+R13
+R10
+XMTI_SCDPI
+Z23 2verilog_src/dpi_cpack/scdpi.sv
+R1
+R2
+!i10b 1
+!s100 L3B:Y?;k0V0PDi<?0ec=93
+Ilnf[NP:ITOPm1o3G^GWY?0
+S1
+!s86 1
+R3
+R18
+Z24 8verilog_src/dpi_cpack/scdpi.sv
+Z25 Fverilog_src/dpi_cpack/scdpi.sv
+!i122 5
+Z26 L0 1 0
+Vlnf[NP:ITOPm1o3G^GWY?0
+R8
+r1
+!s85 0
+31
+!i113 1
+R9
+R10
+n@m@t@i_@s@c@d@p@i
+Xmti_scdpi
+R23
+R11
+R2
+!i10b 1
+!s100 Y]PX:=_5`zJ63fMJVe^_M3
+IfS^c;Eb5SjOJ8ofAb@F_M2
+S1
+R3
+R18
+R24
+R25
+!i122 4
+R26
+VfS^c;Eb5SjOJ8ofAb@F_M2
+R8
+r1
+!s85 0
+31
+!i113 1
+R13
+R10
+XSTD
+Z27 2verilog_src/std/std.sv
+R12
+!i10b 1
+!s100 EKK>A5XKXXLOz9iKzP2G81
+IC5P`]aF5g@jYQiTVH86>n3
+S1
+!s86 1
+R3
+R18
+Z28 8verilog_src/std/std.sv
+Z29 Fverilog_src/std/std.sv
+!i122 1
+Z30 L0 6 0
+VC5P`]aF5g@jYQiTVH86>n3
+R8
+r1
+!s85 0
+31
+!i113 1
+R9
+R10
+n@s@t@d
+Xstd
+R27
+R12
+!i10b 1
+!s100 ]i[_JOYIoOMc`AEjL2EkC0
+I9oUSJO;AeEaW`l:M@^WG92
+S1
+R3
+R18
+R28
+R29
+!i122 0
+R30
+V9oUSJO;AeEaW`l:M@^WG92
+R8
+r1
+!s85 0
+31
+!i113 1
+R13
+R10

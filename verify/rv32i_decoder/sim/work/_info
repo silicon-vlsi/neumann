@@ -1,0 +1,193 @@
+m255
+K4
+z2
+Z0 !s12c _opt
+Z1 !s99 nomlopt
+R0
+R1
+R0
+R1
+R0
+R1
+!s11f vlog 2024.1 2024.02, Feb  1 2024
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z2 dC:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/rv32i_decoder/sim
+T_opt
+!s11d rv32i_decoder_v_unit C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/rv32i_decoder/sim/work 1 Decoder_interface 1 C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/rv32i_decoder/sim/work 
+!s110 1791648574
+VNWOiC@PC9@e8Je18Ak>b=0
+04 14 4 work Decoder_tb_top fast 0
+=1-f0d415673dab-6aca633e-1a3-201c
+R1
+!s12f OEM100
+!s12b OEM100
+!s124 OEM100
+o-quiet -auto_acc_if_foreign -work work +acc
+Z3 tCvgOpt 0
+n@_opt
+OL;O;2024.1;79
+R2
+vDecoder_Assertions
+Z4 2C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL\rv32i_decoder.v|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_interface.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_Assertions.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_tb_top.sv
+Z5 !s105 rv32i_decoder_v_unit
+Z6 DXx4 work 20 rv32i_decoder_v_unit 0 22 ]_HPf6Ugol0Z1ok=f_fdR1
+Z7 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z8 !s110 1791651137
+!i10b 1
+!s100 XjkE7>G^<Ai`ZK7ZoD?CM0
+IZ3ZA4iNEWF=7dBcdB1CN70
+S1
+R2
+w1791648558
+Z9 8C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_Assertions.sv
+Z10 FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_Assertions.sv
+Z11 8C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_interface.sv
+Z12 FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_interface.sv
+!i122 16
+L0 4 198
+Z13 VDg1SIo80bB@j0V0VzS_@n1
+Z14 OL;L;2024.1;79
+r1
+!s85 0
+31
+Z15 !s108 1791651137.000000
+!s107 C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Env.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Coverage.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Scoreboard.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Monitor.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Driver.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Generator.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Transaction.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL/rv32i_defines.vh|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_tb_top.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_Assertions.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_interface.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL\rv32i_decoder.v|
+Z16 !s90 -sv|-mfcu|+incdir+C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb|+incdir+C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL\rv32i_decoder.v|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_interface.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_Assertions.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_tb_top.sv|
+!i113 0
+Z17 o-sv -mfcu -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z18 !s92 -sv -mfcu {+incdir+C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb} {+incdir+C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL} -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R3
+n@decoder_@assertions
+YDecoder_interface
+R4
+R5
+R6
+R7
+R8
+!i10b 1
+!s100 7`C^g?HDT304izU[z0lzk0
+IJFP9PViZUT_El]n7J5D1X3
+S1
+R2
+w1791648359
+R11
+R12
+!i122 16
+L0 3 0
+R13
+R14
+r1
+!s85 0
+31
+R15
+Z19 !s107 C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Env.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Coverage.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Scoreboard.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Monitor.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Driver.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Generator.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Transaction.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL/rv32i_defines.vh|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_tb_top.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_Assertions.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_interface.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL\rv32i_decoder.v|
+R16
+!i113 0
+R17
+R18
+R3
+n@decoder_interface
+vDecoder_tb_top
+R4
+R7
+R6
+R8
+R13
+r1
+!s85 0
+!i10b 1
+!s100 7CZ_ha6]NWh?Z6MRf<^DW2
+ImhHWVjXW=KiSkGYG6LDGN2
+R5
+S1
+R2
+w1791648478
+Z20 8C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_tb_top.sv
+Z21 FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_tb_top.sv
+!i122 16
+L0 11 45
+R14
+31
+R15
+R19
+R16
+!i113 0
+R17
+R18
+R3
+n@decoder_tb_top
+vrv32i_decoder
+R4
+R5
+R6
+R7
+R8
+!i10b 1
+!s100 90ZlJ:;AYOg7;HeI5Jf=g3
+Ii6zDH;gCi4OR^:>Y^[gAP0
+S1
+R2
+w1787680463
+Z22 8C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL\rv32i_decoder.v
+Z23 FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL\rv32i_decoder.v
+!i122 16
+L0 2 389
+R13
+R14
+r1
+!s85 0
+31
+R15
+R19
+R16
+!i113 0
+R17
+R18
+R3
+Xrv32i_decoder_v_unit
+R4
+!s115 Decoder_interface
+R7
+R8
+V]_HPf6Ugol0Z1ok=f_fdR1
+r1
+!s85 0
+!i10b 1
+!s100 mX=1VFF9`XNW8aJVaI95G1
+I]_HPf6Ugol0Z1ok=f_fdR1
+!i103 1
+S1
+R2
+w1791648573
+R22
+R23
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL/rv32i_defines.vh
+R11
+R12
+R9
+R10
+R20
+R21
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Transaction.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Generator.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Driver.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Monitor.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Scoreboard.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Coverage.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb/Decoder_Env.sv
+!i122 16
+L0 204 0
+R14
+31
+R15
+R19
+R16
+!i113 0
+R17
+R18
+R3

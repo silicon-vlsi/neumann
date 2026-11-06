@@ -1,0 +1,10 @@
+BEGIN 3:imm_interface:fast__2:work
+    imm_sel_i :  1:tb_top:fast:work
+    instr_i :  1:tb_top:fast:work
+    imm_o :  1:tb_top:fast:work
+END 
+BEGIN 3:imm_interface:fast__1:work
+    instr_i :  1:tb_top_sv_unit:fast:work
+    imm_o :  1:tb_top_sv_unit:fast:work
+    imm_sel_i :  1:tb_top_sv_unit:fast:work
+END 

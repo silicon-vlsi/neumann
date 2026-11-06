@@ -1,0 +1,177 @@
+m255
+K4
+z2
+Z0 !s12c _opt
+Z1 !s99 nomlopt
+R0
+R1
+R0
+R1
+!s11f vlog 2024.1 2024.02, Feb  1 2024
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z2 dC:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/ALU
+T_opt
+!s11d alu_pkg C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/ALU/work 1 alu_if 1 C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/ALU/work 
+!s110 1788409685
+VTCIz`e;@jDBM]jI^DRhhd0
+04 7 4 work alu_top fast 0
+=1-f0d415673dab-6a98f755-2ad-5968
+R1
+!s12f OEM100
+!s12b OEM100
+!s124 OEM100
+o-quiet -auto_acc_if_foreign -work work
+Z3 tCvgOpt 0
+n@_opt
+OL;O;2024.1;79
+valu_assertions
+Z4 2rv32i_Alu.v|alu_pkg.sv|alu_if.sv|alu_assertions.sv|alu_top.sv
+Z5 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z6 !s110 1788409684
+!i10b 1
+!s100 @amz0k^g7nCZ:eJ0S32ZS1
+I1>mzo5QeL>W=<;MMWzc?]3
+S1
+R2
+w1788409635
+8alu_assertions.sv
+Falu_assertions.sv
+!i122 2
+L0 15 178
+Z7 VDg1SIo80bB@j0V0VzS_@n1
+Z8 OL;L;2024.1;79
+r1
+!s85 0
+31
+Z9 !s108 1788409684.000000
+Z10 !s107 test.sv|environment.sv|coverage_inf.sv|scoreboard.sv|monitor.sv|driver.sv|generator.sv|transaction.sv|rv32i_defines.vh|alu_top.sv|alu_assertions.sv|alu_if.sv|alu_pkg.sv|rv32i_Alu.v|
+Z11 !s90 -sv|-cover|bcesft|+incdir+.|rv32i_Alu.v|alu_pkg.sv|alu_if.sv|alu_assertions.sv|alu_top.sv|
+!i113 0
+Z12 !s102 -cover bcesft
+Z13 o-sv -cover bcesft -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z14 !s92 -sv -cover bcesft +incdir+. -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R3
+Yalu_if
+R4
+R5
+R6
+!i10b 1
+!s100 EJ1TV4JH1HKJiN>E[Y7:`0
+IHdfe_fhW_a?`kCWD@Sb^z1
+S1
+R2
+w1788409225
+8alu_if.sv
+Falu_if.sv
+!i122 2
+Z15 L0 10 0
+R7
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 0
+R12
+R13
+R14
+R3
+Xalu_pkg
+R4
+!s115 alu_if
+R5
+R6
+!i10b 1
+!s100 EnPSRaU]1Yhk6eF5=d]fI0
+IP:5M[nS9L?_hZ8ElTCgA?2
+S1
+R2
+w1788409560
+8alu_pkg.sv
+Falu_pkg.sv
+Frv32i_defines.vh
+Ftransaction.sv
+Fgenerator.sv
+Fdriver.sv
+Fmonitor.sv
+Fscoreboard.sv
+Fcoverage_inf.sv
+Fenvironment.sv
+Ftest.sv
+!i122 2
+R15
+VP:5M[nS9L?_hZ8ElTCgA?2
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 0
+R12
+R13
+R14
+R3
+valu_top
+R4
+R5
+DXx4 work 7 alu_pkg 0 22 P:5M[nS9L?_hZ8ElTCgA?2
+R6
+!i10b 1
+!s100 ISfMEQIi0hN`5HTm;GJzN0
+IngZlcG:A5W`z[PBJ6PaNC1
+S1
+R2
+w1788409601
+8alu_top.sv
+Falu_top.sv
+!i122 2
+L0 10 60
+R7
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 0
+R12
+R13
+R14
+R3
+vrv32i_alu
+R4
+R5
+R6
+!i10b 1
+!s100 S<FVIM;g>Ek=DG2mMmUN>1
+IfL<=`<o^23EZfQ7<UD?Pi3
+S1
+R2
+w1787680463
+8rv32i_Alu.v
+Frv32i_Alu.v
+!i122 2
+L0 3 177
+R7
+R8
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 0
+R12
+R13
+R14
+R3

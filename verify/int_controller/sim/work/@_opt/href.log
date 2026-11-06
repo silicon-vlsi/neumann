@@ -1,0 +1,14 @@
+BEGIN 3:Controller_interface:fast__2:work
+    irq_req_ctrl_o :  1:Controller_tb_top:fast:work
+    ctrl_ack_i :  1:Controller_tb_top:fast:work
+    irq_i :  1:Controller_tb_top:fast:work
+    m_IE_i :  1:Controller_tb_top:fast:work
+    rst_n :  1:Controller_tb_top:fast:work
+    irq_id_ctrl_o :  1:Controller_tb_top:fast:work
+    ctrl_kill_i :  1:Controller_tb_top:fast:work
+    irq_id_i :  1:Controller_tb_top:fast:work
+END 
+BEGIN 3:Controller_interface:fast__1:work
+    clk :  1:rv32i_int_controller_v_unit:fast:work
+    rst_n :  1:rv32i_int_controller_v_unit:fast:work
+END 

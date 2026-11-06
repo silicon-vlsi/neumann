@@ -1,0 +1,14 @@
+QuestaSim-64 vlog 2024.1 Compiler 2024.02 Feb  1 2024
+Start time: 22:22:17 on Oct 10,2026
+vlog -sv -mfcu "+incdir+C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb" "+incdir+C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL" C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\RTL\rv32i_decoder.v C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_interface.sv C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_Assertions.sv C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\rv32i_decoder\SV_tb\Decoder_tb_top.sv 
+-- Compiling module rv32i_decoder
+-- Compiling interface Decoder_interface
+-- Compiling module Decoder_Assertions
+-- Compiling package rv32i_decoder_v_unit
+-- Compiling module Decoder_tb_top
+
+Top level modules:
+	Decoder_tb_top
+** Warning: (vlog-2650) 'bind' found in compilation unit scope. Please use -mfcu -cuname to ensure that 'bind' gets elaborated.
+End time: 22:22:17 on Oct 10,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1

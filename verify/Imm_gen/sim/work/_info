@@ -1,0 +1,164 @@
+m255
+K4
+z2
+Z0 !s12c _opt
+Z1 !s99 nomlopt
+Z2 !s12c _opt1
+R1
+R2
+R1
+R0
+R1
+!s11f vlog 2024.1 2024.02, Feb  1 2024
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z3 dC:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/sim
+T_opt
+Z4 !s11d tb_top_sv_unit C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/sim/work 1 imm_interface 1 C:/Users/LENOVO/Desktop/VLSI_on_go_project/1TOPS/1TOPS_VERIFICATION/Imm_gen/sim/work 
+!s110 1791484503
+VUXJna:d<ohkeE<^lF:Elc0
+Z5 04 6 4 work tb_top fast 0
+=1-f0d415673dab-6ac7e257-4-4678
+R1
+Z6 !s12f OEM100
+Z7 !s12b OEM100
+Z8 !s124 OEM100
+o-quiet -auto_acc_if_foreign -work work +acc
+Z9 tCvgOpt 0
+n@_opt
+Z10 OL;O;2024.1;79
+T_opt1
+R4
+!s110 1791484467
+VUle7X:eP>L4gb3a_RL@=b0
+R5
+=1-f0d415673dab-6ac7e233-47-5ff4
+R1
+R6
+R7
+R8
+o-quiet -auto_acc_if_foreign -work work
+R9
+n@_opt1
+R10
+R3
+Yimm_interface
+Z11 2C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\RTL\rv32i_imm_gen.v|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB\imm_Interface.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB\tb_top.sv
+Z12 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z13 !s110 1791484498
+!i10b 1
+!s100 B`foNS9PG?FZAE5;CzZgm0
+In`6fYAK15hlVAKVWh]?m30
+S1
+R3
+w1791476618
+8C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB\imm_Interface.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB\imm_Interface.sv
+!i122 3
+Z14 L0 1 0
+Z15 VDg1SIo80bB@j0V0VzS_@n1
+Z16 OL;L;2024.1;79
+r1
+!s85 0
+31
+Z17 !s108 1791484498.000000
+Z18 !s107 C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB/Environment.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB/Coverage_file.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB/Scoreboard.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB/Monitor.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB/Driver.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB/Generator.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB/Transaction.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\RTL/rv32i_defines.vh|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB\tb_top.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB\imm_Interface.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\RTL\rv32i_imm_gen.v|
+Z19 !s90 -sv|+incdir+C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\RTL|+incdir+C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\RTL\rv32i_imm_gen.v|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB\imm_Interface.sv|C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB\tb_top.sv|
+!i113 0
+Z20 o-sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z21 !s92 -sv {+incdir+C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\RTL} {+incdir+C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB} -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R9
+vrv32i_imm_gen
+R11
+R12
+R13
+!i10b 1
+!s100 YR]07HN>7RP`idXB3gnX52
+I[_YU^8azj>Mk]>SOJ=Y[J3
+S1
+R3
+w1787680463
+8C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\RTL\rv32i_imm_gen.v
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\RTL\rv32i_imm_gen.v
+!i122 3
+L0 2 49
+R15
+R16
+r1
+!s85 0
+31
+R17
+R18
+R19
+!i113 0
+R20
+R21
+R9
+vtb_top
+R11
+R12
+DXx4 work 14 tb_top_sv_unit 0 22 cfYHAKz;oFGJze4<8d;Di0
+R13
+R15
+r1
+!s85 0
+!i10b 1
+!s100 YbkL0gLffi2U0DjLY@9d[0
+IMVKF^6CFDkL?N9i:d7D5K3
+!s105 tb_top_sv_unit
+S1
+R3
+w1791484200
+Z22 8C:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB\tb_top.sv
+Z23 FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB\tb_top.sv
+!i122 3
+L0 10 26
+R16
+31
+R17
+R18
+R19
+!i113 0
+R20
+R21
+R9
+Xtb_top_sv_unit
+R11
+!s115 imm_interface
+R12
+R13
+VcfYHAKz;oFGJze4<8d;Di0
+r1
+!s85 0
+!i10b 1
+!s100 FjcnUbm`C6UDJ2;V2LW4f3
+IcfYHAKz;oFGJze4<8d;Di0
+!i103 1
+S1
+R3
+w1791484380
+R22
+R23
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB/Transaction.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB/Generator.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB/Driver.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB/Monitor.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB/Scoreboard.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\RTL/rv32i_defines.vh
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB/Coverage_file.sv
+FC:\Users\LENOVO\Desktop\VLSI_on_go_project\1TOPS\1TOPS_VERIFICATION\Imm_gen\SV_TB/Environment.sv
+!i122 3
+R14
+R16
+31
+R17
+R18
+R19
+!i113 0
+R20
+R21
+R9

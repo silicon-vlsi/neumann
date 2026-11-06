@@ -1,0 +1,2 @@
+var g_data = {"data":[{"n":"work.imm_interface","id":3,"zf":1,"tc":100.00,"t":100.00},{"n":"work.rv32i_imm_gen","id":4,"zf":1,"tc":100.00,"s":100.00,"b":100.00,"t":100.00},{"n":"work.tb_top","id":2,"zf":1,"tc":45.23,"s":85.71,"b":50.00,"t":0.00},{"n":"work.tb_top_sv_unit","id":1,"zf":1,"tc":68.17,"s":95.78,"b":76.92,"fc":0.00,"g":100.00}]};
+processDuData(g_data);

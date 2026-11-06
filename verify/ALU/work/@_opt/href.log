@@ -1,0 +1,15 @@
+BEGIN 3:alu_if:fast__2:work
+    adder_result_o :  1:alu_top:fast:work
+    comparison_result_o :  1:alu_top:fast:work
+    operator_i :  1:alu_top:fast:work
+    operand_b_i :  1:alu_top:fast:work
+    result_o :  1:alu_top:fast:work
+    is_equal_result_o :  1:alu_top:fast:work
+    operand_a_i :  1:alu_top:fast:work
+END 
+BEGIN 1:alu_top:fast:work
+    clk :  1:rv32i_alu:fast:work
+END 
+BEGIN 3:alu_if:fast__1:work
+    clk :  1:alu_pkg:fast:work
+END 
