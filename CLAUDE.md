@@ -6,6 +6,66 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A Verilog-2005 RV32I(C) RISC-V core (`rv32i_core`, derived from PULP **zero-riscy**; the PDFs in `Documentation/` are the original zero-riscy module docs) plus a small SoC wrapper with a UART debug bridge, a Python assembler/ISS toolchain, per-module SystemVerilog testbenches, and a Yosys→SKY130 synthesis flow. The README files cover usage, the memory map, the UART debug protocol, and the test program conventions in detail.
 
+## Directory structure
+
+```
+RV32I_rv32i/
+├── README.md                 ← you are here
+├── rtl/
+│   ├── core/                 ← CPU pipeline, ALU, decoder, register file, etc.
+│   │   ├── rv32i_core.v          (top-level core)
+│   │   ├── rv32i_if_stage.v      (instruction fetch)
+│   │   ├── rv32i_id_stage.v      (instruction decode)
+│   │   ├── rv32i_ex_block.v      (execute stage)
+│   │   ├── rv32i_Alu.v           (ALU)
+│   │   ├── rv32i_decoder.v       (main decoder)
+│   │   ├── rv32i_compressed_decoder.v  (RV32C → RV32I)
+│   │   ├── rv32i_controller.v    (pipeline control / hazards)
+│   │   ├── rv32i_cs_registers.v  (CSR bank)
+│   │   ├── rv32i_load_store_unit.v    (LSU)
+│   │   ├── rv32i_register_file.v      (32×32 register file)
+│   │   ├── rv32i_debug_unit.v         (debug interface)
+│   │   ├── rv32i_int_controller.v     (interrupt controller)
+│   │   ├── rv32i_prefetch_buffer.v    (instruction prefetch)
+│   │   ├── rv32i_fetch_fifo.v         (fetch FIFO)
+│   │   ├── rv32i_imm_gen.v            (immediate generator)
+│   │   └── rv32i_defines.vh           (global defines)
+│   ├── soc/                  ← SoC integration wrappers
+│   │   ├── top_soc.v                 (core + debug unit + bus arbiter)
+│   │   ├── uart_debug_unit.v         (UART-to-debug-bus bridge)
+│   │   ├── uart_rx.v / uart_tx.v     (UART transceiver)
+│   │   └── cluster_clock_gating.v    (ICG cell for simulation)
+│   └── mem/                  ← Simulation memory models
+│       ├── instr_mem.v               (instruction ROM, $readmemh)
+│       └── data_mem.v                (byte-writable data RAM)
+├── tb/                       ← Testbenches
+│   ├── tb_sort.v                     (bubble sort, backdoor + UART check)
+│   └── tb_fib.v                      (Fibonacci, backdoor + UART check)
+├── sw/                       ← Software toolchain & test programs
+│   ├── asm/                  ← Assembly source files (.s)
+│   │   ├── rv32i_compliance.s        (★ full ISA compliance test)
+│   │   ├── sort.s, fib.s, gcd.s, mul.s, primes.s, strlen_rev.s
+│   ├── hex/                  ← Assembled hex images (.hex)
+│   │   ├── sort.hex, fib.hex, ...
+│   ├── rv32i_asm.py                  (minimal two-pass RV32I assembler)
+│   └── iss.py                        (instruction-set simulator / golden model)
+├── scripts/                  ← Automation scripts
+│   ├── assemble.py                   (batch assemble all .s → .hex)
+│   ├── iss_verify.py                 (ISS golden-model verification)
+│   └── run_all.py                    (master: assemble → ISS → RTL sim)
+├── peripherals/              ← APB peripheral IP blocks
+│   ├── gpio/                         (32-bit GPIO with edge interrupts)
+│   │   └── apb_gpio.v
+│   ├── timer/                        (32-bit timer/counter with prescaler)
+│   │   └── apb_timer.v
+│   ├── spi_master/                   (APB SPI master controller)
+│   └── README.md                     (register maps & integration guide)
+├── sim/                      ← Simulator configuration
+│   ├── core.f                        (Verilog source filelist)
+│   └── run.do                        (QuestaSim/ModelSim run script)
+└── rtlGuidelines.md            (Guidelines for writing RTL)
+```
+
 ## Commands
 
 Run all of these from the **repo root**. The testbenches load `sw/hex/*.hex` with `$readmemh` using paths relative to the current directory, and `sim/run.do` refuses to run from anywhere else.
