@@ -227,9 +227,7 @@ extern "C" const char* getenvval(const char* n) { const char* v = std::getenv(n)
 | `1x` | debug boot | writes 0 to the mailbox `0x8001_0004`, polls it, and jumps to the address written there |
 
 ### SDC flash boot
-
-The flash is a W25Qxx-type SPI flash, SPI mode 0. Connections:
-
+ Connections:
 | Flash pin | SoC pin |
 |---|---|
 | SCK | `sdc_sck_o` |
