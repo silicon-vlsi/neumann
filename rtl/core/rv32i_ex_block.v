@@ -2,8 +2,6 @@
  
 module rv32i_ex_block
 (
-    input clk,
-    input rst_n,
     input  [5:0]  alu_operator_i,        
     input  [31:0] alu_operand_a_i,
     input  [31:0] alu_operand_b_i,
@@ -27,8 +25,7 @@ module rv32i_ex_block
         .operand_b_i(alu_operand_b_i),
         .adder_result_o(alu_adder_result_ex_o),
         .result_o(alu_result),
-        .comparison_result_o(alu_cmp_result),
-        .is_equal_result_o()
+        .comparison_result_o(alu_cmp_result)
     );
     always @(*) begin
          if (lsu_en_i)

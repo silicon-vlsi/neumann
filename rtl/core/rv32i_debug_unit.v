@@ -44,7 +44,6 @@ module rv32i_debug_unit
   // PC
   input  [31:0] pc_if_i,
   input  [31:0] pc_id_i,
-  input         instr_valid_id_i,
   input         sleeping_i,
   output        jump_req_o,
   output [31:0] jump_addr_o
@@ -186,6 +185,7 @@ module rv32i_debug_unit
         case (addr_q[2])
           1'b0: dbg_rdata = npc_int;
           1'b1: dbg_rdata = ppc_int;
+            default: ;
         endcase
       end
       default: dbg_rdata = 32'b0;

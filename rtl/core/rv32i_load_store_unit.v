@@ -29,7 +29,6 @@ module rv32i_load_store_unit
     output load_err_o,
     output store_err_o,
     // stall signal
-    output reg    lsu_update_addr_o,
     output reg    data_valid_o,
     output busy_o
 );
@@ -47,6 +46,8 @@ module rv32i_load_store_unit
     reg  [1:0]  rdata_offset_q;
     reg         data_sign_ext_q;
     reg         data_we_q;
+    reg         lsu_update_addr;   // address phase accepted (gnt)
+    reg         data_err_q;        // error on the 1st half of a misaligned access
     wire [1:0]  wdata_offset;
     reg  [3:0]  data_be;
     reg  [31:0] data_wdata;
@@ -61,8 +62,9 @@ module rv32i_load_store_unit
 
     assign data_addr_int = adder_result_ex_i;
     assign misaligned_st = data_misaligned_q;
-    assign load_err_o    = 1'b0;
-    assign store_err_o   = 1'b0;
+    // bus error: reported when the (last) response of the access comes back
+    assign load_err_o    = data_valid_o & (data_err_i | data_err_q) & ~data_we_q;
+    assign store_err_o   = data_valid_o & (data_err_i | data_err_q) &  data_we_q;
 
     // output to data interface
     assign data_addr_o   = data_addr_int;
@@ -86,6 +88,7 @@ module rv32i_load_store_unit
                         2'b01: data_be = 4'b1110;
                         2'b10: data_be = 4'b1100;
                         2'b11: data_be = 4'b1000;
+                        default: ;
                     endcase
                 end else begin
                     case (data_addr_int[1:0])
@@ -93,6 +96,7 @@ module rv32i_load_store_unit
                         2'b01: data_be = 4'b0001;
                         2'b10: data_be = 4'b0011;
                         2'b11: data_be = 4'b0111;
+                        default: ;
                     endcase
                 end
             end
@@ -103,6 +107,7 @@ module rv32i_load_store_unit
                         2'b01: data_be = 4'b0110;
                         2'b10: data_be = 4'b1100;
                         2'b11: data_be = 4'b1000;
+                        default: ;
                     endcase
                 end else begin
                     data_be = 4'b0001;
@@ -114,8 +119,10 @@ module rv32i_load_store_unit
                     2'b01: data_be = 4'b0010;
                     2'b10: data_be = 4'b0100;
                     2'b11: data_be = 4'b1000;
+                    default: ;
                 endcase
             end
+            default: ;
         endcase
     end
 
@@ -127,6 +134,7 @@ module rv32i_load_store_unit
             2'b01: data_wdata = {data_wdata_ex_i[23:0], data_wdata_ex_i[31:24]};
             2'b10: data_wdata = {data_wdata_ex_i[15:0], data_wdata_ex_i[31:16]};
             2'b11: data_wdata = {data_wdata_ex_i[ 7:0], data_wdata_ex_i[31: 8]};
+            default: ;
         endcase
     end
 
@@ -152,6 +160,7 @@ module rv32i_load_store_unit
             2'b01: rdata_w_ext = {data_rdata_i[ 7:0], rdata_q[31:8]};
             2'b10: rdata_w_ext = {data_rdata_i[15:0], rdata_q[31:16]};
             2'b11: rdata_w_ext = {data_rdata_i[23:0], rdata_q[31:24]};
+            default: ;
         endcase
     end
 
@@ -174,6 +183,7 @@ module rv32i_load_store_unit
                 if (!data_sign_ext_q) rdata_h_ext = {16'h0000, data_rdata_i[7:0], rdata_q[31:24]};
                 else                  rdata_h_ext = {{16{data_rdata_i[7]}}, data_rdata_i[7:0], rdata_q[31:24]};
             end
+            default: ;
         endcase
     end
 
@@ -196,6 +206,7 @@ module rv32i_load_store_unit
                 if (!data_sign_ext_q) rdata_b_ext = {24'h000000, data_rdata_i[31:24]};
                 else                  rdata_b_ext = {{24{data_rdata_i[31]}}, data_rdata_i[31:24]};
             end
+            default: ;
         endcase
     end
 
@@ -205,6 +216,7 @@ module rv32i_load_store_unit
             2'b00:       data_rdata_ext = rdata_w_ext;
             2'b01:       data_rdata_ext = rdata_h_ext;
             2'b10,2'b11: data_rdata_ext = rdata_b_ext;
+            default: ;
         endcase
     end
 
@@ -215,9 +227,14 @@ module rv32i_load_store_unit
             rdata_q           <= 32'b0;
             data_misaligned_q <= 1'b0;
             misaligned_addr_o <= 32'b0;
+            data_err_q        <= 1'b0;
         end else begin
             CS <= NS;
-            if (lsu_update_addr_o) begin
+            if (data_valid_o)
+                data_err_q <= 1'b0;
+            else if (data_rvalid_i & data_err_i)
+                data_err_q <= 1'b1;
+            if (lsu_update_addr) begin
                 data_misaligned_q <= data_misaligned;
                 if (increase_address)
                     misaligned_addr_o <= data_addr_int;
@@ -235,7 +252,7 @@ module rv32i_load_store_unit
     always @(*) begin
         NS                = CS;
         data_req_o        = 1'b0;
-        lsu_update_addr_o = 1'b0;
+        lsu_update_addr = 1'b0;
         data_valid_o      = 1'b0;
         increase_address  = 1'b0;
         data_misaligned_o = 1'b0;
@@ -245,7 +262,7 @@ module rv32i_load_store_unit
                 if (data_req_ex_i) begin
                     data_req_o = data_req_ex_i;
                     if (data_gnt_i) begin
-                        lsu_update_addr_o = 1'b1;
+                        lsu_update_addr = 1'b1;
                         increase_address  = data_misaligned;
                         NS = data_misaligned ? WAIT_RVALID_MIS : WAIT_RVALID;
                     end else begin
@@ -257,7 +274,7 @@ module rv32i_load_store_unit
             WAIT_GNT_MIS: begin
                 data_req_o = 1'b1;
                 if (data_gnt_i) begin
-                    lsu_update_addr_o = 1'b1;
+                    lsu_update_addr = 1'b1;
                     increase_address  = data_misaligned;
                     NS = WAIT_RVALID_MIS;
                 end
@@ -267,7 +284,7 @@ module rv32i_load_store_unit
                 increase_address  = 1'b0;
                 data_misaligned_o = 1'b1;
                 data_req_o        = 1'b0;
-                lsu_update_addr_o = data_gnt_i;
+                lsu_update_addr = data_gnt_i;
                 if (data_rvalid_i) begin
                     data_req_o = 1'b1;
                     if (data_gnt_i)
@@ -283,7 +300,7 @@ module rv32i_load_store_unit
                 data_misaligned_o = data_misaligned_q;
                 data_req_o        = 1'b1;
                 if (data_gnt_i) begin
-                    lsu_update_addr_o = 1'b1;
+                    lsu_update_addr = 1'b1;
                     NS = WAIT_RVALID;
                 end
             end

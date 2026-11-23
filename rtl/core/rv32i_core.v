@@ -2,8 +2,7 @@
 module rv32i_core
 #(
     parameter N_PERF_CNT=2,          // built-in perf counters: 2 = cycles+instructions, 11 = full set
-    parameter N_EXT_PERF_COUNTER=0,
-    parameter RV32E=0
+    parameter CLK_GATING=1           // 1 = clock gates on, 0 = whole design ungated
 )
 (
     input clk_i,
@@ -42,8 +41,7 @@ module rv32i_core
     input debug_halt_i,
     input debug_resume_i,
     input fetch_enable_i,
-    output core_busy_o,
-    input [N_EXT_PERF_COUNTER-1:0]ext_perf_counters_i 
+    output core_busy_o
 );
 wire instr_valid_id;
 wire [31:0] instr_rdata_id;
@@ -57,7 +55,6 @@ wire lsu_load_err,lsu_store_err;
 wire is_decoding,data_misaligned;
 wire [31:0] misaligned_addr;
 wire [31:0] jump_target_ex;
-wire branch_in_exc;   // id_stage status output, not used at core level
 wire branch_decision,ctrl_busy,if_busy,lsu_busy;
 wire [`ALU_OP_WIDTH-1:0] alu_operator_ex;
 wire [31:0] alu_operand_a_ex,alu_operand_b_ex;
@@ -72,8 +69,9 @@ wire data_we_ex,data_sign_ext_ex,data_req_ex;
 wire [1:0] data_type_ex,data_reg_offset_ex;
 wire [31:0] data_wdata_ex,regfile_wdata_lsu;
 wire data_load_event_ex;
-wire halt_if,id_ready,ex_ready,if_valid,id_valid,data_valid_lsu,instr_req_int,m_irq_enable;
+wire halt_if,id_ready,ex_ready,id_valid,data_valid_lsu,instr_req_int,m_irq_enable;
 wire [31:0] mepc;
+wire [23:0] mtvec;
 wire csr_save_cause,csr_save_if,csr_save_id;
 wire [5:0] csr_cause;
 wire csr_restore_mret_id;
@@ -112,7 +110,7 @@ assign dbg_busy = dbg_req|dbg_csr_req|dbg_jump_req|dbg_reg_wreq|debug_req_i;
 assign clock_en = clock_en_i|core_busy_o|dbg_busy;
 assign sleeping = (~fetch_enable_i) & (~core_busy_o) ;
 
-cluster_clock_gating clk1
+cluster_clock_gating #(.GATE_EN(CLK_GATING)) clk1
 (
     .clk_i(clk_i),
     .en_i(clock_en),
@@ -120,11 +118,12 @@ cluster_clock_gating clk1
     .clk_o(clk)
 );
 
-rv32i_if_stage rv32i_if_stage
+rv32i_if_stage rv32i_if_stage_inst
 (
     .clk(clk),
     .rst_n(rst_ni),
     .boot_addr_i(boot_addr_i),
+    .mtvec_i(mtvec),
     .req_i(instr_req_int),
     .instr_req_o(instr_req_o),
     .instr_addr_o(instr_addr_o),
@@ -147,14 +146,13 @@ rv32i_if_stage rv32i_if_stage
     .jump_target_ex_i(jump_target_ex),
     .halt_if_i(halt_if),
     .id_ready_i(id_ready),
-    .if_valid_o(if_valid),
     .if_busy_o(if_busy),
     .perf_imiss_o(perf_imiss)
 );
 
 rv32i_id_stage
 #(
-    .RV32E(RV32E)
+    .CLK_GATING(CLK_GATING)
 )
 id_stage_i
 (
@@ -168,7 +166,6 @@ id_stage_i
     .instr_valid_i(instr_valid_id),
     .instr_rdata_i(instr_rdata_id),
     .instr_req_o(instr_req_int),
-    .branch_in_ex_o(branch_in_exc),
     .branch_decision_i(branch_decision),
     .clear_instr_valid_o(clear_instr_valid),
     .pc_set_o(pc_set),
@@ -230,8 +227,6 @@ id_stage_i
 
 rv32i_ex_block ex_block
 (
-    .clk(clk),
-    .rst_n(rst_ni),
     .alu_operator_i(alu_operator_ex),        
     .alu_operand_a_i(alu_operand_a_ex),
     .alu_operand_b_i(alu_operand_b_ex),
@@ -269,15 +264,13 @@ rv32i_load_store_unit load_store
     .misaligned_addr_o(misaligned_addr),
     .load_err_o(lsu_load_err),
     .store_err_o(lsu_store_err),
-    .lsu_update_addr_o(),
     .data_valid_o(data_valid_lsu),
     .busy_o(lsu_busy)
 );
 
 rv32i_cs_registers
 #(
-    .N_PERF_CNT(N_PERF_CNT),
-    .N_EXT_CNT(N_EXT_PERF_COUNTER)
+    .N_PERF_CNT(N_PERF_CNT)
 )
 cs_registers_i
 (
@@ -293,6 +286,7 @@ cs_registers_i
     .csr_rdata_o(csr_rdata),
     .m_irq_enable_o(m_irq_enable),
     .mepc_o(mepc),
+    .mtvec_o(mtvec),
     .pc_if_i(pc_if),
     .pc_id_i(pc_id),
     .csr_save_if_i(csr_save_if),
@@ -300,7 +294,6 @@ cs_registers_i
     .csr_restore_mret_i(csr_restore_mret_id),
     .csr_cause_i(csr_cause),
     .csr_save_cause_i(csr_save_cause),
-    .if_valid_i(if_valid),
     .id_valid_i(id_valid),
     .is_compressed_i(is_compressed_id),
     .is_decoding_i(is_decoding),
@@ -310,8 +303,7 @@ cs_registers_i
     .branch_i(perf_branch),
     .branch_taken_i(perf_tbranch),
     .mem_load_i(data_req_o&data_gnt_i&(~data_we_o)),
-    .mem_store_i(data_req_o&data_gnt_i&data_we_o),
-    .ext_counters_i(ext_perf_counters_i)
+    .mem_store_i(data_req_o&data_gnt_i&data_we_o)
 );
 
 assign csr_access = (dbg_csr_req == 1'b0) ? csr_access_ex : 1'b1;
@@ -353,7 +345,6 @@ rv32i_debug_unit debug_unit
     .csr_rdata_i(csr_rdata),
     .pc_if_i(pc_if),
     .pc_id_i(pc_id),
-    .instr_valid_id_i(instr_valid_id),
     .sleeping_i(sleeping),
     .jump_addr_o(dbg_jump_addr),
     .jump_req_o(dbg_jump_req)  

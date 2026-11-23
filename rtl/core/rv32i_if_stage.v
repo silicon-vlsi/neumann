@@ -6,6 +6,7 @@ module rv32i_if_stage
     input         rst_n,
 
     input  [31:0] boot_addr_i,
+    input  [23:0] mtvec_i,            // trap vector base from CSR mtvec
     input         req_i,
 
     // Instruction memory interface
@@ -35,10 +36,10 @@ module rv32i_if_stage
     input         halt_if_i,
     input         id_ready_i,
 
-    output        if_valid_o,
     output        if_busy_o,
     output        perf_imiss_o
 );
+    wire       if_valid;   // instruction handed to ID this cycle
     localparam IDLE = 1'b1;
     localparam WAIT = 1'b0;
 
@@ -57,9 +58,10 @@ module rv32i_if_stage
     always @(*) begin
         exc_pc = 32'b0;
         case (exc_pc_mux_i)
-            `EXC_PC_ILLINSN: exc_pc = {boot_addr_i[31:8], `EXC_OFF_ILLINSN};
-            `EXC_PC_ECALL:   exc_pc = {boot_addr_i[31:8], `EXC_OFF_ECALL};
-            `EXC_PC_IRQ:     exc_pc = {boot_addr_i[31:8], 1'b0,
+            `EXC_PC_ILLINSN: exc_pc = {mtvec_i, `EXC_OFF_ILLINSN};
+            `EXC_PC_ECALL:   exc_pc = {mtvec_i, `EXC_OFF_ECALL};
+            `EXC_PC_LOAD:    exc_pc = {mtvec_i, `EXC_OFF_LSUERR};   // load/store access fault
+            `EXC_PC_IRQ:     exc_pc = {mtvec_i, 1'b0,
                                         exc_vec_pc_mux_i[4:0], 2'b0};
             default:;
         endcase
@@ -150,7 +152,7 @@ module rv32i_if_stage
             is_compressed_id_o  <= 1'b0;
             pc_id_o             <= 32'b0;
         end else begin
-            if (if_valid_o) begin
+            if (if_valid) begin
                 instr_valid_id_o    <= 1'b1;
                 instr_rdata_id_o    <= instr_decompressed;
                 illegal_c_insn_id_o <= illegal_c_insn;
@@ -162,7 +164,7 @@ module rv32i_if_stage
         end
     end
     assign if_ready     = valid & id_ready_i;
-    assign if_valid_o   = (~halt_if_i) & if_ready;
+    assign if_valid     = (~halt_if_i) & if_ready;
     assign pc_if_o      = fetch_addr;
     assign if_busy_o    = prefetch_busy;
     assign perf_imiss_o = (~fetch_valid) | branch_req;

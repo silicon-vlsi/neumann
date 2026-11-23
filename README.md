@@ -1,276 +1,338 @@
-# RV32I rv32i — RISC-V Core
+# neumann — RISC-V microcontroller SoC
 
-A Verilog implementation of the **RV32I** RV32I core — a minimal, area-optimized 32-bit RISC-V processor — with a UART debug bridge, simulation memories, testbenches, and a Python-based toolchain for assembly, golden-model verification, and RTL simulation.
+Low-area, low-power RISC-V microcontroller SoC for the 1TOPS project. Target: GF 28nm.
+It combines the **neumann** core (RV32IC + Zicsr, 2-stage pipeline, zero-riscy derived) with an
+**AHB-Lite + APB uncore** (memories and peripherals). Our own OBI→AHB bridges and a 3-master
+bus unit join the two.
 
-## Architecture Overview
-
-```
-┌──────────────────────────────────────────────────┐
-│  top_soc                                         │
-│  ┌────────────────────────┐  ┌────────────────┐  │
-│  │   rv32i_core       │   │  │uart_debug_unit │  │
-│  │  ┌─────┐  ┌─────────┐  │  │  ┌────┐ ┌────┐ │  │
-│  │  │ IF  │→ │  ID/EX  │  │  │  │ RX │ │ TX │ │  │
-│  │  │stage│  │  stage  │  │  │  └────┘ └────┘ │  │
-│  │  └─────┘  └─────────┘  │  │    debug bus   │  │
-│  │    ↕          ↕        │  │    mem master  │  │
-│  │  fetch    ALU / LSU    │  └───────┬────────┘  │
-│  │  fifo     reg file     │          │           │
-│  └────────┬───────────────┘    ┌─────┴─────┐     │
-│           │ instr bus          │  data bus │     │
-│           │                    │  arbiter  │     │
-└───────────┼────────────────────┼───────────┼─────┘
-            ↕                    ↕           ↕
-       ┌─────────┐         ┌─────────┐
-       │instr_mem│         │data_mem │
-       │  (ROM)  │         │ (RAM)   │
-       └─────────┘         └─────────┘
-```
-
-**Key features:**
-- RV32I base integer instruction set (no M/C extensions in the core pipeline)
-- Compressed instruction decoder (RV32C decode → RV32I expansion)
-- OBI-style memory interface (req/gnt/rvalid handshake)
-- UART debug unit: halt, resume, read GPRs, read/write memory over serial
-- Fully synchronous, single-clock design
-
-## Directory Structure
+Top module: `neumann_soc` (`rtl/top/neumann_soc.sv`). File list: `neumann_soc.f`.
 
 ```
-RV32I_rv32i/
-├── README.md                 ← you are here
+  host PC --UART--> uart_debug_unit --debug_*--> core debug port (halt / step / regs / CSRs)
+                         | mem_* (RMEM / WMEM)
+                         v
+  rv32i_core --instr--> obi2ahb_i --- IFU (m0) --+
+             --data---> obi2ahb_d --- LSU (m1) --+--> ebu3 --AHB-Lite--> uncore
+  uart_debug_unit ----> obi2ahb_d --- DBG (m2) --+   DBG > LSU > IFU       |
+                                                                           +-- adrdecs (address decoder)
+  irq_enc <-- MTimerInt, MSwInt (CLINT), MExtInt (PLIC)                    +-- Boot ROM 4 KB   0x0000_1000
+     +--> core irq_i / irq_id_i (MEI 11, MSI 3, MTI 7)                     +-- IRAM 16 KB      0x8000_0000
+                                                                           +-- EXT slot: DRAM 8 KB 0x8001_0000
+  rst_ni --> rst_sync --> everything                                       +-- AHB->APB: CLINT PLIC UART
+                                                                                 GPIO SPI SDC
+```
+
+## Features
+
+- **Core:** RV32I + C (compressed) + Zicsr, 2-stage pipeline, machine mode, vectored interrupts, and a debug unit with halt, resume, step and register/CSR access
+- **Low power:** latch-based clock gating of the core clock and of each register-file register (`CLK_GATING`)
+- **Bus:** AHB-Lite with 3 masters (instruction fetch, load/store, debug) and fixed priority. AHB→APB bridge for the peripherals
+- **Memories:** 4 KB boot ROM, 16 KB IRAM, 8 KB DRAM
+- **Peripherals:** CLINT (timer + software interrupt), PLIC, 16550 UART, 32-bit GPIO with interrupts, 2 SPI masters (SPI, SDC)
+- **Debug:** a UART debug link works while the core runs. It can load programs, read and write memory, and halt, step and inspect the core
+- **Boot:** a boot ROM with 3 modes selected by pins: SPI flash on the SDC port, direct, or debug UART
+- **Bus errors:** unmapped addresses and wrong access sizes get an AHB ERROR response, which becomes a load/store access-fault trap
+
+---
+
+## 1. Repository layout
+
+```
+neumann/
+├── README.md            this file
+├── neumann_soc.f        file list (paths relative to the repo root), top = neumann_soc
 ├── rtl/
-│   ├── core/                 ← CPU pipeline, ALU, decoder, register file, etc.
-│   │   ├── rv32i_core.v          (top-level core)
-│   │   ├── rv32i_if_stage.v      (instruction fetch)
-│   │   ├── rv32i_id_stage.v      (instruction decode)
-│   │   ├── rv32i_ex_block.v      (execute stage)
-│   │   ├── rv32i_Alu.v           (ALU)
-│   │   ├── rv32i_decoder.v       (main decoder)
-│   │   ├── rv32i_compressed_decoder.v  (RV32C → RV32I)
-│   │   ├── rv32i_controller.v    (pipeline control / hazards)
-│   │   ├── rv32i_cs_registers.v  (CSR bank)
-│   │   ├── rv32i_load_store_unit.v    (LSU)
-│   │   ├── rv32i_register_file.v      (32×32 register file)
-│   │   ├── rv32i_debug_unit.v         (debug interface)
-│   │   ├── rv32i_int_controller.v     (interrupt controller)
-│   │   ├── rv32i_prefetch_buffer.v    (instruction prefetch)
-│   │   ├── rv32i_fetch_fifo.v         (fetch FIFO)
-│   │   ├── rv32i_imm_gen.v            (immediate generator)
-│   │   └── rv32i_defines.vh           (global defines)
-│   ├── soc/                  ← SoC integration wrappers
-│   │   ├── top_soc.v                 (core + debug unit + bus arbiter)
-│   │   ├── uart_debug_unit.v         (UART-to-debug-bus bridge)
-│   │   ├── uart_rx.v / uart_tx.v     (UART transceiver)
-│   │   └── cluster_clock_gating.v    (ICG cell for simulation)
-│   └── mem/                  ← Simulation memory models
-│       ├── instr_mem.v               (instruction ROM, $readmemh)
-│       └── data_mem.v                (byte-writable data RAM)
-├── tb/                       ← Testbenches
-│   ├── tb_sort.v                     (bubble sort, backdoor + UART check)
-│   └── tb_fib.v                      (Fibonacci, backdoor + UART check)
-├── sw/                       ← Software toolchain & test programs
-│   ├── asm/                  ← Assembly source files (.s)
-│   │   ├── rv32i_compliance.s        (★ full ISA compliance test)
-│   │   ├── sort.s, fib.s, gcd.s, mul.s, primes.s, strlen_rev.s
-│   ├── hex/                  ← Assembled hex images (.hex)
-│   │   ├── sort.hex, fib.hex, ...
-│   ├── rv32i_asm.py                  (minimal two-pass RV32I assembler)
-│   └── iss.py                        (instruction-set simulator / golden model)
-├── scripts/                  ← Automation scripts
-│   ├── assemble.py                   (batch assemble all .s → .hex)
-│   ├── iss_verify.py                 (ISS golden-model verification)
-│   └── run_all.py                    (master: assemble → ISS → RTL sim)
-├── peripherals/              ← APB peripheral IP blocks
-│   ├── gpio/                         (32-bit GPIO with edge interrupts)
-│   │   └── apb_gpio.v
-│   ├── timer/                        (32-bit timer/counter with prescaler)
-│   │   └── apb_timer.v
-│   ├── spi_master/                   (APB SPI master controller)
-│   └── README.md                     (register maps & integration guide)
-├── sim/                      ← Simulator configuration
-│   ├── core.f                        (Verilog source filelist)
-│   └── run.do                        (QuestaSim/ModelSim run script)
+│   ├── top/             neumann_soc.sv                      SoC top level
+│   ├── bus/             ebu3.sv, obi2ahb_i.v, obi2ahb_d.v   bus unit + OBI->AHB bridges
+│   ├── sys/             irq_enc.v, rst_sync.v               interrupt encoder, reset synchroniser
+│   ├── core/            rv32i_*.v, cluster_clock_gating.sv, rv32i_defines.vh   neumann core
+│   └── debug/           uart_debug_unit.v, uart_rx.v, uart_tx.v              UART debug unit
+├── config/config.vh     SoC configuration: memory map, which peripherals exist
+├── uncore_ip/           uncore IP: AHB/APB uncore, peripherals, generic cells
+├── sw/
+│   ├── boot/            rom.S, link_rom.ld, rom.hex (built boot ROM image)
+│   ├── app/             start.S, link_app.ld, soc.h   template for programs that run on the SoC
+│   └── bin2hex.py       binary -> one 32-bit word per line, for $readmemh
+├── Documentation/       zero-riscy module documents, SoC diagram
+├── verify/              per-module SystemVerilog testbenches (core units)
+└── rtlGuidelines.md     RTL coding guidelines
 ```
 
-## Prerequisites
+---
 
-| Tool | Required For | Install |
-|------|-------------|---------|
-| **Python 3.8+** | Assembly, ISS, automation scripts | [python.org](https://python.org) |
-| **Icarus Verilog** | Free RTL simulation | `choco install iverilog` or [iverilog.icarus.com](http://iverilog.icarus.com) |
-| **QuestaSim / ModelSim** | Commercial RTL simulation | Intel/Siemens EDA |
+## 2. RTL
 
-> **Note:** Python scripts have **zero external dependencies** — only the Python standard library is used.
+### rtl/top
 
-## Quick Start
+| File | What it is |
+|---|---|
+| `neumann_soc.sv` | **Top.** Instantiates `rst_sync`, `rv32i_core`, `uart_debug_unit`, the 3 bridges, `ebu3`, the `uncore`, the DRAM (`ram_ahb` on the uncore EXT slot) and `irq_enc`. It includes `config.vh` and `parameter-defs.vh` to build the configuration struct `P`. |
 
-### 1. Assemble all test programs
+Parameters:
 
+| Parameter | Default | Meaning |
+|---|---|---|
+| `CLK_GATING` | 1 | 1 = latch clock gates in the core (register file + core clock). 0 = no gates (FPGA) |
+| `DBG_CLKS_PER_BIT` | 868 | UART debug baud = clk / this (868 → 115200 at 100 MHz) |
+| `BOOT_ADDR` | `0x0000_1000` | core boot address; first fetch at `BOOT_ADDR + 0x80` |
+| `IRAM_PHYS_RANGE` | `0x3FFF` | IRAM size − 1 (16 KB) |
+| `DRAM_PHYS_RANGE` | `0x1FFF` | DRAM size − 1 (8 KB) |
+
+Ports:
+
+| Port | Dir | Meaning |
+|---|---|---|
+| `clk_i`, `rst_ni` | in | clock; active-low reset (asynchronous assert, synchronised release inside) |
+| `test_en_i` | in | DFT: forces the clock gates open and bypasses the reset synchroniser. 0 in normal use |
+| `fetch_enable_i` | in | 1 = core starts fetching after reset |
+| `dbg_rx_i`, `dbg_tx_o` | in/out | UART debug link (8N1) |
+| `dbg_halted_o` | out | 1 while the debug unit has the core halted |
+| `uart_rx_i`, `uart_tx_o` | in/out | application UART (16550) |
+| `gpio_i[31:0]`, `gpio_o[31:0]`, `gpio_oe_o[31:0]` | in/out | GPIO; **`gpio_i[31:30]` are the boot-mode pins** (section 4) |
+| `spi_miso_i`, `spi_mosi_o`, `spi_cs_o[3:0]`, `spi_sck_o` | in/out | SPI master |
+| `sdc_miso_i`, `sdc_mosi_o`, `sdc_cs_o[3:0]`, `sdc_sck_o` | in/out | 2nd SPI master (SDC port): **boot flash on CS0** (section 4) |
+
+### rtl/bus
+
+| File | What it is |
+|---|---|
+| `ebu3.sv` | 3-master External Bus Unit. Masters: IFU m0 (lowest), LSU m1, DBG m2 (highest). It uses AHB `HBUSREQ`/`HGRANT` with fixed priority DBG > LSU > IFU. Only the granted master drives `HTRANS != IDLE`, and the output mux puts its address phase on the bus. `HMASTER` (registered) is the data-phase owner and selects `HWDATA`/`HWSTRB`. `HPROT[0]` marks a data access. |
+| `obi2ahb_i.v` | Bridge from the core instruction port (OBI-style req/gnt/rvalid) to AHB master m0. Word reads only. `HTRANS` is driven only when `req & ~hold_i & HREADY`. |
+| `obi2ahb_d.v` | Bridge from a data port to an AHB master, used twice: core LSU (m1) and debug unit (m2). It turns byte enables into `HSIZE` + `HADDR[1:0]` and copies byte/half store data to all lanes. `HWDATA`/`HWSTRB` are registered at `gnt`. `HRESP` drives `data_err_o`, which raises a load/store access fault. |
+
+### rtl/sys
+
+| File | What it is |
+|---|---|
+| `irq_enc.v` | Priority encoder into core `irq_i` / `irq_id_i`: MEI (PLIC) → id 11, then MSI (CLINT msip) → id 3, then MTI (CLINT timer) → id 7. The core vectors to `mtvec + 4*id`. |
+| `rst_sync.v` | 2-flop reset synchroniser with `test_mode_i` bypass. |
+
+### rtl/core — neumann core
+
+| File | What it is |
+|---|---|
+| `rv32i_core.v` | Core top. Parameters `N_PERF_CNT`, `CLK_GATING`. |
+| `rv32i_if_stage.v`, `rv32i_prefetch_buffer.v`, `rv32i_fetch_fifo.v` | Fetch. The PC mux covers boot, jump, branch, trap/irq vector and debug. Also the instruction-bus FSM, and a FIFO that aligns 16-bit and misaligned 32-bit instructions. |
+| `rv32i_compressed_decoder.v` | Expands RVC instructions to 32-bit. RVC HINTs execute as no-ops. |
+| `rv32i_id_stage.v`, `rv32i_decoder.v`, `rv32i_controller.v` | Decode, register-file access and hazards. The decoder treats FENCE as a NOP and FENCE.I as a jump to PC+4. The main control FSM handles boot, stalls, exceptions, interrupts and debug. |
+| `rv32i_ex_block.v`, `rv32i_alu.v` | ALU. |
+| `rv32i_load_store_unit.v` | Data-bus FSM: byte enables, misaligned split, sign extension, bus error → access fault. |
+| `rv32i_cs_registers.v` | CSRs: mstatus (MIE/MPIE), mtvec (writable, 256-B aligned), mepc, mcause, mhartid, performance counters. |
+| `rv32i_int_controller.v` | Accepts interrupts when `mstatus.MIE` = 1. |
+| `rv32i_debug_unit.v` | Core debug port: halt, resume, step, GPR / CSR / NPC / PPC access. |
+| `rv32i_register_file.v` | 31 × 32 registers. With `CLK_GATING` = 1, each register has its own clock gate, so only the written register gets a clock edge. |
+| `cluster_clock_gating.sv` | Latch-based clock gate (ICG structure). A latch that is transparent while `clk_i` is low holds `en_i \| test_en_i`, which is ANDed with `clk_i`. For implementation it maps to the library ICG cell (same ports). |
+| `rv32i_defines.vh` | Opcode / ALU / CSR constants. |
+
+Trap vectors are offsets from `mtvec`, which equals `BOOT_ADDR` until software writes it:
+
+| Event | Offset |
+|---|---|
+| reset | `+0x80` |
+| illegal instruction | `+0x84` |
+| ecall | `+0x88` |
+| load/store access fault | `+0x8C` |
+| interrupt id n | `+4n` |
+
+### rtl/debug — UART debug unit
+
+| File | What it is |
+|---|---|
+| `uart_debug_unit.v` | Takes byte commands on the debug UART and replies `0x90` = ACK. Multi-byte values are LSB first. Register, CSR and PC commands need the core halted. Memory commands go over the bus (ebu3 master 2) and also work while the core runs. |
+| `uart_rx.v`, `uart_tx.v` | 8N1 UART with a `CLKS_PER_BIT` parameter. |
+
+Debug commands:
+
+| Bytes | Command |
+|---|---|
+| `01` | HALT |
+| `02` | RESUME |
+| `03` | STEP |
+| `04` | STATUS |
+| `10 n` | read GPR n |
+| `11 n d4` | write GPR n |
+| `20 a2` | read CSR |
+| `21 a2 d4` | write CSR |
+| `30` | read NPC + PPC |
+| `40 a4` | read memory word |
+| `41 a4 d4` | write memory word |
+
+### config/config.vh — memory map
+
+| Region | Base | Notes |
+|---|---|---|
+| Boot ROM | `0x0000_1000` | 4 KB |
+| SDC (2nd SPI) | `0x0001_3000` | word access |
+| CLINT | `0x0200_0000` | msip `+0`, mtimecmp `+0x4000`, mtime `+0xBFF8` (counts every clock) |
+| PLIC | `0x0C00_0000` | sources: GPIO 3, SPI 6, SDC 9, UART 10. Word access |
+| UART (16550) | `0x1000_0000` | byte access |
+| SPI | `0x1004_0000` | word access |
+| GPIO | `0x1006_0000` | word access |
+| IRAM | `0x8000_0000` | 64 KB window, 16 KB physical |
+| DRAM (EXT slot) | `0x8001_0000` | 64 KB window, 8 KB physical |
+
+Every window must be a `2^n − 1` mask with an aligned base. An access to an unmapped address, or with the wrong size for the target, gets an AHB ERROR response. That becomes a load access fault (mcause 5) or a store access fault (mcause 7).
+
+### uncore_ip/
+
+Open-source AHB/APB uncore IP. License: Apache-2.0 WITH SHL-2.1. Origin and commit are in `uncore_ip/VERSION.txt`; see `uncore_ip/LICENSE`. Our changes are marked `neumann` in `src/uncore/uncore.sv`.
+
+| File(s) | Role |
+|---|---|
+| `src/cvw.sv`, `config/shared/*.vh` | config package `cvw_t` and the code that fills `P` from `config.vh` |
+| `src/uncore/uncore.sv` | uncore top: decoder, ROM, RAM, AHB→APB bridge, peripherals, response mux, EXT slot, default (error) slave |
+| `src/mmu/adrdecs.sv`, `adrdec.sv` | address decoder, including the access-size check |
+| `src/uncore/rom_ahb.sv`, `ram_ahb.sv` | ROM / RAM AHB slaves. The RAM has byte strobes |
+| `src/uncore/ahbapbbridge.sv` | AHB → APB bridge |
+| `src/uncore/clint_apb.sv`, `plic_apb.sv` | timer + software interrupt; interrupt controller |
+| `src/uncore/uart_apb.sv`, `uartPC16550D.sv` | 16550 UART |
+| `src/uncore/gpio_apb.sv` | 32-bit GPIO with edge/level interrupts |
+| `src/uncore/spi_apb.sv`, `spi_controller.sv`, `spi_fifo.sv` | SPI master (2 instances: SPI and SDC) |
+| `src/uncore/pwm_apb.sv` | PWM (disabled in config) |
+| `src/generic/...` | flops, mux, `ram1p1rwbe` (RAM array), `rom1p1r` (ROM array) |
+
+---
+
+## 3. Memories in simulation
+
+The memories are behavioural arrays. Hierarchical paths from the `neumann_soc` instance (`dut`):
+
+| Memory | Array | Word index |
+|---|---|---|
+| Boot ROM | `dut.u_uncore.bootrom.bootrom.memory.ROM` | `(addr - 0x0000_1000) >> 2` |
+| IRAM | `dut.u_uncore.ram.ram.memory.ram.RAM` | `(addr - 0x8000_0000) >> 2` |
+| DRAM | `dut.u_dram.memory.ram.RAM` | `(addr - 0x8001_0000) >> 2` |
+
+`sw/boot/rom.hex` has one 32-bit word per line; word 0 is address `0x0000_1000`. Load it into the ROM array at time 0:
+```systemverilog
+$readmemh("sw/boot/rom.hex", dut.u_uncore.bootrom.bootrom.memory.ROM);
+```
+Under Verilator, `rom1p1r` calls a DPI function `getenvval`, so a Verilator build needs a small C++ stub:
+```cpp
+#include <cstdlib>
+extern "C" const char* getenvval(const char* n) { const char* v = std::getenv(n); return v ? v : ""; }
+```
+
+---
+
+## 4. Boot flow (`sw/boot/rom.S`)
+
+1. Reset → PC = `0x0000_1080`.
+2. The ROM sets `mtvec = 0x8000_0000` and `sp = 0x8001_2000`, enables GPIO inputs 31:30, and reads the boot pins:
+
+| `gpio_i[31:30]` | Mode | What the ROM does |
+|---|---|---|
+| `00` | SDC flash boot | copies the image from the SPI flash on the SDC port into IRAM/DRAM and jumps to its entry |
+| `01` | direct boot | jumps to `0x8000_0080` (image already in IRAM/DRAM) |
+| `1x` | debug boot | writes 0 to the mailbox `0x8001_0004`, polls it, and jumps to the address written there |
+
+### SDC flash boot
+
+The flash is a W25Qxx-type SPI flash, SPI mode 0. Connections:
+
+| Flash pin | SoC pin |
+|---|---|
+| SCK | `sdc_sck_o` |
+| DI | `sdc_mosi_o` |
+| DO | `sdc_miso_i` |
+| CS | `sdc_cs_o[0]` |
+
+SCK = clk / 4. The ROM sends `0xAB` (release from power-down) and waits at least 3 µs. It then sends `0x03 00 00 00` (read from address 0) and streams the whole image in one CS frame.
+
+Flash image (all words little-endian):
+
+| Flash address | Content |
+|---|---|
+| `0x00` | header, 8 words: magic `0x4D55454E` ("NEUM"), `iram_len`, `dram_len`, `entry`, `checksum`, 0, 0, 0 |
+| `0x20` | IRAM image, `iram_len` bytes → `0x8000_0000` |
+| `0x20 + iram_len` | DRAM image (`.data`), `dram_len` bytes → `0x8001_0040` |
+
+Image rules:
+- `checksum` is the 32-bit sum of all image words.
+- Both lengths must be multiples of 4.
+- `iram_len` ≤ 16 KB, and `dram_len` ≤ 8 KB − 64.
+
+The ROM writes `BOOT_STATUS` at `0x8001_000C`:
+
+| Value | Meaning |
+|---|---|
+| `0xB0070000` | loading |
+| `0xB00700AA` | ok (then jumps to `entry`) |
+| `0xB00700E1` | bad magic |
+| `0xB00700E2` | bad length |
+| `0xB00700E3` | bad checksum |
+
+On any error code the ROM releases CS and falls back to debug boot.
+
+### Debug boot
+
+Load the program over the debug UART with `41` (write memory word). Then write its entry address (e.g. `0x8000_0080`) to `0x8001_0004`, and the ROM jumps there.
+
+Example: to write `0x00000297` to `0x8000_0080`, send `41 80 00 00 80 97 02 00 00`. The reply is `90`.
+
+---
+
+## 5. Software (`sw/`)
+
+| File | What it is |
+|---|---|
+| `boot/rom.S` + `boot/link_rom.ld` | boot ROM source (section 4); `boot/rom.hex` is the built image |
+| `app/start.S` | IRAM program start: vector table at `0x8000_0000` (32 interrupt slots, then entry `+0x80`, illegal `+0x84`, ecall `+0x88`, fault `+0x8C`). `_start` sets up the stack, clears .bss, calls `main` and writes its return value to `0x8001_0000`. The trap entry saves registers and calls `c_trap(mcause, mepc)`, which returns the new mepc |
+| `app/link_app.ld` | code in IRAM; data/bss in DRAM from `0x8001_0040` (the first 64 bytes hold the status word `+0`, boot mailbox `+4`, step `+8` and boot status `+0xC`); stack top `0x8001_2000` |
+| `app/soc.h` | addresses and register macros for all peripherals |
+| `bin2hex.py` | `python3 bin2hex.py in.bin out.hex` |
+
+Build a program (RV32IC):
 ```bash
-python scripts/assemble.py
+riscv64-unknown-elf-gcc -march=rv32ic_zicsr -mabi=ilp32 -O2 -ffreestanding -nostdlib \
+    -T sw/app/link_app.ld sw/app/start.S my.c -o my.elf
+riscv64-unknown-elf-objcopy -O binary --only-section=.vectors --only-section=.text my.elf iram.bin
+riscv64-unknown-elf-objcopy -O binary --only-section=.data my.elf dram.bin
+python3 sw/bin2hex.py iram.bin iram.hex      # load at 0x8000_0000
+python3 sw/bin2hex.py dram.bin dram.hex      # load at 0x8001_0040 (word index 16 of DRAM)
 ```
-
-This assembles every `.s` file in `sw/asm/` into a `.hex` file in `sw/hex/`.
-
-### 2. Verify with the ISS golden model
-
+Rebuild the boot ROM:
 ```bash
-python scripts/iss_verify.py
+riscv64-unknown-elf-gcc -march=rv32ic_zicsr -mabi=ilp32 -nostdlib -T sw/boot/link_rom.ld sw/boot/rom.S -o rom.elf
+riscv64-unknown-elf-objcopy -O binary rom.elf rom.bin && python3 sw/bin2hex.py rom.bin sw/boot/rom.hex
 ```
 
-Runs each `.hex` through the instruction-set simulator and checks:
-- Program halts cleanly (no infinite loop / trap)
-- Done flag `0xC0DE0001` at address `0x000`
-- No exception marker at address `0x004`
-- Program-specific data checks (sorted array, Fibonacci sequence, GCD result)
+---
 
-### 3. Run RTL simulation
+## 6. Compile
 
-**With Icarus Verilog (free):**
+Run from the repo root.
+
+Questa:
 ```bash
-python scripts/run_all.py --sim iverilog
+vlib work
+vlog -sv -f neumann_soc.f your_tb.sv
+vsim -c your_tb -do "run -all; quit"
 ```
-
-**With QuestaSim:**
+Verilator (5.x):
 ```bash
-python scripts/run_all.py --sim questa
-# or directly:
-vsim -c -do sim/run.do
+verilator --binary --timing -Wno-fatal -Wno-lint -Wno-style -Wno-MULTIDRIVEN \
+  --top-module your_tb -f neumann_soc.f your_tb.sv getenv_stub.cpp
 ```
 
-**Skip RTL sim (assemble + ISS only):**
-```bash
-python scripts/run_all.py --sim skip
-```
+A testbench needs:
+- a clock, and `rst_ni` held low for a few cycles;
+- `fetch_enable_i = 1` and `test_en_i = 0`;
+- `gpio_i[31:30]` set for the boot mode;
+- the ROM image (section 3), plus IRAM/DRAM images or a debug-UART driver.
 
-### One-command full flow
+The application UART is a 16550; the program sets the baud divisor (baud = clk / (16 × divisor)). The program's result word is at `0x8001_0000`.
 
-```bash
-python scripts/run_all.py
-```
+---
 
-This automatically: assembles → ISS verifies → detects your simulator → runs RTL sim → prints a summary.
+## 7. Verification
 
-## Test Programs
+The SoC passes these regressions in Questa, with `CLK_GATING` both 1 and 0:
 
-### rv32i_compliance.s — Full ISA Compliance Test ★
-
-The most important test. Systematically exercises **every RV32I instruction** with 41 self-checking sub-tests:
-
-| Group | Tests | Instructions Covered |
-|-------|-------|---------------------|
-| R-type ALU | 0–12 | `add`, `sub` (pos & neg), `and`, `or`, `xor`, `sll`, `srl`, `sra`, `slt` (taken/not), `sltu` |
-| I-type ALU | 13–21 | `addi`, `andi`, `ori`, `xori`, `slti`, `sltiu`, `slli`, `srli`, `srai` |
-| Load/Store | 22–26 | `sw`+`lw`, `sb`+`lbu`, `lb` sign-ext, `sh`+`lhu`, `lh` sign-ext |
-| Branches | 27–33 | `beq` (taken+not), `bne`, `blt`, `bge`, `bltu`, `bgeu` |
-| Upper+Jump | 34–37 | `lui`, `auipc`, `jal` (link verify), `jalr` (call/return) |
-| Edge cases | 38–40 | x0 immutability, integer overflow wrap, logical vs arithmetic shift |
-
-Run it alone:
-```bash
-python scripts/assemble.py rv32i_compliance
-python scripts/iss_verify.py rv32i_compliance --verbose
-```
-
-### Other Test Programs
-
-| Program | Description | Key Instructions Exercised |
-|---------|-------------|---------------------------|
-| `sort.s` | Bubble sort of 12 signed integers | `lui`, `add`, `slli`, `lw`, `sw`, `beq`, `bge`, `jal` |
-| `fib.s` | Iterative Fibonacci (first 12 numbers) | `add`, `addi`, `sw`, `bge`, `jal` |
-| `gcd.s` | GCD(1071, 462) = 21 via subtraction | `sub`, `beq`, `blt`, `jal` |
-| `mul.s` | Shift-and-add multiplication (no M ext) | `slli`, `srli`, `andi`, `add`, `beq`, `jalr` |
-| `primes.s` | Prime sieve up to 43 | `sub`, `blt`, `bge`, `jalr` |
-| `strlen_rev.s` | String length + reverse | `lb`, `lbu`, `sb`, `jalr` |
-
-## Writing a New Test Program
-
-1. **Create the assembly file** in `sw/asm/`:
-
-```asm
-# my_test.s — description of what it tests
-    .org 0x80
-    j    _start
-    j    trap_illegal
-    j    trap_ecall
-    j    trap_lsuerr
-
-_start:
-    # ... your test code ...
-    
-    # When done, write the done flag and park:
-    li   x8, 0xC0DE0001
-    sw   x8, 0(x0)
-halt:
-    j    halt
-
-# Exception handlers (copy from any existing test):
-trap_illegal:
-    li   x9, 0xBAD00001
-    j    trap_store
-trap_ecall:
-    li   x9, 0xBAD00002
-    j    trap_store
-trap_lsuerr:
-    li   x9, 0xBAD00003
-trap_store:
-    sw   x9, 4(x0)
-trap_halt:
-    j    trap_halt
-```
-
-2. **Assemble it:**
-```bash
-python scripts/assemble.py my_test
-```
-
-3. **Test with the ISS:**
-```bash
-python sw/iss.py sw/hex/my_test.hex --all --signed
-```
-
-4. **(Optional)** Add expected results to `scripts/iss_verify.py` in the `EXPECTED` dict.
-
-5. **(Optional)** Create a testbench `tb/tb_my_test.v` for RTL simulation.
-
-## Memory Map Convention
-All test programs follow this convention:
-
-| Address | Purpose |
-|---------|---------|
-| `0x000` | Status word — `0xC0DE0001` when program completes |
-| `0x004` | Trap marker — non-zero if an exception fired |
-| `0x080` | Reset vector (boot address + `0x80`) |
-| `0x084` | Illegal instruction exception vector |
-| `0x088` | ECALL exception vector |
-| `0x08C` | Load/store error exception vector |
-| `0x100+` | Program data region |
-
-## UART Debug Protocol
-
-The UART debug unit accepts commands over the serial link (default 115200 baud on FPGA, 8 clks/bit in simulation):
-
-| Command | Byte(s) Sent | Response | Description |
-|---------|-------------|----------|-------------|
-| HALT | `0x01` | `0x90` (ACK) | Halt the core |
-| RESUME | `0x02` | `0x91` (ACK) | Resume execution |
-| STATUS | `0x04` | 1 byte (bit 0 = halted) | Query halt status |
-| READ GPR | `0x10`, `reg[4:0]` | 4 bytes (LSB first) | Read register x0–x31 |
-| READ MEM | `0x40`, `addr[31:0]` (LSB first) | 4 bytes (LSB first) | Read 32-bit word from data bus |
-| WRITE MEM | `0x80`, `addr[31:0]`, `data[31:0]` | `0x92` (ACK) | Write 32-bit word to data bus |
-
-## Supported RV32I Instructions
-
-The assembler (`sw/rv32i_asm.py`) and core support:
-
-- **R-type:** `add`, `sub`, `sll`, `slt`, `sltu`, `xor`, `srl`, `sra`, `or`, `and`
-- **I-type:** `addi`, `slti`, `sltiu`, `xori`, `ori`, `andi`, `slli`, `srli`, `srai`
-- **Load:** `lb`, `lh`, `lw`, `lbu`, `lhu`
-- **Store:** `sb`, `sh`, `sw`
-- **Branch:** `beq`, `bne`, `blt`, `bge`, `bltu`, `bgeu`
-- **Jump:** `jal`, `jalr`
-- **Upper:** `lui`, `auipc`
-- **Pseudo-ops:** `li` (load immediate), `nop`, `j` (unconditional jump)
-
-
+| Suite | Content |
+|---|---|
+| riscv-arch-test | RV32I, C and Zicsr compliance subset (65 tests) |
+| Random instructions | 100 random programs, register and memory state checked against the Spike ISS |
+| Boot | SDC flash boot (good and corrupted images), direct boot, debug-UART boot |
+| Peripherals & interrupts | CLINT timer/software interrupts, PLIC, all 32 GPIO pins, UART, SPI/SDC, exceptions, FreeRTOS soak test |
+| Bus | 3-master arbitration with debug traffic, unmapped and wrong-size accesses (ERROR response → trap) |

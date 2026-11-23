@@ -1,8 +1,5 @@
 `include "rv32i_defines.vh"
 module rv32i_controller
-#(
-  parameter REG_ADDR_WIDTH = 5
-)
 (
   input  wire clk,
   input  wire rst_n,
@@ -27,6 +24,8 @@ module rv32i_controller
   output reg  [1:0]  exc_pc_mux_o,     // Exception PC target selector
   // LSU
   input  wire data_misaligned_i,
+  input  wire lsu_load_err_i,   // load finished with a bus error
+  input  wire lsu_store_err_i,  // store finished with a bus error
   // Jump / Branch signals
   input  wire branch_in_id_i,   // Branch instruction in ID
   input  wire branch_taken_ex_i,// Branch taken in EX
@@ -219,7 +218,20 @@ module rv32i_controller
           is_decoding_o = 1'b1;
  
           // Priority-encoded event handling
-          if (branch_set_i) begin
+          if (lsu_load_err_i | lsu_store_err_i) begin
+            // Load/store access fault: the faulting load/store is still in ID
+            // (its register write is blocked in the ID stage), so mepc = pc_id.
+            pc_mux_o         = `PC_EXCEPTION;
+            pc_set_o         = 1'b1;
+            exc_pc_mux_o     = `EXC_PC_LOAD;
+            csr_save_id_o    = 1'b1;
+            csr_save_cause_o = 1'b1;
+            exc_cause_o      = lsu_load_err_i ? `EXC_CAUSE_LOAD_FAULT : `EXC_CAUSE_STORE_FAULT;
+            csr_cause_o      = lsu_load_err_i ? `EXC_CAUSE_LOAD_FAULT : `EXC_CAUSE_STORE_FAULT;
+            dbg_trap_o       = dbg_settings_i[`DBG_SETS_ELSU] |
+                               dbg_settings_i[`DBG_SETS_SSTE];
+
+          end else if (branch_set_i) begin
             pc_mux_o       = `PC_JUMP;
             pc_set_o       = 1'b1;
             perf_tbranch_o = 1'b1;
@@ -334,6 +346,7 @@ module rv32i_controller
  
         exc_pc_mux_o     = `EXC_PC_IRQ;
         exc_cause_o      = {1'b0, irq_id_ctrl_i};
+        dbg_trap_o       = dbg_settings_i[`DBG_SETS_IRQ];
  
         csr_save_cause_o = 1'b1;
         csr_cause_o      = {1'b1, irq_id_ctrl_i};

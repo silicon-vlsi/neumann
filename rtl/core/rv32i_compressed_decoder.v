@@ -46,8 +46,7 @@ module rv32i_compressed_decoder
                         instr_o = {{6{instr_i[12]}}, instr_i[12],
                                    instr_i[6:2], 5'b0, 3'b000,
                                    instr_i[11:7], `OPCODE_OPIMM};
-                        if (instr_i[11:7] == 5'b0)
-                            illegal_instr_o = 1'b1;
+                        // rd = x0 is a HINT (RVC spec): executes as a no-op, not illegal
                     end
                     3'b011: begin
                         if (instr_i[11:7] == 5'h02) begin
@@ -60,8 +59,7 @@ module rv32i_compressed_decoder
                             // c.lui → lui rd, imm
                             instr_o = {{15{instr_i[12]}}, instr_i[6:2],
                                        instr_i[11:7], `OPCODE_LUI};
-                            if (instr_i[11:7] == 5'b0)
-                                illegal_instr_o = 1'b1;
+                            // rd = x0 is a HINT (RVC spec): executes as a no-op, not illegal
                         end
                         if ({instr_i[12], instr_i[6:2]} == 6'b0)
                             illegal_instr_o = 1'b1;
@@ -142,6 +140,7 @@ module rv32i_compressed_decoder
                                     default: illegal_instr_o = 1'b1;
                                 endcase
                             end
+                            default: ;
                         endcase
                     end
                     3'b110, 3'b111: 
@@ -167,9 +166,9 @@ module rv32i_compressed_decoder
                         instr_o = {7'b0, instr_i[6:2],
                                    instr_i[11:7], 3'b001,
                                    instr_i[11:7], `OPCODE_OPIMM};
-                        if (instr_i[11:7] == 5'b0)
-                            illegal_instr_o = 1'b1;
-                        if (instr_i[12] == 1'b1 || instr_i[6:2] == 5'b0)
+                        // rd = x0 or shamt = 0 is a HINT (RVC spec): executes as a no-op.
+                        // shamt[5] = 1 is reserved on RV32 (NSE) and stays illegal.
+                        if (instr_i[12] == 1'b1)
                             illegal_instr_o = 1'b1;
                     end
                     3'b010: 
@@ -204,13 +203,11 @@ module rv32i_compressed_decoder
                         end 
                         else 
                         begin
-                            if (instr_i[11:7] == 5'b0) 
+                            if (instr_i[11:7] == 5'b0 && instr_i[6:2] == 5'b0)
                             begin
                                 // c.ebreak → ebreak
                                 instr_o = 32'h00100073;
-                                if (instr_i[6:2] != 5'b0)
-                                    illegal_instr_o = 1'b1;
-                            end 
+                            end
                             else if (instr_i[6:2] == 5'b0)
                             begin
                                 // c.jalr → jalr x1, rs1, 0
@@ -219,7 +216,7 @@ module rv32i_compressed_decoder
                             end
                              else 
                              begin
-                                // c.add → add rd, rd, rs2
+                                // c.add → add rd, rd, rs2   (rd = x0: HINT, no-op)
                                 instr_o = {7'b0, instr_i[6:2],
                                            instr_i[11:7], 3'b000,
                                            instr_i[11:7], `OPCODE_OP};

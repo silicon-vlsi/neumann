@@ -10,7 +10,7 @@
 module rv32i_id_stage
 #(
   parameter DATA_WIDTH=32,
-  parameter RV32E=0
+  parameter CLK_GATING=1
 )
 (
   input wire clk,
@@ -23,7 +23,6 @@ module rv32i_id_stage
   input wire instr_valid_i,
   input wire [31:0] instr_rdata_i,
   output wire instr_req_o,
-  output wire branch_in_ex_o,
   input wire branch_decision_i,
   output wire clear_instr_valid_o,
   output wire pc_set_o,
@@ -245,7 +244,7 @@ begin
   end
 end
 rv32i_register_file
-#(.RV32E(RV32E),.DATA_WIDTH(DATA_WIDTH))
+#(.DATA_WIDTH(DATA_WIDTH),.CLK_GATING(CLK_GATING))
 registers_i
 (
   .clk(clk),
@@ -314,6 +313,8 @@ rv32i_controller controller_i
   .exc_pc_mux_o(exc_pc_mux_o),
   .exc_cause_o(exc_cause_o),
   .data_misaligned_i(data_misaligned_i),
+  .lsu_load_err_i(lsu_load_err_i),
+  .lsu_store_err_i(lsu_store_err_i),
   .branch_in_id_i(branch_in_id),
   .branch_taken_ex_i(branch_taken_ex),
   .branch_set_i(branch_set_q),
@@ -368,7 +369,6 @@ assign alu_operand_a_ex_o=alu_operand_a;
 assign alu_operand_b_ex_o=alu_operand_b;
 assign csr_access_ex_o=csr_access;
 assign csr_op_ex_o=csr_op;
-assign branch_in_ex_o=branch_in_id;
 always @(posedge clk or negedge rst_n) 
 begin
   if(~rst_n) 
@@ -428,7 +428,8 @@ begin
     begin
       if(ex_ready_i) 
       begin
-        regfile_we=regfile_we_id;
+        // a load that ended with a bus error must not write its register
+        regfile_we=regfile_we_id&(~lsu_load_err_i);
         id_wb_fsm_ns=`S_IDLE;
         load_stall=1'b0;
         select_data_rf=data_req_id?`RF_LSU:`RF_EX;

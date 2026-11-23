@@ -4,8 +4,7 @@ module rv32i_cs_registers
     // Number of built-in performance counters (1..11).
     //   2  : cycles + instructions (default, tapeout configuration)
     //   11 : full PULP-style event set (profiling configuration)
-    parameter N_PERF_CNT = 2,
-    parameter N_EXT_CNT  = 0
+    parameter N_PERF_CNT = 2
 )
 (
     input clk,
@@ -22,6 +21,7 @@ module rv32i_cs_registers
     // Interrupts
     output m_irq_enable_o,
     output [31:0] mepc_o,
+    output [23:0] mtvec_o,            // trap vector base (address bits [31:8])
     input  [31:0] pc_if_i,
     input  [31:0] pc_id_i,
     input  csr_save_if_i,
@@ -30,7 +30,6 @@ module rv32i_cs_registers
     input  [5:0] csr_cause_i,
     input  csr_save_cause_i,
     // Performance counter inputs
-    input if_valid_i,
     input id_valid_i,
     input is_compressed_i,
     input is_decoding_i,
@@ -40,10 +39,9 @@ module rv32i_cs_registers
     input branch_i,
     input branch_taken_i,
     input mem_load_i,
-    input mem_store_i,
-    input  [N_EXT_CNT-1:0] ext_counters_i
+    input mem_store_i
 );
-    localparam N_PERF_COUNTERS = N_PERF_CNT + N_EXT_CNT;
+    localparam N_PERF_COUNTERS = N_PERF_CNT;
     localparam N_PERF_REGS     = N_PERF_COUNTERS;
     // mstatus fields (replaces SV struct)
     reg mstatus_mie_q,  mstatus_mie_n;
@@ -51,6 +49,12 @@ module rv32i_cs_registers
     // mpp is always PRIV_LVL_M (2'b11), hardwired
     reg [31:0] mepc_q, mepc_n;
     reg [5:0]  mcause_q, mcause_n;
+    // mtvec: writable, 256-byte aligned (bits [7:0] read as 0).
+    // Until software writes it, the base follows boot_addr_i.
+    reg [23:0] mtvec_q, mtvec_n;
+    reg        mtvec_set_q, mtvec_set_n;
+    wire [23:0] mtvec_base;
+    assign mtvec_base = mtvec_set_q ? mtvec_q : boot_addr_i;
     // CSR operation
     reg [31:0] csr_wdata_int;
     reg [31:0] csr_rdata_int;
@@ -71,12 +75,13 @@ module rv32i_cs_registers
     // outputs
     assign m_irq_enable_o = mstatus_mie_q;
     assign mepc_o = mepc_q;
+    assign mtvec_o = mtvec_base;
     // CSR read logic
     always @(*) begin
         csr_rdata_int = 32'b0;
         case (csr_addr_i)
             12'h300: csr_rdata_int = {19'b0, `PRIV_LVL_M, 3'b0, mstatus_mpie_q, 3'b0, mstatus_mie_q, 3'b0};
-            12'h305: csr_rdata_int = {boot_addr_i, 8'h0};
+            12'h305: csr_rdata_int = {mtvec_base, 8'h0};
             12'h341: csr_rdata_int = mepc_q;
             12'h342: csr_rdata_int = {mcause_q[5], 26'b0, mcause_q[4:0]};
             12'hF14: csr_rdata_int = {21'b0, cluster_id_i[5:0], 1'b0, core_id_i[3:0]};
@@ -89,12 +94,20 @@ module rv32i_cs_registers
         mstatus_mie_n  = mstatus_mie_q;
         mstatus_mpie_n = mstatus_mpie_q;
         mcause_n = mcause_q;
+        mtvec_n = mtvec_q;
+        mtvec_set_n = mtvec_set_q;
         case (csr_addr_i)
             12'h300: 
             if (csr_we_int) 
             begin
                 mstatus_mie_n  = csr_wdata_int[3];
                 mstatus_mpie_n = csr_wdata_int[7];
+            end
+            12'h305: 
+            if (csr_we_int) 
+            begin
+                mtvec_n     = csr_wdata_int[31:8];
+                mtvec_set_n = 1'b1;
             end
             12'h341: if (csr_we_int) mepc_n = csr_wdata_int;
             12'h342: if (csr_we_int) mcause_n = {csr_wdata_int[31], csr_wdata_int[4:0]};
@@ -131,6 +144,7 @@ module rv32i_cs_registers
                 csr_wdata_int = csr_wdata_i;
                 csr_we_int    = 1'b0;
             end
+            default: ;
         endcase
     end
     // output mux
@@ -150,9 +164,13 @@ module rv32i_cs_registers
             mstatus_mpie_q <= 1'b0;
             mepc_q         <= 32'b0;
             mcause_q       <= 6'b0;
+            mtvec_q        <= 24'b0;
+            mtvec_set_q    <= 1'b0;
         end 
         else 
         begin
+            mtvec_q        <= mtvec_n;
+            mtvec_set_q    <= mtvec_set_n;
             mstatus_mie_q  <= mstatus_mie_n;
             mstatus_mpie_q <= mstatus_mpie_n;
             mepc_q         <= mepc_n;
@@ -179,13 +197,6 @@ module rv32i_cs_registers
 
     assign PCCR_in[N_PERF_CNT-1:0] = perf_events[N_PERF_CNT-1:0];
 
-    genvar gi;
-    generate
-        for (gi = 0; gi < N_EXT_CNT; gi = gi + 1) 
-        begin 
-            assign PCCR_in[N_PERF_COUNTERS - N_EXT_CNT + gi] = ext_counters_i[gi];
-        end
-    endgenerate
     // perf counter address decoder
     integer rdi;
     always @(*) 
@@ -246,6 +257,7 @@ module rv32i_cs_registers
                     `CSR_OP_WRITE: PCCR_n[pi] = csr_wdata_i;
                     `CSR_OP_SET:   PCCR_n[pi] = csr_wdata_i | PCCR_q[pi];
                     `CSR_OP_CLEAR: PCCR_n[pi] = PCCR_q[pi] & ~csr_wdata_i;
+                    default: ;
                 endcase
             end
         end
@@ -262,6 +274,7 @@ module rv32i_cs_registers
                 `CSR_OP_WRITE: PCMR_n = csr_wdata_i[1:0];
                 `CSR_OP_SET:   PCMR_n = csr_wdata_i[1:0] | PCMR_q;
                 `CSR_OP_CLEAR: PCMR_n = PCMR_q & ~csr_wdata_i[1:0];
+                default: ;
             endcase
         end
         if (is_pcer) 
@@ -271,6 +284,7 @@ module rv32i_cs_registers
                 `CSR_OP_WRITE: PCER_n = csr_wdata_i[N_PERF_COUNTERS-1:0];
                 `CSR_OP_SET:   PCER_n = csr_wdata_i[N_PERF_COUNTERS-1:0] | PCER_q;
                 `CSR_OP_CLEAR: PCER_n = PCER_q & ~csr_wdata_i[N_PERF_COUNTERS-1:0];
+                default: ;
             endcase
         end
     end

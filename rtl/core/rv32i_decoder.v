@@ -303,9 +303,33 @@ module rv32i_decoder
           end
         end
       end
-      `OPCODE_SYSTEM: 
+      `OPCODE_FENCE:
       begin
-        if (instr_rdata_i[14:12] == 3'b000) 
+        case (instr_rdata_i[14:12])
+          3'b000:
+          begin
+            // FENCE: single in-order core, bus accesses are never reordered
+            // -> nothing to order, executes as a NOP (rd / rs1 / fm ignored)
+          end
+          3'b001:
+          begin
+            // FENCE.I: jump to PC + 4, which flushes the prefetch buffer so
+            // instructions stored before the FENCE.I are fetched fresh
+            jump_in_id = 1'b1;
+            alu_op_a_mux_sel_o = `OP_A_CURRPC;
+            alu_op_b_mux_sel_o = `OP_B_IMM;
+            imm_b_mux_sel_o    = `IMMB_PCINCR;
+            alu_operator_o     = `ALU_ADD;
+          end
+          default:
+          begin
+            illegal_insn_o = 1'b1;
+          end
+        endcase
+      end
+      `OPCODE_SYSTEM:
+      begin
+        if (instr_rdata_i[14:12] == 3'b000)
         begin
           // Non-CSR SYSTEM instructions; encoded in bits [31:20]
           case (instr_rdata_i[31:20])
