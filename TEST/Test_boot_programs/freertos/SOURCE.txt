@@ -1,0 +1,15 @@
+FreeRTOS kernel subset (unmodified files), MIT license (see LICENSE.md).
+Source : https://github.com/FreeRTOS/FreeRTOS-Kernel
+Commit : 83a45bf290024de16ca94df1f7262bcde6c82ffe  (V11.1.0+, 2026-11-17)
+Files  : tasks.c list.c queue.c include/*  portable/MemMang/heap_1.c
+         portable/RISC-V/{port.c,portASM.S,portContext.h,portmacro.h}  (= portable/GCC/RISC-V)
+         portable/RISC-V/freertos_risc_v_chip_specific_extensions.h
+           (= portable/GCC/RISC-V/chip_specific_extensions/RISCV_MTIME_CLINT_no_extensions)
+Port notes for the neumann core:
+  - mtime/mtimecmp: Wally CLINT, 0x0200_BFF8 / 0x0200_4000, mtime counts every clock.
+  - "csrs mie" in xPortStartScheduler: the core has no mie CSR; unknown CSRs read 0 and
+    ignore writes (no trap), so this is a no-op. Interrupts are gated by mstatus.MIE and at
+    the source (mtimecmp), which is what the port relies on.
+  - The core traps vectored (interrupt n -> mtvec + 4n, exceptions -> mtvec + 0x84/0x88/0x8C).
+    programs/rtos/start_rtos.S puts "j freertos_risc_v_trap_handler" in every vector; the
+    handler dispatches on mcause.

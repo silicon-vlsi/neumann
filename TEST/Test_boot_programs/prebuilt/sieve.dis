@@ -1,0 +1,192 @@
+
+/home/claude/clean/neumann_soc/TEST/Test_boot_programs/build/sieve.elf:	file format elf32-littleriscv
+
+Disassembly of section .vectors:
+
+80000000 <_vectors>:
+80000000: 6f 00 80 0c  	j	0x800000c8 <trap_entry>
+80000004: 6f 00 40 0c  	j	0x800000c8 <trap_entry>
+80000008: 6f 00 00 0c  	j	0x800000c8 <trap_entry>
+8000000c: 6f 00 c0 0b  	j	0x800000c8 <trap_entry>
+80000010: 6f 00 80 0b  	j	0x800000c8 <trap_entry>
+80000014: 6f 00 40 0b  	j	0x800000c8 <trap_entry>
+80000018: 6f 00 00 0b  	j	0x800000c8 <trap_entry>
+8000001c: 6f 00 c0 0a  	j	0x800000c8 <trap_entry>
+80000020: 6f 00 80 0a  	j	0x800000c8 <trap_entry>
+80000024: 6f 00 40 0a  	j	0x800000c8 <trap_entry>
+80000028: 6f 00 00 0a  	j	0x800000c8 <trap_entry>
+8000002c: 6f 00 c0 09  	j	0x800000c8 <trap_entry>
+80000030: 6f 00 80 09  	j	0x800000c8 <trap_entry>
+80000034: 6f 00 40 09  	j	0x800000c8 <trap_entry>
+80000038: 6f 00 00 09  	j	0x800000c8 <trap_entry>
+8000003c: 6f 00 c0 08  	j	0x800000c8 <trap_entry>
+80000040: 6f 00 80 08  	j	0x800000c8 <trap_entry>
+80000044: 6f 00 40 08  	j	0x800000c8 <trap_entry>
+80000048: 6f 00 00 08  	j	0x800000c8 <trap_entry>
+8000004c: 6f 00 c0 07  	j	0x800000c8 <trap_entry>
+80000050: 6f 00 80 07  	j	0x800000c8 <trap_entry>
+80000054: 6f 00 40 07  	j	0x800000c8 <trap_entry>
+80000058: 6f 00 00 07  	j	0x800000c8 <trap_entry>
+8000005c: 6f 00 c0 06  	j	0x800000c8 <trap_entry>
+80000060: 6f 00 80 06  	j	0x800000c8 <trap_entry>
+80000064: 6f 00 40 06  	j	0x800000c8 <trap_entry>
+80000068: 6f 00 00 06  	j	0x800000c8 <trap_entry>
+8000006c: 6f 00 c0 05  	j	0x800000c8 <trap_entry>
+80000070: 6f 00 80 05  	j	0x800000c8 <trap_entry>
+80000074: 6f 00 40 05  	j	0x800000c8 <trap_entry>
+80000078: 6f 00 00 05  	j	0x800000c8 <trap_entry>
+8000007c: 6f 00 c0 04  	j	0x800000c8 <trap_entry>
+80000080: 6f 00 00 01  	j	0x80000090 <_start>
+80000084: 6f 00 40 04  	j	0x800000c8 <trap_entry>
+80000088: 6f 00 00 04  	j	0x800000c8 <trap_entry>
+8000008c: 6f 00 c0 03  	j	0x800000c8 <trap_entry>
+
+Disassembly of section .text:
+
+80000090 <_start>:
+80000090: 17 21 01 00  	auipc	sp, 0x12
+80000094: 13 01 01 f7  	addi	sp, sp, -0x90
+
+80000098 <.Lpcrel_hi1>:
+80000098: 97 02 01 00  	auipc	t0, 0x10
+8000009c: 93 82 82 fa  	addi	t0, t0, -0x58
+
+800000a0 <.Lpcrel_hi2>:
+800000a0: 17 13 01 00  	auipc	t1, 0x11
+800000a4: 13 03 03 de  	addi	t1, t1, -0x220
+800000a8: 63 f6 62 00  	bgeu	t0, t1, 0x800000b4 <.Lpcrel_hi2+0x14>
+800000ac: 23 a0 02 00  	sw	zero, 0x0(t0)
+800000b0: 91 02        	addi	t0, t0, 0x4
+800000b2: dd bf        	j	0x800000a8 <.Lpcrel_hi2+0x8>
+800000b4: 97 00 00 00  	auipc	ra, 0x0
+800000b8: e7 80 60 08  	jalr	0x86(ra) <main>
+800000bc: b7 02 01 80  	lui	t0, 0x80010
+800000c0: 23 a0 a2 00  	sw	a0, 0x0(t0)
+800000c4: 01 a0        	j	0x800000c4 <.Lpcrel_hi2+0x24>
+800000c6: 01 00        	nop
+
+800000c8 <trap_entry>:
+800000c8: 39 71        	addi	sp, sp, -0x40
+800000ca: 06 c0        	sw	ra, 0x0(sp)
+800000cc: 16 c2        	sw	t0, 0x4(sp)
+800000ce: 1a c4        	sw	t1, 0x8(sp)
+800000d0: 1e c6        	sw	t2, 0xc(sp)
+800000d2: 2a c8        	sw	a0, 0x10(sp)
+800000d4: 2e ca        	sw	a1, 0x14(sp)
+800000d6: 32 cc        	sw	a2, 0x18(sp)
+800000d8: 36 ce        	sw	a3, 0x1c(sp)
+800000da: 3a d0        	sw	a4, 0x20(sp)
+800000dc: 3e d2        	sw	a5, 0x24(sp)
+800000de: 42 d4        	sw	a6, 0x28(sp)
+800000e0: 46 d6        	sw	a7, 0x2c(sp)
+800000e2: 72 d8        	sw	t3, 0x30(sp)
+800000e4: 76 da        	sw	t4, 0x34(sp)
+800000e6: 7a dc        	sw	t5, 0x38(sp)
+800000e8: 7e de        	sw	t6, 0x3c(sp)
+800000ea: 73 25 20 34  	csrr	a0, mcause
+800000ee: f3 25 10 34  	csrr	a1, mepc
+800000f2: 97 00 00 00  	auipc	ra, 0x0
+800000f6: e7 80 20 03  	jalr	0x32(ra) <c_trap>
+800000fa: 73 10 15 34  	csrw	mepc, a0
+800000fe: 82 40        	lw	ra, 0x0(sp)
+80000100: 92 42        	lw	t0, 0x4(sp)
+80000102: 22 43        	lw	t1, 0x8(sp)
+80000104: b2 43        	lw	t2, 0xc(sp)
+80000106: 42 45        	lw	a0, 0x10(sp)
+80000108: d2 45        	lw	a1, 0x14(sp)
+8000010a: 62 46        	lw	a2, 0x18(sp)
+8000010c: f2 46        	lw	a3, 0x1c(sp)
+8000010e: 02 57        	lw	a4, 0x20(sp)
+80000110: 92 57        	lw	a5, 0x24(sp)
+80000112: 22 58        	lw	a6, 0x28(sp)
+80000114: b2 58        	lw	a7, 0x2c(sp)
+80000116: 42 5e        	lw	t3, 0x30(sp)
+80000118: d2 5e        	lw	t4, 0x34(sp)
+8000011a: 62 5f        	lw	t5, 0x38(sp)
+8000011c: f2 5f        	lw	t6, 0x3c(sp)
+8000011e: 21 61        	addi	sp, sp, 0x40
+80000120: 73 00 20 30  	mret
+
+80000124 <c_trap>:
+80000124: b7 f5 d0 ba  	lui	a1, 0xbad0f
+80000128: 4d 8d        	or	a0, a0, a1
+8000012a: b7 05 d1 ba  	lui	a1, 0xbad10
+8000012e: fd 15        	addi	a1, a1, -0x1
+80000130: 6d 8d        	and	a0, a0, a1
+80000132: b7 05 01 80  	lui	a1, 0x80010
+80000136: 88 c1        	sw	a0, 0x0(a1)
+80000138: 01 a0        	j	0x80000138 <c_trap+0x14>
+
+8000013a <main>:
+8000013a: 81 42        	li	t0, 0x0
+8000013c: 81 45        	li	a1, 0x0
+8000013e: 09 46        	li	a2, 0x2
+80000140: 37 05 01 80  	lui	a0, 0x80010
+80000144: 13 07 05 04  	addi	a4, a0, 0x40
+80000148: 37 15 01 80  	lui	a0, 0x80011
+8000014c: 93 08 05 84  	addi	a7, a0, -0x7c0
+80000150: 13 08 f0 3f  	li	a6, 0x3ff
+80000154: 85 47        	li	a5, 0x1
+80000156: 13 93 b7 00  	slli	t1, a5, 0xb
+8000015a: 29 a0        	j	0x80000164 <main+0x2a>
+8000015c: 9e 85        	mv	a1, t2
+8000015e: 05 06        	addi	a2, a2, 0x1
+80000160: 63 0a 66 02  	beq	a2, t1, 0x80000194 <main+0x5a>
+80000164: 33 05 c7 00  	add	a0, a4, a2
+80000168: 03 45 05 00  	lbu	a0, 0x0(a0)
+8000016c: 6d f9        	bnez	a0, 0x8000015e <main+0x24>
+8000016e: 93 83 15 00  	addi	t2, a1, 0x1
+80000172: 8a 05        	slli	a1, a1, 0x2
+80000174: c6 95        	add	a1, a1, a7
+80000176: 90 c1        	sw	a2, 0x0(a1)
+80000178: b2 92        	add	t0, t0, a2
+8000017a: e3 61 c8 fe  	bltu	a6, a2, 0x8000015c <main+0x22>
+8000017e: 93 15 16 00  	slli	a1, a2, 0x1
+80000182: b3 06 b7 00  	add	a3, a4, a1
+80000186: b2 95        	add	a1, a1, a2
+80000188: 13 d5 b5 00  	srli	a0, a1, 0xb
+8000018c: 23 80 f6 00  	sb	a5, 0x0(a3)
+80000190: 6d d9        	beqz	a0, 0x80000182 <main+0x48>
+80000192: e9 b7        	j	0x8000015c <main+0x22>
+80000194: 37 26 01 80  	lui	a2, 0x80012
+80000198: 23 20 b6 c0  	sw	a1, -0x400(a2)
+8000019c: 23 22 56 c0  	sw	t0, -0x3fc(a2)
+800001a0: 13 95 25 00  	slli	a0, a1, 0x2
+800001a4: b7 16 01 80  	lui	a3, 0x80011
+800001a8: 13 87 06 84  	addi	a4, a3, -0x7c0
+800001ac: 3a 95        	add	a0, a0, a4
+800001ae: 83 27 c5 ff  	lw	a5, -0x4(a0)
+800001b2: 23 24 f6 c0  	sw	a5, -0x3f8(a2)
+800001b6: 83 a6 06 84  	lw	a3, -0x7c0(a3)
+800001ba: 23 26 d6 c0  	sw	a3, -0x3f4(a2)
+800001be: 54 43        	lw	a3, 0x4(a4)
+800001c0: 23 28 d6 c0  	sw	a3, -0x3f0(a2)
+800001c4: 14 47        	lw	a3, 0x8(a4)
+800001c6: 23 2a d6 c0  	sw	a3, -0x3ec(a2)
+800001ca: 54 47        	lw	a3, 0xc(a4)
+800001cc: 23 2c d6 c0  	sw	a3, -0x3e8(a2)
+800001d0: 14 4b        	lw	a3, 0x10(a4)
+800001d2: 23 2e d6 c0  	sw	a3, -0x3e4(a2)
+800001d6: 54 4b        	lw	a3, 0x14(a4)
+800001d8: 23 20 d6 c2  	sw	a3, -0x3e0(a2)
+800001dc: 14 4f        	lw	a3, 0x18(a4)
+800001de: 23 22 d6 c2  	sw	a3, -0x3dc(a2)
+800001e2: 54 4f        	lw	a3, 0x1c(a4)
+800001e4: 23 24 d6 c2  	sw	a3, -0x3d8(a2)
+800001e8: 0d 47        	li	a4, 0x3
+800001ea: ad 46        	li	a3, 0xb
+800001ec: 63 73 b7 02  	bgeu	a4, a1, 0x80000212 <main+0xd8>
+800001f0: 83 25 05 ff  	lw	a1, -0x10(a0)
+800001f4: 23 26 b6 c2  	sw	a1, -0x3d4(a2)
+800001f8: 83 25 45 ff  	lw	a1, -0xc(a0)
+800001fc: 23 28 b6 c2  	sw	a1, -0x3d0(a2)
+80000200: 83 25 85 ff  	lw	a1, -0x8(a0)
+80000204: 71 15        	addi	a0, a0, -0x4
+80000206: 23 2a b6 c2  	sw	a1, -0x3cc(a2)
+8000020a: 08 41        	lw	a0, 0x0(a0)
+8000020c: 23 2c a6 c2  	sw	a0, -0x3c8(a2)
+80000210: bd 46        	li	a3, 0xf
+80000212: 37 05 de c0  	lui	a0, 0xc0de0
+80000216: 05 05        	addi	a0, a0, 0x1
+80000218: 23 2e d6 be  	sw	a3, -0x404(a2)
+8000021c: 82 80        	ret

@@ -1,0 +1,3377 @@
+
+/home/claude/clean/neumann_soc/TEST/Test_boot_programs/build/rtos.elf:	file format elf32-littleriscv
+
+Disassembly of section .vectors:
+
+80000000 <_vectors>:
+80000000: 6f 20 00 40  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000004: 6f 20 c0 3f  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000008: 6f 20 80 3f  	j	0x80002400 <freertos_risc_v_trap_handler>
+8000000c: 6f 20 40 3f  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000010: 6f 20 00 3f  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000014: 6f 20 c0 3e  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000018: 6f 20 80 3e  	j	0x80002400 <freertos_risc_v_trap_handler>
+8000001c: 6f 20 40 3e  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000020: 6f 20 00 3e  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000024: 6f 20 c0 3d  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000028: 6f 20 80 3d  	j	0x80002400 <freertos_risc_v_trap_handler>
+8000002c: 6f 20 40 3d  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000030: 6f 20 00 3d  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000034: 6f 20 c0 3c  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000038: 6f 20 80 3c  	j	0x80002400 <freertos_risc_v_trap_handler>
+8000003c: 6f 20 40 3c  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000040: 6f 20 00 3c  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000044: 6f 20 c0 3b  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000048: 6f 20 80 3b  	j	0x80002400 <freertos_risc_v_trap_handler>
+8000004c: 6f 20 40 3b  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000050: 6f 20 00 3b  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000054: 6f 20 c0 3a  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000058: 6f 20 80 3a  	j	0x80002400 <freertos_risc_v_trap_handler>
+8000005c: 6f 20 40 3a  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000060: 6f 20 00 3a  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000064: 6f 20 c0 39  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000068: 6f 20 80 39  	j	0x80002400 <freertos_risc_v_trap_handler>
+8000006c: 6f 20 40 39  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000070: 6f 20 00 39  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000074: 6f 20 c0 38  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000078: 6f 20 80 38  	j	0x80002400 <freertos_risc_v_trap_handler>
+8000007c: 6f 20 40 38  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000080: 6f 00 00 08  	j	0x80000100 <_start>
+80000084: 6f 20 c0 37  	j	0x80002400 <freertos_risc_v_trap_handler>
+80000088: 6f 20 80 37  	j	0x80002400 <freertos_risc_v_trap_handler>
+8000008c: 6f 20 40 37  	j	0x80002400 <freertos_risc_v_trap_handler>
+
+Disassembly of section .text:
+
+80000100 <_start>:
+80000100: 17 21 01 00  	auipc	sp, 0x12
+80000104: 13 01 01 f0  	addi	sp, sp, -0x100
+
+80000108 <.Lpcrel_hi1>:
+80000108: 97 02 01 00  	auipc	t0, 0x10
+8000010c: 93 82 82 f4  	addi	t0, t0, -0xb8
+
+80000110 <.Lpcrel_hi2>:
+80000110: 17 13 01 00  	auipc	t1, 0x11
+80000114: 13 03 03 7a  	addi	t1, t1, 0x7a0
+80000118: 63 f6 62 00  	bgeu	t0, t1, 0x80000124 <.Lpcrel_hi2+0x14>
+8000011c: 23 a0 02 00  	sw	zero, 0x0(t0)
+80000120: 91 02        	addi	t0, t0, 0x4
+80000122: dd bf        	j	0x80000118 <.Lpcrel_hi2+0x8>
+80000124: 97 00 00 00  	auipc	ra, 0x0
+80000128: e7 80 80 10  	jalr	0x108(ra) <main>
+8000012c: b7 02 01 80  	lui	t0, 0x80010
+80000130: 23 a0 a2 00  	sw	a0, 0x0(t0)
+80000134: 01 a0        	j	0x80000134 <.Lpcrel_hi2+0x24>
+
+80000136 <memset>:
+80000136: 11 ca        	beqz	a2, 0x8000014a <memset+0x14>
+80000138: 2a 96        	add	a2, a2, a0
+8000013a: aa 86        	mv	a3, a0
+8000013c: 13 87 16 00  	addi	a4, a3, 0x1
+80000140: 23 80 b6 00  	sb	a1, 0x0(a3)
+80000144: ba 86        	mv	a3, a4
+80000146: e3 1b c7 fe  	bne	a4, a2, 0x8000013c <memset+0x6>
+8000014a: 82 80        	ret
+
+8000014c <memcpy>:
+8000014c: 09 ce        	beqz	a2, 0x80000166 <memcpy+0x1a>
+8000014e: 2a 96        	add	a2, a2, a0
+80000150: aa 86        	mv	a3, a0
+80000152: 03 c7 05 00  	lbu	a4, 0x0(a1)
+80000156: 85 05        	addi	a1, a1, 0x1
+80000158: 93 87 16 00  	addi	a5, a3, 0x1
+8000015c: 23 80 e6 00  	sb	a4, 0x0(a3)
+80000160: be 86        	mv	a3, a5
+80000162: e3 98 c7 fe  	bne	a5, a2, 0x80000152 <memcpy+0x6>
+80000166: 82 80        	ret
+
+80000168 <__mulsi3>:
+80000168: 01 46        	li	a2, 0x0
+8000016a: 89 c9        	beqz	a1, 0x8000017c <__mulsi3+0x14>
+8000016c: 93 96 f5 01  	slli	a3, a1, 0x1f
+80000170: fd 86        	srai	a3, a3, 0x1f
+80000172: e9 8e        	and	a3, a3, a0
+80000174: 36 96        	add	a2, a2, a3
+80000176: 85 81        	srli	a1, a1, 0x1
+80000178: 06 05        	slli	a0, a0, 0x1
+8000017a: ed f9        	bnez	a1, 0x8000016c <__mulsi3+0x4>
+8000017c: 32 85        	mv	a0, a2
+8000017e: 82 80        	ret
+
+80000180 <__muldi3>:
+80000180: 33 67 d6 00  	or	a4, a2, a3
+80000184: 05 cf        	beqz	a4, 0x800001bc <__muldi3+0x3c>
+80000186: 01 47        	li	a4, 0x0
+80000188: 01 48        	li	a6, 0x0
+8000018a: 93 17 f6 01  	slli	a5, a2, 0x1f
+8000018e: fd 87        	srai	a5, a5, 0x1f
+80000190: b3 f8 b7 00  	and	a7, a5, a1
+80000194: e9 8f        	and	a5, a5, a0
+80000196: 3e 97        	add	a4, a4, a5
+80000198: b3 37 f7 00  	sltu	a5, a4, a5
+8000019c: 46 98        	add	a6, a6, a7
+8000019e: 3e 98        	add	a6, a6, a5
+800001a0: 93 57 f5 01  	srli	a5, a0, 0x1f
+800001a4: 86 05        	slli	a1, a1, 0x1
+800001a6: dd 8d        	or	a1, a1, a5
+800001a8: 05 82        	srli	a2, a2, 0x1
+800001aa: 93 97 f6 01  	slli	a5, a3, 0x1f
+800001ae: 5d 8e        	or	a2, a2, a5
+800001b0: 85 82        	srli	a3, a3, 0x1
+800001b2: b3 67 d6 00  	or	a5, a2, a3
+800001b6: 06 05        	slli	a0, a0, 0x1
+800001b8: e9 fb        	bnez	a5, 0x8000018a <__muldi3+0xa>
+800001ba: 11 a0        	j	0x800001be <__muldi3+0x3e>
+800001bc: 01 48        	li	a6, 0x0
+800001be: 3a 85        	mv	a0, a4
+800001c0: c2 85        	mv	a1, a6
+800001c2: 82 80        	ret
+
+800001c4 <vAssertCalled>:
+800001c4: 73 70 04 30  	csrci	mstatus, 0x8
+800001c8: 37 05 01 80  	lui	a0, 0x80010
+800001cc: b7 a5 d0 ba  	lui	a1, 0xbad0a
+800001d0: 0c c1        	sw	a1, 0x0(a0)
+800001d2: 01 a0        	j	0x800001d2 <vAssertCalled+0xe>
+
+800001d4 <vApplicationStackOverflowHook>:
+800001d4: 73 70 04 30  	csrci	mstatus, 0x8
+800001d8: 37 05 01 80  	lui	a0, 0x80010
+800001dc: b7 b5 d0 ba  	lui	a1, 0xbad0b
+800001e0: 0c c1        	sw	a1, 0x0(a0)
+800001e2: 01 a0        	j	0x800001e2 <vApplicationStackOverflowHook+0xe>
+
+800001e4 <vApplicationMallocFailedHook>:
+800001e4: 73 70 04 30  	csrci	mstatus, 0x8
+800001e8: 37 05 01 80  	lui	a0, 0x80010
+800001ec: b7 c5 d0 ba  	lui	a1, 0xbad0c
+800001f0: 0c c1        	sw	a1, 0x0(a0)
+800001f2: 01 a0        	j	0x800001f2 <vApplicationMallocFailedHook+0xe>
+
+800001f4 <freertos_risc_v_application_exception_handler>:
+800001f4: 73 25 20 34  	csrr	a0, mcause
+800001f8: b7 f5 d0 ba  	lui	a1, 0xbad0f
+800001fc: 4d 8d        	or	a0, a0, a1
+800001fe: b7 05 d1 ba  	lui	a1, 0xbad10
+80000202: fd 15        	addi	a1, a1, -0x1
+80000204: 6d 8d        	and	a0, a0, a1
+80000206: 73 70 04 30  	csrci	mstatus, 0x8
+8000020a: b7 05 01 80  	lui	a1, 0x80010
+8000020e: 88 c1        	sw	a0, 0x0(a1)
+80000210: 01 a0        	j	0x80000210 <freertos_risc_v_application_exception_handler+0x1c>
+
+80000212 <freertos_risc_v_application_interrupt_handler>:
+80000212: 73 25 20 34  	csrr	a0, mcause
+80000216: 52 05        	slli	a0, a0, 0x14
+80000218: 51 81        	srli	a0, a0, 0x14
+8000021a: b7 e5 d0 ba  	lui	a1, 0xbad0e
+8000021e: 4d 8d        	or	a0, a0, a1
+80000220: 73 70 04 30  	csrci	mstatus, 0x8
+80000224: b7 05 01 80  	lui	a1, 0x80010
+80000228: 88 c1        	sw	a0, 0x0(a1)
+8000022a: 01 a0        	j	0x8000022a <freertos_risc_v_application_interrupt_handler+0x18>
+
+8000022c <main>:
+8000022c: 41 11        	addi	sp, sp, -0x10
+8000022e: 06 c6        	sw	ra, 0xc(sp)
+80000230: 22 c4        	sw	s0, 0x8(sp)
+80000232: 26 c2        	sw	s1, 0x4(sp)
+80000234: 4a c0        	sw	s2, 0x0(sp)
+80000236: 11 45        	li	a0, 0x4
+80000238: 91 45        	li	a1, 0x4
+8000023a: 01 46        	li	a2, 0x0
+8000023c: 97 10 00 00  	auipc	ra, 0x1
+80000240: e7 80 a0 6d  	jalr	0x6da(ra) <xQueueGenericCreate>
+80000244: 37 04 01 80  	lui	s0, 0x80010
+80000248: 23 28 a4 04  	sw	a0, 0x50(s0)
+8000024c: 05 45        	li	a0, 0x1
+8000024e: 97 10 00 00  	auipc	ra, 0x1
+80000252: e7 80 60 74  	jalr	0x746(ra) <xQueueCreateMutex>
+80000256: 83 25 04 05  	lw	a1, 0x50(s0)
+8000025a: 37 06 01 80  	lui	a2, 0x80010
+8000025e: 23 2a a6 04  	sw	a0, 0x54(a2)
+80000262: 37 c4 d0 ba  	lui	s0, 0xbad0c
+80000266: 05 04        	addi	s0, s0, 0x1
+80000268: 63 81 05 14  	beqz	a1, 0x800003aa <main+0x17e>
+8000026c: 63 0f 05 12  	beqz	a0, 0x800003aa <main+0x17e>
+80000270: 37 05 00 80  	lui	a0, 0x80000
+80000274: 13 05 85 3b  	addi	a0, a0, 0x3b8
+80000278: b7 25 00 80  	lui	a1, 0x80002
+8000027c: 93 85 d5 57  	addi	a1, a1, 0x57d
+80000280: 37 06 01 80  	lui	a2, 0x80010
+80000284: 93 07 86 05  	addi	a5, a2, 0x58
+80000288: 13 06 00 08  	li	a2, 0x80
+8000028c: 05 47        	li	a4, 0x1
+8000028e: 85 44        	li	s1, 0x1
+80000290: 81 46        	li	a3, 0x0
+80000292: 97 00 00 00  	auipc	ra, 0x0
+80000296: e7 80 c0 43  	jalr	0x43c(ra) <xTaskCreate>
+8000029a: 37 c4 d0 ba  	lui	s0, 0xbad0c
+8000029e: 09 04        	addi	s0, s0, 0x2
+800002a0: 63 15 95 10  	bne	a0, s1, 0x800003aa <main+0x17e>
+800002a4: 37 05 00 80  	lui	a0, 0x80000
+800002a8: 13 05 65 4c  	addi	a0, a0, 0x4c6
+800002ac: b7 25 00 80  	lui	a1, 0x80002
+800002b0: 93 85 b5 56  	addi	a1, a1, 0x56b
+800002b4: 13 06 00 08  	li	a2, 0x80
+800002b8: 0d 47        	li	a4, 0x3
+800002ba: 81 46        	li	a3, 0x0
+800002bc: 81 47        	li	a5, 0x0
+800002be: 97 00 00 00  	auipc	ra, 0x0
+800002c2: e7 80 00 41  	jalr	0x410(ra) <xTaskCreate>
+800002c6: 63 12 95 0e  	bne	a0, s1, 0x800003aa <main+0x17e>
+800002ca: 37 05 00 80  	lui	a0, 0x80000
+800002ce: 13 05 05 53  	addi	a0, a0, 0x530
+800002d2: b7 25 00 80  	lui	a1, 0x80002
+800002d6: 93 85 65 56  	addi	a1, a1, 0x566
+800002da: 13 06 00 08  	li	a2, 0x80
+800002de: 09 47        	li	a4, 0x2
+800002e0: 81 46        	li	a3, 0x0
+800002e2: 81 47        	li	a5, 0x0
+800002e4: 97 00 00 00  	auipc	ra, 0x0
+800002e8: e7 80 a0 3e  	jalr	0x3ea(ra) <xTaskCreate>
+800002ec: 37 c4 d0 ba  	lui	s0, 0xbad0c
+800002f0: 85 44        	li	s1, 0x1
+800002f2: 09 04        	addi	s0, s0, 0x2
+800002f4: 63 1b 95 0a  	bne	a0, s1, 0x800003aa <main+0x17e>
+800002f8: 37 05 00 80  	lui	a0, 0x80000
+800002fc: 13 05 85 5d  	addi	a0, a0, 0x5d8
+80000300: b7 25 00 80  	lui	a1, 0x80002
+80000304: 93 85 e5 55  	addi	a1, a1, 0x55e
+80000308: 13 06 00 08  	li	a2, 0x80
+8000030c: 0d 47        	li	a4, 0x3
+8000030e: 81 46        	li	a3, 0x0
+80000310: 81 47        	li	a5, 0x0
+80000312: 97 00 00 00  	auipc	ra, 0x0
+80000316: e7 80 c0 3b  	jalr	0x3bc(ra) <xTaskCreate>
+8000031a: 63 18 95 08  	bne	a0, s1, 0x800003aa <main+0x17e>
+8000031e: 37 05 00 80  	lui	a0, 0x80000
+80000322: 93 04 45 64  	addi	s1, a0, 0x644
+80000326: 37 25 00 80  	lui	a0, 0x80002
+8000032a: 93 05 35 56  	addi	a1, a0, 0x563
+8000032e: 13 06 00 08  	li	a2, 0x80
+80000332: 09 47        	li	a4, 0x2
+80000334: 26 85        	mv	a0, s1
+80000336: 81 46        	li	a3, 0x0
+80000338: 81 47        	li	a5, 0x0
+8000033a: 97 00 00 00  	auipc	ra, 0x0
+8000033e: e7 80 40 39  	jalr	0x394(ra) <xTaskCreate>
+80000342: 37 c4 d0 ba  	lui	s0, 0xbad0c
+80000346: 05 49        	li	s2, 0x1
+80000348: 09 04        	addi	s0, s0, 0x2
+8000034a: 63 10 25 07  	bne	a0, s2, 0x800003aa <main+0x17e>
+8000034e: 37 25 00 80  	lui	a0, 0x80002
+80000352: 93 05 05 57  	addi	a1, a0, 0x570
+80000356: 13 06 00 08  	li	a2, 0x80
+8000035a: 09 47        	li	a4, 0x2
+8000035c: 26 85        	mv	a0, s1
+8000035e: 81 46        	li	a3, 0x0
+80000360: 81 47        	li	a5, 0x0
+80000362: 97 00 00 00  	auipc	ra, 0x0
+80000366: e7 80 c0 36  	jalr	0x36c(ra) <xTaskCreate>
+8000036a: 63 10 25 05  	bne	a0, s2, 0x800003aa <main+0x17e>
+8000036e: 37 05 00 80  	lui	a0, 0x80000
+80000372: 13 05 e5 6b  	addi	a0, a0, 0x6be
+80000376: b7 25 00 80  	lui	a1, 0x80002
+8000037a: 93 85 35 57  	addi	a1, a1, 0x573
+8000037e: 13 06 00 08  	li	a2, 0x80
+80000382: 05 47        	li	a4, 0x1
+80000384: 05 44        	li	s0, 0x1
+80000386: 81 46        	li	a3, 0x0
+80000388: 81 47        	li	a5, 0x0
+8000038a: 97 00 00 00  	auipc	ra, 0x0
+8000038e: e7 80 40 34  	jalr	0x344(ra) <xTaskCreate>
+80000392: 63 19 85 00  	bne	a0, s0, 0x800003a4 <main+0x178>
+80000396: 97 10 00 00  	auipc	ra, 0x1
+8000039a: e7 80 a0 ae  	jalr	-0x516(ra) <vTaskStartScheduler>
+8000039e: 37 d4 d0 ba  	lui	s0, 0xbad0d
+800003a2: 21 a0        	j	0x800003aa <main+0x17e>
+800003a4: 37 c4 d0 ba  	lui	s0, 0xbad0c
+800003a8: 09 04        	addi	s0, s0, 0x2
+800003aa: 22 85        	mv	a0, s0
+800003ac: b2 40        	lw	ra, 0xc(sp)
+800003ae: 22 44        	lw	s0, 0x8(sp)
+800003b0: 92 44        	lw	s1, 0x4(sp)
+800003b2: 02 49        	lw	s2, 0x0(sp)
+800003b4: 41 01        	addi	sp, sp, 0x10
+800003b6: 82 80        	ret
+
+800003b8 <checker>:
+800003b8: 01 11        	addi	sp, sp, -0x20
+800003ba: 06 ce        	sw	ra, 0x1c(sp)
+800003bc: 22 cc        	sw	s0, 0x18(sp)
+800003be: 26 ca        	sw	s1, 0x14(sp)
+800003c0: 4a c8        	sw	s2, 0x10(sp)
+800003c2: 4e c6        	sw	s3, 0xc(sp)
+800003c4: 52 c4        	sw	s4, 0x8(sp)
+800003c6: 02 c2        	sw	zero, 0x4(sp)
+800003c8: 7d 56        	li	a2, -0x1
+800003ca: 54 00        	addi	a3, sp, 0x4
+800003cc: 7d 57        	li	a4, -0x1
+800003ce: 01 45        	li	a0, 0x0
+800003d0: 81 45        	li	a1, 0x0
+800003d2: 97 10 00 00  	auipc	ra, 0x1
+800003d6: e7 80 00 13  	jalr	0x130(ra) <xTaskGenericNotifyWait>
+800003da: 12 45        	lw	a0, 0x4(sp)
+800003dc: b7 05 01 80  	lui	a1, 0x80010
+800003e0: 23 ae a5 04  	sw	a0, 0x5c(a1)
+800003e4: 37 04 01 80  	lui	s0, 0x80010
+800003e8: b7 04 01 80  	lui	s1, 0x80010
+800003ec: 37 09 01 80  	lui	s2, 0x80010
+800003f0: b7 09 01 80  	lui	s3, 0x80010
+800003f4: 09 4a        	li	s4, 0x2
+800003f6: 03 25 04 06  	lw	a0, 0x60(s0)
+800003fa: 19 c9        	beqz	a0, 0x80000410 <checker+0x58>
+800003fc: 03 a5 44 06  	lw	a0, 0x64(s1)
+80000400: 01 c9        	beqz	a0, 0x80000410 <checker+0x58>
+80000402: 03 25 89 06  	lw	a0, 0x68(s2)
+80000406: 09 c5        	beqz	a0, 0x80000410 <checker+0x58>
+80000408: 03 a5 c9 06  	lw	a0, 0x6c(s3)
+8000040c: 63 08 45 01  	beq	a0, s4, 0x8000041c <checker+0x64>
+80000410: 05 45        	li	a0, 0x1
+80000412: 97 00 00 00  	auipc	ra, 0x0
+80000416: e7 80 60 54  	jalr	0x546(ra) <vTaskDelay>
+8000041a: f1 bf        	j	0x800003f6 <checker+0x3e>
+8000041c: 0d 45        	li	a0, 0x3
+8000041e: 97 00 00 00  	auipc	ra, 0x0
+80000422: e7 80 a0 53  	jalr	0x53a(ra) <vTaskDelay>
+80000426: 37 05 01 80  	lui	a0, 0x80010
+8000042a: 03 25 05 07  	lw	a0, 0x70(a0)
+8000042e: 37 24 01 80  	lui	s0, 0x80012
+80000432: 23 20 a4 c0  	sw	a0, -0x400(s0)
+80000436: 37 05 01 80  	lui	a0, 0x80010
+8000043a: 03 25 45 07  	lw	a0, 0x74(a0)
+8000043e: 23 22 a4 c0  	sw	a0, -0x3fc(s0)
+80000442: 37 05 01 80  	lui	a0, 0x80010
+80000446: 03 25 05 04  	lw	a0, 0x40(a0)
+8000044a: 23 24 a4 c0  	sw	a0, -0x3f8(s0)
+8000044e: 37 05 01 80  	lui	a0, 0x80010
+80000452: 03 25 85 07  	lw	a0, 0x78(a0)
+80000456: 23 26 a4 c0  	sw	a0, -0x3f4(s0)
+8000045a: 37 05 01 80  	lui	a0, 0x80010
+8000045e: 03 25 c5 07  	lw	a0, 0x7c(a0)
+80000462: 23 28 a4 c0  	sw	a0, -0x3f0(s0)
+80000466: 37 05 01 80  	lui	a0, 0x80010
+8000046a: 03 25 05 08  	lw	a0, 0x80(a0)
+8000046e: 23 2a a4 c0  	sw	a0, -0x3ec(s0)
+80000472: 37 05 01 80  	lui	a0, 0x80010
+80000476: 03 25 45 08  	lw	a0, 0x84(a0)
+8000047a: 33 35 a0 00  	snez	a0, a0
+8000047e: 23 2c a4 c0  	sw	a0, -0x3e8(s0)
+80000482: 37 05 01 80  	lui	a0, 0x80010
+80000486: 03 25 c5 05  	lw	a0, 0x5c(a0)
+8000048a: 23 2e a4 c0  	sw	a0, -0x3e4(s0)
+8000048e: 37 05 01 80  	lui	a0, 0x80010
+80000492: 03 25 05 05  	lw	a0, 0x50(a0)
+80000496: 97 20 00 00  	auipc	ra, 0x2
+8000049a: e7 80 a0 c6  	jalr	-0x396(ra) <uxQueueMessagesWaiting>
+8000049e: 13 35 15 00  	seqz	a0, a0
+800004a2: 23 20 a4 c2  	sw	a0, -0x3e0(s0)
+800004a6: 25 45        	li	a0, 0x9
+800004a8: 23 2e a4 be  	sw	a0, -0x404(s0)
+800004ac: 37 05 de c0  	lui	a0, 0xc0de0
+800004b0: 05 05        	addi	a0, a0, 0x1
+800004b2: b7 05 01 80  	lui	a1, 0x80010
+800004b6: 88 c1        	sw	a0, 0x0(a1)
+800004b8: 13 05 40 06  	li	a0, 0x64
+800004bc: 97 00 00 00  	auipc	ra, 0x0
+800004c0: e7 80 c0 49  	jalr	0x49c(ra) <vTaskDelay>
+800004c4: d5 bf        	j	0x800004b8 <checker+0x100>
+
+800004c6 <producer>:
+800004c6: 01 11        	addi	sp, sp, -0x20
+800004c8: 06 ce        	sw	ra, 0x1c(sp)
+800004ca: 22 cc        	sw	s0, 0x18(sp)
+800004cc: 26 ca        	sw	s1, 0x14(sp)
+800004ce: 4a c8        	sw	s2, 0x10(sp)
+800004d0: 4e c6        	sw	s3, 0xc(sp)
+800004d2: 81 44        	li	s1, 0x0
+800004d4: 05 45        	li	a0, 0x1
+800004d6: 2a c4        	sw	a0, 0x8(sp)
+800004d8: 37 09 01 80  	lui	s2, 0x80010
+800004dc: 95 49        	li	s3, 0x5
+800004de: 55 44        	li	s0, 0x15
+800004e0: 03 25 09 05  	lw	a0, 0x50(s2)
+800004e4: 2c 00        	addi	a1, sp, 0x8
+800004e6: 7d 56        	li	a2, -0x1
+800004e8: 81 46        	li	a3, 0x0
+800004ea: 97 10 00 00  	auipc	ra, 0x1
+800004ee: e7 80 80 4e  	jalr	0x4e8(ra) <xQueueGenericSend>
+800004f2: 85 04        	addi	s1, s1, 0x1
+800004f4: 63 98 34 01  	bne	s1, s3, 0x80000504 <producer+0x3e>
+800004f8: 09 45        	li	a0, 0x2
+800004fa: 97 00 00 00  	auipc	ra, 0x0
+800004fe: e7 80 e0 45  	jalr	0x45e(ra) <vTaskDelay>
+80000502: 81 44        	li	s1, 0x0
+80000504: 22 45        	lw	a0, 0x8(sp)
+80000506: 05 05        	addi	a0, a0, 0x1
+80000508: 2a c4        	sw	a0, 0x8(sp)
+8000050a: e3 6b 85 fc  	bltu	a0, s0, 0x800004e0 <producer+0x1a>
+8000050e: 37 05 01 80  	lui	a0, 0x80010
+80000512: 85 45        	li	a1, 0x1
+80000514: 23 20 b5 06  	sw	a1, 0x60(a0)
+80000518: 01 45        	li	a0, 0x0
+8000051a: 97 00 00 00  	auipc	ra, 0x0
+8000051e: e7 80 40 71  	jalr	0x714(ra) <vTaskSuspend>
+80000522: f2 40        	lw	ra, 0x1c(sp)
+80000524: 62 44        	lw	s0, 0x18(sp)
+80000526: d2 44        	lw	s1, 0x14(sp)
+80000528: 42 49        	lw	s2, 0x10(sp)
+8000052a: b2 49        	lw	s3, 0xc(sp)
+8000052c: 05 61        	addi	sp, sp, 0x20
+8000052e: 82 80        	ret
+
+80000530 <consumer>:
+80000530: 79 71        	addi	sp, sp, -0x30
+80000532: 06 d6        	sw	ra, 0x2c(sp)
+80000534: 22 d4        	sw	s0, 0x28(sp)
+80000536: 26 d2        	sw	s1, 0x24(sp)
+80000538: 4a d0        	sw	s2, 0x20(sp)
+8000053a: 4e ce        	sw	s3, 0x1c(sp)
+8000053c: 52 cc        	sw	s4, 0x18(sp)
+8000053e: 56 ca        	sw	s5, 0x14(sp)
+80000540: 5a c8        	sw	s6, 0x10(sp)
+80000542: 05 49        	li	s2, 0x1
+80000544: b7 09 01 80  	lui	s3, 0x80010
+80000548: 37 0b 01 80  	lui	s6, 0x80010
+8000054c: b7 04 01 80  	lui	s1, 0x80010
+80000550: 55 4a        	li	s4, 0x15
+80000552: b7 0a 01 80  	lui	s5, 0x80010
+80000556: 05 44        	li	s0, 0x1
+80000558: 03 a5 09 05  	lw	a0, 0x50(s3)
+8000055c: 6c 00        	addi	a1, sp, 0xc
+8000055e: 7d 56        	li	a2, -0x1
+80000560: 97 10 00 00  	auipc	ra, 0x1
+80000564: e7 80 a0 7b  	jalr	0x7ba(ra) <xQueueReceive>
+80000568: 63 04 25 01  	beq	a0, s2, 0x80000570 <consumer+0x40>
+8000056c: 23 a0 0a 04  	sw	zero, 0x40(s5)
+80000570: 32 45        	lw	a0, 0xc(sp)
+80000572: 63 04 a4 00  	beq	s0, a0, 0x8000057a <consumer+0x4a>
+80000576: 23 a0 0a 04  	sw	zero, 0x40(s5)
+8000057a: 83 25 0b 07  	lw	a1, 0x70(s6)
+8000057e: 2e 95        	add	a0, a0, a1
+80000580: 23 28 ab 06  	sw	a0, 0x70(s6)
+80000584: 03 a5 44 07  	lw	a0, 0x74(s1)
+80000588: 05 05        	addi	a0, a0, 0x1
+8000058a: 05 04        	addi	s0, s0, 0x1
+8000058c: 23 aa a4 06  	sw	a0, 0x74(s1)
+80000590: e3 14 44 fd  	bne	s0, s4, 0x80000558 <consumer+0x28>
+80000594: 37 05 01 80  	lui	a0, 0x80010
+80000598: 85 45        	li	a1, 0x1
+8000059a: 23 22 b5 06  	sw	a1, 0x64(a0)
+8000059e: 37 05 01 80  	lui	a0, 0x80010
+800005a2: 03 25 85 05  	lw	a0, 0x58(a0)
+800005a6: 99 65        	lui	a1, 0x6
+800005a8: 13 86 a5 a5  	addi	a2, a1, -0x5a6
+800005ac: 8d 46        	li	a3, 0x3
+800005ae: 81 45        	li	a1, 0x0
+800005b0: 01 47        	li	a4, 0x0
+800005b2: 97 10 00 00  	auipc	ra, 0x1
+800005b6: e7 80 80 09  	jalr	0x98(ra) <xTaskGenericNotify>
+800005ba: 01 45        	li	a0, 0x0
+800005bc: 97 00 00 00  	auipc	ra, 0x0
+800005c0: e7 80 20 67  	jalr	0x672(ra) <vTaskSuspend>
+800005c4: b2 50        	lw	ra, 0x2c(sp)
+800005c6: 22 54        	lw	s0, 0x28(sp)
+800005c8: 92 54        	lw	s1, 0x24(sp)
+800005ca: 02 59        	lw	s2, 0x20(sp)
+800005cc: f2 49        	lw	s3, 0x1c(sp)
+800005ce: 62 4a        	lw	s4, 0x18(sp)
+800005d0: d2 4a        	lw	s5, 0x14(sp)
+800005d2: 42 4b        	lw	s6, 0x10(sp)
+800005d4: 45 61        	addi	sp, sp, 0x30
+800005d6: 82 80        	ret
+
+800005d8 <ticker>:
+800005d8: 41 11        	addi	sp, sp, -0x10
+800005da: 06 c6        	sw	ra, 0xc(sp)
+800005dc: 22 c4        	sw	s0, 0x8(sp)
+800005de: 26 c2        	sw	s1, 0x4(sp)
+800005e0: 4a c0        	sw	s2, 0x0(sp)
+800005e2: a9 44        	li	s1, 0xa
+800005e4: 97 10 00 00  	auipc	ra, 0x1
+800005e8: e7 80 e0 ae  	jalr	-0x512(ra) <xTaskGetTickCount>
+800005ec: 2a 89        	mv	s2, a0
+800005ee: 37 04 01 80  	lui	s0, 0x80010
+800005f2: 05 45        	li	a0, 0x1
+800005f4: 97 00 00 00  	auipc	ra, 0x0
+800005f8: e7 80 40 36  	jalr	0x364(ra) <vTaskDelay>
+800005fc: 03 25 84 07  	lw	a0, 0x78(s0)
+80000600: 05 05        	addi	a0, a0, 0x1
+80000602: fd 14        	addi	s1, s1, -0x1
+80000604: 23 2c a4 06  	sw	a0, 0x78(s0)
+80000608: ed f4        	bnez	s1, 0x800005f2 <ticker+0x1a>
+8000060a: 97 10 00 00  	auipc	ra, 0x1
+8000060e: e7 80 80 ac  	jalr	-0x538(ra) <xTaskGetTickCount>
+80000612: 33 05 25 41  	sub	a0, a0, s2
+80000616: 13 35 a5 00  	sltiu	a0, a0, 0xa
+8000061a: 13 45 15 00  	xori	a0, a0, 0x1
+8000061e: b7 05 01 80  	lui	a1, 0x80010
+80000622: 23 ae a5 06  	sw	a0, 0x7c(a1)
+80000626: 37 05 01 80  	lui	a0, 0x80010
+8000062a: 85 45        	li	a1, 0x1
+8000062c: 23 24 b5 06  	sw	a1, 0x68(a0)
+80000630: 01 45        	li	a0, 0x0
+80000632: b2 40        	lw	ra, 0xc(sp)
+80000634: 22 44        	lw	s0, 0x8(sp)
+80000636: 92 44        	lw	s1, 0x4(sp)
+80000638: 02 49        	lw	s2, 0x0(sp)
+8000063a: 41 01        	addi	sp, sp, 0x10
+8000063c: 17 03 00 00  	auipc	t1, 0x0
+80000640: 67 00 23 5f  	jr	0x5f2(t1) <vTaskSuspend>
+
+80000644 <mutex_task>:
+80000644: 41 11        	addi	sp, sp, -0x10
+80000646: 06 c6        	sw	ra, 0xc(sp)
+80000648: 22 c4        	sw	s0, 0x8(sp)
+8000064a: 26 c2        	sw	s1, 0x4(sp)
+8000064c: 4a c0        	sw	s2, 0x0(sp)
+8000064e: 51 44        	li	s0, 0x14
+80000650: 37 09 01 80  	lui	s2, 0x80010
+80000654: b7 04 01 80  	lui	s1, 0x80010
+80000658: 03 25 49 05  	lw	a0, 0x54(s2)
+8000065c: fd 55        	li	a1, -0x1
+8000065e: 97 20 00 00  	auipc	ra, 0x2
+80000662: e7 80 c0 88  	jalr	-0x774(ra) <xQueueSemaphoreTake>
+80000666: 03 a5 04 08  	lw	a0, 0x80(s1)
+8000066a: 73 00 00 00  	ecall
+8000066e: 05 05        	addi	a0, a0, 0x1
+80000670: 23 a0 a4 08  	sw	a0, 0x80(s1)
+80000674: 03 25 49 05  	lw	a0, 0x54(s2)
+80000678: 81 45        	li	a1, 0x0
+8000067a: 01 46        	li	a2, 0x0
+8000067c: 81 46        	li	a3, 0x0
+8000067e: 97 10 00 00  	auipc	ra, 0x1
+80000682: e7 80 40 35  	jalr	0x354(ra) <xQueueGenericSend>
+80000686: 7d 14        	addi	s0, s0, -0x1
+80000688: 61 f8        	bnez	s0, 0x80000658 <mutex_task+0x14>
+8000068a: 73 70 04 30  	csrci	mstatus, 0x8
+8000068e: 37 05 01 80  	lui	a0, 0x80010
+80000692: 03 25 85 04  	lw	a0, 0x48(a0)
+80000696: b7 05 01 80  	lui	a1, 0x80010
+8000069a: 03 a6 c5 06  	lw	a2, 0x6c(a1)
+8000069e: 05 06        	addi	a2, a2, 0x1
+800006a0: 23 a6 c5 06  	sw	a2, 0x6c(a1)
+800006a4: 19 e1        	bnez	a0, 0x800006aa <mutex_task+0x66>
+800006a6: 73 60 04 30  	csrsi	mstatus, 0x8
+800006aa: 01 45        	li	a0, 0x0
+800006ac: b2 40        	lw	ra, 0xc(sp)
+800006ae: 22 44        	lw	s0, 0x8(sp)
+800006b0: 92 44        	lw	s1, 0x4(sp)
+800006b2: 02 49        	lw	s2, 0x0(sp)
+800006b4: 41 01        	addi	sp, sp, 0x10
+800006b6: 17 03 00 00  	auipc	t1, 0x0
+800006ba: 67 00 83 57  	jr	0x578(t1) <vTaskSuspend>
+
+800006be <busy>:
+800006be: 37 05 01 80  	lui	a0, 0x80010
+800006c2: 83 25 45 08  	lw	a1, 0x84(a0)
+800006c6: 85 05        	addi	a1, a1, 0x1
+800006c8: 23 22 b5 08  	sw	a1, 0x84(a0)
+800006cc: dd bf        	j	0x800006c2 <busy+0x4>
+
+800006ce <xTaskCreate>:
+800006ce: 79 71        	addi	sp, sp, -0x30
+800006d0: 06 d6        	sw	ra, 0x2c(sp)
+800006d2: 22 d4        	sw	s0, 0x28(sp)
+800006d4: 26 d2        	sw	s1, 0x24(sp)
+800006d6: 4a d0        	sw	s2, 0x20(sp)
+800006d8: 4e ce        	sw	s3, 0x1c(sp)
+800006da: 52 cc        	sw	s4, 0x18(sp)
+800006dc: 56 ca        	sw	s5, 0x14(sp)
+800006de: 5a c8        	sw	s6, 0x10(sp)
+800006e0: 5e c6        	sw	s7, 0xc(sp)
+800006e2: 62 c4        	sw	s8, 0x8(sp)
+800006e4: 66 c2        	sw	s9, 0x4(sp)
+800006e6: be 89        	mv	s3, a5
+800006e8: ba 8b        	mv	s7, a4
+800006ea: 36 8a        	mv	s4, a3
+800006ec: 32 8b        	mv	s6, a2
+800006ee: ae 84        	mv	s1, a1
+800006f0: aa 8a        	mv	s5, a0
+800006f2: 93 1c 26 00  	slli	s9, a2, 0x2
+800006f6: 66 85        	mv	a0, s9
+800006f8: 97 20 00 00  	auipc	ra, 0x2
+800006fc: e7 80 60 a3  	jalr	-0x5ca(ra) <pvPortMalloc>
+80000700: 7d 59        	li	s2, -0x1
+80000702: 63 0d 05 22  	beqz	a0, 0x8000093c <xTaskCreate+0x26e>
+80000706: 2a 84        	mv	s0, a0
+80000708: 13 05 c0 04  	li	a0, 0x4c
+8000070c: 97 20 00 00  	auipc	ra, 0x2
+80000710: e7 80 20 a2  	jalr	-0x5de(ra) <pvPortMalloc>
+80000714: 63 0a 05 10  	beqz	a0, 0x80000828 <xTaskCreate+0x15a>
+80000718: 2a 8c        	mv	s8, a0
+8000071a: 13 06 c0 04  	li	a2, 0x4c
+8000071e: 81 45        	li	a1, 0x0
+80000720: 97 00 00 00  	auipc	ra, 0x0
+80000724: e7 80 60 a1  	jalr	-0x5ea(ra) <memset>
+80000728: 23 28 8c 02  	sw	s0, 0x30(s8)
+8000072c: 93 05 50 0a  	li	a1, 0xa5
+80000730: 22 85        	mv	a0, s0
+80000732: 66 86        	mv	a2, s9
+80000734: 97 00 00 00  	auipc	ra, 0x0
+80000738: e7 80 20 a0  	jalr	-0x5fe(ra) <memset>
+8000073c: 03 25 0c 03  	lw	a0, 0x30(s8)
+80000740: aa 9c        	add	s9, s9, a0
+80000742: 85 c0        	beqz	s1, 0x80000762 <xTaskCreate+0x94>
+80000744: 13 05 4c 03  	addi	a0, s8, 0x34
+80000748: 9d 45        	li	a1, 0x7
+8000074a: 83 c6 04 00  	lbu	a3, 0x0(s1)
+8000074e: 23 00 d5 00  	sb	a3, 0x0(a0)
+80000752: 91 c6        	beqz	a3, 0x8000075e <xTaskCreate+0x90>
+80000754: 2e 86        	mv	a2, a1
+80000756: fd 15        	addi	a1, a1, -0x1
+80000758: 05 05        	addi	a0, a0, 0x1
+8000075a: 85 04        	addi	s1, s1, 0x1
+8000075c: 7d f6        	bnez	a2, 0x8000074a <xTaskCreate+0x7c>
+8000075e: a3 0d 0c 02  	sb	zero, 0x3b(s8)
+80000762: 15 45        	li	a0, 0x5
+80000764: 13 84 cc ff  	addi	s0, s9, -0x4
+80000768: 63 e6 ab 00  	bltu	s7, a0, 0x80000774 <xTaskCreate+0xa6>
+8000076c: 97 00 00 00  	auipc	ra, 0x0
+80000770: e7 80 80 a5  	jalr	-0x5a8(ra) <vAssertCalled>
+80000774: 11 45        	li	a0, 0x4
+80000776: 41 98        	andi	s0, s0, -0x10
+80000778: 63 e3 ab 00  	bltu	s7, a0, 0x8000077e <xTaskCreate+0xb0>
+8000077c: 91 4b        	li	s7, 0x4
+8000077e: 23 26 7c 03  	sw	s7, 0x2c(s8)
+80000782: 23 2e 7c 03  	sw	s7, 0x3c(s8)
+80000786: 13 09 4c 00  	addi	s2, s8, 0x4
+8000078a: 4a 85        	mv	a0, s2
+8000078c: 97 10 00 00  	auipc	ra, 0x1
+80000790: e7 80 e0 03  	jalr	0x3e(ra) <vListInitialiseItem>
+80000794: 13 05 8c 01  	addi	a0, s8, 0x18
+80000798: 97 10 00 00  	auipc	ra, 0x1
+8000079c: e7 80 20 03  	jalr	0x32(ra) <vListInitialiseItem>
+800007a0: 23 28 8c 01  	sw	s8, 0x10(s8)
+800007a4: 15 45        	li	a0, 0x5
+800007a6: 33 05 75 41  	sub	a0, a0, s7
+800007aa: 23 2c ac 00  	sw	a0, 0x18(s8)
+800007ae: 23 22 8c 03  	sw	s8, 0x24(s8)
+800007b2: 22 85        	mv	a0, s0
+800007b4: d6 85        	mv	a1, s5
+800007b6: 52 86        	mv	a2, s4
+800007b8: 97 20 00 00  	auipc	ra, 0x2
+800007bc: e7 80 00 ac  	jalr	-0x540(ra) <pxPortInitialiseStack>
+800007c0: 09 8c        	sub	s0, s0, a0
+800007c2: 09 84        	srai	s0, s0, 0x2
+800007c4: 23 20 ac 00  	sw	a0, 0x0(s8)
+800007c8: 63 66 64 01  	bltu	s0, s6, 0x800007d4 <xTaskCreate+0x106>
+800007cc: 97 00 00 00  	auipc	ra, 0x0
+800007d0: e7 80 80 9f  	jalr	-0x608(ra) <vAssertCalled>
+800007d4: 63 84 09 00  	beqz	s3, 0x800007dc <xTaskCreate+0x10e>
+800007d8: 23 a0 89 01  	sw	s8, 0x0(s3)
+800007dc: 73 70 04 30  	csrci	mstatus, 0x8
+800007e0: 37 05 01 80  	lui	a0, 0x80010
+800007e4: 83 25 85 04  	lw	a1, 0x48(a0)
+800007e8: 85 05        	addi	a1, a1, 0x1
+800007ea: 23 24 b5 04  	sw	a1, 0x48(a0)
+800007ee: 37 05 01 80  	lui	a0, 0x80010
+800007f2: 83 25 45 09  	lw	a1, 0x94(a0)
+800007f6: 85 05        	addi	a1, a1, 0x1
+800007f8: 23 2a b5 08  	sw	a1, 0x94(a0)
+800007fc: b7 05 01 80  	lui	a1, 0x80010
+80000800: 03 a6 85 08  	lw	a2, 0x88(a1)
+80000804: 05 ca        	beqz	a2, 0x80000834 <xTaskCreate+0x166>
+80000806: 37 05 01 80  	lui	a0, 0x80010
+8000080a: 03 25 05 09  	lw	a0, 0x90(a0)
+8000080e: 55 e1        	bnez	a0, 0x800008b2 <xTaskCreate+0x1e4>
+80000810: 37 05 01 80  	lui	a0, 0x80010
+80000814: 83 25 85 08  	lw	a1, 0x88(a0)
+80000818: cc 55        	lw	a1, 0x2c(a1)
+8000081a: 03 26 cc 02  	lw	a2, 0x2c(s8)
+8000081e: 63 6a b6 08  	bltu	a2, a1, 0x800008b2 <xTaskCreate+0x1e4>
+80000822: 23 24 85 09  	sw	s8, 0x88(a0)
+80000826: 71 a0        	j	0x800008b2 <xTaskCreate+0x1e4>
+80000828: 22 85        	mv	a0, s0
+8000082a: 97 20 00 00  	auipc	ra, 0x2
+8000082e: e7 80 c0 99  	jalr	-0x664(ra) <vPortFree>
+80000832: 29 a2        	j	0x8000093c <xTaskCreate+0x26e>
+80000834: 23 a4 85 09  	sw	s8, 0x88(a1)
+80000838: 03 25 45 09  	lw	a0, 0x94(a0)
+8000083c: 85 45        	li	a1, 0x1
+8000083e: 63 1a b5 06  	bne	a0, a1, 0x800008b2 <xTaskCreate+0x1e4>
+80000842: 37 05 01 80  	lui	a0, 0x80010
+80000846: 13 04 45 0d  	addi	s0, a0, 0xd4
+8000084a: 93 04 44 06  	addi	s1, s0, 0x64
+8000084e: 22 85        	mv	a0, s0
+80000850: 97 10 00 00  	auipc	ra, 0x1
+80000854: e7 80 60 f6  	jalr	-0x9a(ra) <vListInitialise>
+80000858: 51 04        	addi	s0, s0, 0x14
+8000085a: e3 1a 94 fe  	bne	s0, s1, 0x8000084e <xTaskCreate+0x180>
+8000085e: 37 05 01 80  	lui	a0, 0x80010
+80000862: 13 04 c5 14  	addi	s0, a0, 0x14c
+80000866: 22 85        	mv	a0, s0
+80000868: 97 10 00 00  	auipc	ra, 0x1
+8000086c: e7 80 e0 f4  	jalr	-0xb2(ra) <vListInitialise>
+80000870: 37 05 01 80  	lui	a0, 0x80010
+80000874: 93 04 05 16  	addi	s1, a0, 0x160
+80000878: 26 85        	mv	a0, s1
+8000087a: 97 10 00 00  	auipc	ra, 0x1
+8000087e: e7 80 c0 f3  	jalr	-0xc4(ra) <vListInitialise>
+80000882: 37 05 01 80  	lui	a0, 0x80010
+80000886: 13 05 85 13  	addi	a0, a0, 0x138
+8000088a: 97 10 00 00  	auipc	ra, 0x1
+8000088e: e7 80 c0 f2  	jalr	-0xd4(ra) <vListInitialise>
+80000892: 37 05 01 80  	lui	a0, 0x80010
+80000896: 13 05 05 0c  	addi	a0, a0, 0xc0
+8000089a: 97 10 00 00  	auipc	ra, 0x1
+8000089e: e7 80 c0 f1  	jalr	-0xe4(ra) <vListInitialise>
+800008a2: 37 05 01 80  	lui	a0, 0x80010
+800008a6: 23 28 85 0a  	sw	s0, 0xb0(a0)
+800008aa: 37 05 01 80  	lui	a0, 0x80010
+800008ae: 23 2a 95 0a  	sw	s1, 0xb4(a0)
+800008b2: 37 05 01 80  	lui	a0, 0x80010
+800008b6: 83 25 c5 0b  	lw	a1, 0xbc(a0)
+800008ba: 85 05        	addi	a1, a1, 0x1
+800008bc: 23 2e b5 0a  	sw	a1, 0xbc(a0)
+800008c0: 03 25 cc 02  	lw	a0, 0x2c(s8)
+800008c4: b7 05 01 80  	lui	a1, 0x80010
+800008c8: 03 a6 85 09  	lw	a2, 0x98(a1)
+800008cc: 63 74 a6 00  	bgeu	a2, a0, 0x800008d4 <xTaskCreate+0x206>
+800008d0: 23 ac a5 08  	sw	a0, 0x98(a1)
+800008d4: d1 45        	li	a1, 0x14
+800008d6: 97 00 00 00  	auipc	ra, 0x0
+800008da: e7 80 20 89  	jalr	-0x76e(ra) <__mulsi3>
+800008de: b7 05 01 80  	lui	a1, 0x80010
+800008e2: 93 85 45 0d  	addi	a1, a1, 0xd4
+800008e6: 2e 95        	add	a0, a0, a1
+800008e8: 4c 41        	lw	a1, 0x4(a0)
+800008ea: 90 45        	lw	a2, 0x8(a1)
+800008ec: 23 24 bc 00  	sw	a1, 0x8(s8)
+800008f0: 23 26 cc 00  	sw	a2, 0xc(s8)
+800008f4: 23 22 26 01  	sw	s2, 0x4(a2)
+800008f8: 23 a4 25 01  	sw	s2, 0x8(a1)
+800008fc: 0c 41        	lw	a1, 0x0(a0)
+800008fe: 37 06 01 80  	lui	a2, 0x80010
+80000902: 83 26 86 04  	lw	a3, 0x48(a2)
+80000906: 23 2a ac 00  	sw	a0, 0x14(s8)
+8000090a: 85 05        	addi	a1, a1, 0x1
+8000090c: 0c c1        	sw	a1, 0x0(a0)
+8000090e: fd 16        	addi	a3, a3, -0x1
+80000910: 23 24 d6 04  	sw	a3, 0x48(a2)
+80000914: 99 e2        	bnez	a3, 0x8000091a <xTaskCreate+0x24c>
+80000916: 73 60 04 30  	csrsi	mstatus, 0x8
+8000091a: 37 05 01 80  	lui	a0, 0x80010
+8000091e: 03 25 05 09  	lw	a0, 0x90(a0)
+80000922: 05 49        	li	s2, 0x1
+80000924: 01 cd        	beqz	a0, 0x8000093c <xTaskCreate+0x26e>
+80000926: 37 05 01 80  	lui	a0, 0x80010
+8000092a: 03 25 85 08  	lw	a0, 0x88(a0)
+8000092e: 48 55        	lw	a0, 0x2c(a0)
+80000930: 83 25 cc 02  	lw	a1, 0x2c(s8)
+80000934: 63 74 b5 00  	bgeu	a0, a1, 0x8000093c <xTaskCreate+0x26e>
+80000938: 73 00 00 00  	ecall
+8000093c: 4a 85        	mv	a0, s2
+8000093e: b2 50        	lw	ra, 0x2c(sp)
+80000940: 22 54        	lw	s0, 0x28(sp)
+80000942: 92 54        	lw	s1, 0x24(sp)
+80000944: 02 59        	lw	s2, 0x20(sp)
+80000946: f2 49        	lw	s3, 0x1c(sp)
+80000948: 62 4a        	lw	s4, 0x18(sp)
+8000094a: d2 4a        	lw	s5, 0x14(sp)
+8000094c: 42 4b        	lw	s6, 0x10(sp)
+8000094e: b2 4b        	lw	s7, 0xc(sp)
+80000950: 22 4c        	lw	s8, 0x8(sp)
+80000952: 92 4c        	lw	s9, 0x4(sp)
+80000954: 45 61        	addi	sp, sp, 0x30
+80000956: 82 80        	ret
+
+80000958 <vTaskDelay>:
+80000958: 21 c5        	beqz	a0, 0x800009a0 <vTaskDelay+0x48>
+8000095a: 41 11        	addi	sp, sp, -0x10
+8000095c: 06 c6        	sw	ra, 0xc(sp)
+8000095e: 22 c4        	sw	s0, 0x8(sp)
+80000960: 2a 84        	mv	s0, a0
+80000962: 37 05 01 80  	lui	a0, 0x80010
+80000966: 83 25 c5 08  	lw	a1, 0x8c(a0)
+8000096a: 85 05        	addi	a1, a1, 0x1
+8000096c: 23 26 b5 08  	sw	a1, 0x8c(a0)
+80000970: 03 25 c5 08  	lw	a0, 0x8c(a0)
+80000974: 85 45        	li	a1, 0x1
+80000976: 63 06 b5 00  	beq	a0, a1, 0x80000982 <vTaskDelay+0x2a>
+8000097a: 97 00 00 00  	auipc	ra, 0x0
+8000097e: e7 80 a0 84  	jalr	-0x7b6(ra) <vAssertCalled>
+80000982: 22 85        	mv	a0, s0
+80000984: 81 45        	li	a1, 0x0
+80000986: 97 00 00 00  	auipc	ra, 0x0
+8000098a: e7 80 00 03  	jalr	0x30(ra) <prvAddCurrentTaskToDelayedList>
+8000098e: 97 00 00 00  	auipc	ra, 0x0
+80000992: e7 80 60 10  	jalr	0x106(ra) <xTaskResumeAll>
+80000996: b2 40        	lw	ra, 0xc(sp)
+80000998: 22 44        	lw	s0, 0x8(sp)
+8000099a: 41 01        	addi	sp, sp, 0x10
+8000099c: 11 c1        	beqz	a0, 0x800009a0 <vTaskDelay+0x48>
+8000099e: 82 80        	ret
+800009a0: 73 00 00 00  	ecall
+800009a4: 82 80        	ret
+
+800009a6 <vTaskSuspendAll>:
+800009a6: 37 05 01 80  	lui	a0, 0x80010
+800009aa: 83 25 c5 08  	lw	a1, 0x8c(a0)
+800009ae: 85 05        	addi	a1, a1, 0x1
+800009b0: 23 26 b5 08  	sw	a1, 0x8c(a0)
+800009b4: 82 80        	ret
+
+800009b6 <prvAddCurrentTaskToDelayedList>:
+800009b6: 01 11        	addi	sp, sp, -0x20
+800009b8: 06 ce        	sw	ra, 0x1c(sp)
+800009ba: 22 cc        	sw	s0, 0x18(sp)
+800009bc: 26 ca        	sw	s1, 0x14(sp)
+800009be: 4a c8        	sw	s2, 0x10(sp)
+800009c0: 4e c6        	sw	s3, 0xc(sp)
+800009c2: 52 c4        	sw	s4, 0x8(sp)
+800009c4: 56 c2        	sw	s5, 0x4(sp)
+800009c6: 37 06 01 80  	lui	a2, 0x80010
+800009ca: 03 2a 46 0a  	lw	s4, 0xa4(a2)
+800009ce: 37 06 01 80  	lui	a2, 0x80010
+800009d2: 03 29 06 0b  	lw	s2, 0xb0(a2)
+800009d6: 37 06 01 80  	lui	a2, 0x80010
+800009da: 83 29 46 0b  	lw	s3, 0xb4(a2)
+800009de: b7 0a 01 80  	lui	s5, 0x80010
+800009e2: 03 a6 8a 08  	lw	a2, 0x88(s5)
+800009e6: ae 84        	mv	s1, a1
+800009e8: 2a 84        	mv	s0, a0
+800009ea: 13 05 46 00  	addi	a0, a2, 0x4
+800009ee: 97 10 00 00  	auipc	ra, 0x1
+800009f2: e7 80 60 e2  	jalr	-0x1da(ra) <uxListRemove>
+800009f6: 7d 55        	li	a0, -0x1
+800009f8: 63 1a a4 04  	bne	s0, a0, 0x80000a4c <prvAddCurrentTaskToDelayedList+0x96>
+800009fc: a1 c8        	beqz	s1, 0x80000a4c <prvAddCurrentTaskToDelayedList+0x96>
+800009fe: 37 05 01 80  	lui	a0, 0x80010
+80000a02: 93 05 05 0c  	addi	a1, a0, 0xc0
+80000a06: d0 41        	lw	a2, 0x4(a1)
+80000a08: b7 06 01 80  	lui	a3, 0x80010
+80000a0c: 03 a7 86 08  	lw	a4, 0x88(a3)
+80000a10: 10 c7        	sw	a2, 0x8(a4)
+80000a12: 18 46        	lw	a4, 0x8(a2)
+80000a14: 83 a7 86 08  	lw	a5, 0x88(a3)
+80000a18: d8 c7        	sw	a4, 0xc(a5)
+80000a1a: 83 a7 86 08  	lw	a5, 0x88(a3)
+80000a1e: 91 07        	addi	a5, a5, 0x4
+80000a20: 5c c3        	sw	a5, 0x4(a4)
+80000a22: 03 a7 86 08  	lw	a4, 0x88(a3)
+80000a26: 11 07        	addi	a4, a4, 0x4
+80000a28: 18 c6        	sw	a4, 0x8(a2)
+80000a2a: 03 a6 86 08  	lw	a2, 0x88(a3)
+80000a2e: 83 26 05 0c  	lw	a3, 0xc0(a0)
+80000a32: 4c ca        	sw	a1, 0x14(a2)
+80000a34: 85 06        	addi	a3, a3, 0x1
+80000a36: 23 20 d5 0c  	sw	a3, 0xc0(a0)
+80000a3a: f2 40        	lw	ra, 0x1c(sp)
+80000a3c: 62 44        	lw	s0, 0x18(sp)
+80000a3e: d2 44        	lw	s1, 0x14(sp)
+80000a40: 42 49        	lw	s2, 0x10(sp)
+80000a42: b2 49        	lw	s3, 0xc(sp)
+80000a44: 22 4a        	lw	s4, 0x8(sp)
+80000a46: 92 4a        	lw	s5, 0x4(sp)
+80000a48: 05 61        	addi	sp, sp, 0x20
+80000a4a: 82 80        	ret
+80000a4c: 03 a5 8a 08  	lw	a0, 0x88(s5)
+80000a50: 52 94        	add	s0, s0, s4
+80000a52: 40 c1        	sw	s0, 0x4(a0)
+80000a54: 83 a5 8a 08  	lw	a1, 0x88(s5)
+80000a58: 91 05        	addi	a1, a1, 0x4
+80000a5a: 63 7f 44 01  	bgeu	s0, s4, 0x80000a78 <prvAddCurrentTaskToDelayedList+0xc2>
+80000a5e: 4e 85        	mv	a0, s3
+80000a60: f2 40        	lw	ra, 0x1c(sp)
+80000a62: 62 44        	lw	s0, 0x18(sp)
+80000a64: d2 44        	lw	s1, 0x14(sp)
+80000a66: 42 49        	lw	s2, 0x10(sp)
+80000a68: b2 49        	lw	s3, 0xc(sp)
+80000a6a: 22 4a        	lw	s4, 0x8(sp)
+80000a6c: 92 4a        	lw	s5, 0x4(sp)
+80000a6e: 05 61        	addi	sp, sp, 0x20
+80000a70: 17 13 00 00  	auipc	t1, 0x1
+80000a74: 67 00 63 d7  	jr	-0x28a(t1) <vListInsert>
+80000a78: 4a 85        	mv	a0, s2
+80000a7a: 97 10 00 00  	auipc	ra, 0x1
+80000a7e: e7 80 c0 d6  	jalr	-0x294(ra) <vListInsert>
+80000a82: 37 05 01 80  	lui	a0, 0x80010
+80000a86: 83 25 05 0a  	lw	a1, 0xa0(a0)
+80000a8a: e3 78 b4 fa  	bgeu	s0, a1, 0x80000a3a <prvAddCurrentTaskToDelayedList+0x84>
+80000a8e: 23 20 85 0a  	sw	s0, 0xa0(a0)
+80000a92: 65 b7        	j	0x80000a3a <prvAddCurrentTaskToDelayedList+0x84>
+
+80000a94 <xTaskResumeAll>:
+80000a94: 79 71        	addi	sp, sp, -0x30
+80000a96: 06 d6        	sw	ra, 0x2c(sp)
+80000a98: 22 d4        	sw	s0, 0x28(sp)
+80000a9a: 26 d2        	sw	s1, 0x24(sp)
+80000a9c: 4a d0        	sw	s2, 0x20(sp)
+80000a9e: 4e ce        	sw	s3, 0x1c(sp)
+80000aa0: 52 cc        	sw	s4, 0x18(sp)
+80000aa2: 56 ca        	sw	s5, 0x14(sp)
+80000aa4: 5a c8        	sw	s6, 0x10(sp)
+80000aa6: 5e c6        	sw	s7, 0xc(sp)
+80000aa8: 62 c4        	sw	s8, 0x8(sp)
+80000aaa: 66 c2        	sw	s9, 0x4(sp)
+80000aac: 73 70 04 30  	csrci	mstatus, 0x8
+80000ab0: 37 05 01 80  	lui	a0, 0x80010
+80000ab4: 83 25 85 04  	lw	a1, 0x48(a0)
+80000ab8: 85 05        	addi	a1, a1, 0x1
+80000aba: 23 24 b5 04  	sw	a1, 0x48(a0)
+80000abe: 37 04 01 80  	lui	s0, 0x80010
+80000ac2: 03 25 c4 08  	lw	a0, 0x8c(s0)
+80000ac6: 09 e5        	bnez	a0, 0x80000ad0 <xTaskResumeAll+0x3c>
+80000ac8: 97 f0 ff ff  	auipc	ra, 0xfffff
+80000acc: e7 80 c0 6f  	jalr	0x6fc(ra) <__bss_end+0xfffee914>
+80000ad0: 03 25 c4 08  	lw	a0, 0x8c(s0)
+80000ad4: 7d 15        	addi	a0, a0, -0x1
+80000ad6: 23 26 a4 08  	sw	a0, 0x8c(s0)
+80000ada: 03 25 c4 08  	lw	a0, 0x8c(s0)
+80000ade: 0d c9        	beqz	a0, 0x80000b10 <xTaskResumeAll+0x7c>
+80000ae0: 01 45        	li	a0, 0x0
+80000ae2: b7 05 01 80  	lui	a1, 0x80010
+80000ae6: 03 a6 85 04  	lw	a2, 0x48(a1)
+80000aea: 7d 16        	addi	a2, a2, -0x1
+80000aec: 23 a4 c5 04  	sw	a2, 0x48(a1)
+80000af0: 19 e2        	bnez	a2, 0x80000af6 <xTaskResumeAll+0x62>
+80000af2: 73 60 04 30  	csrsi	mstatus, 0x8
+80000af6: b2 50        	lw	ra, 0x2c(sp)
+80000af8: 22 54        	lw	s0, 0x28(sp)
+80000afa: 92 54        	lw	s1, 0x24(sp)
+80000afc: 02 59        	lw	s2, 0x20(sp)
+80000afe: f2 49        	lw	s3, 0x1c(sp)
+80000b00: 62 4a        	lw	s4, 0x18(sp)
+80000b02: d2 4a        	lw	s5, 0x14(sp)
+80000b04: 42 4b        	lw	s6, 0x10(sp)
+80000b06: b2 4b        	lw	s7, 0xc(sp)
+80000b08: 22 4c        	lw	s8, 0x8(sp)
+80000b0a: 92 4c        	lw	s9, 0x4(sp)
+80000b0c: 45 61        	addi	sp, sp, 0x30
+80000b0e: 82 80        	ret
+80000b10: 37 05 01 80  	lui	a0, 0x80010
+80000b14: 03 25 45 09  	lw	a0, 0x94(a0)
+80000b18: 69 d5        	beqz	a0, 0x80000ae2 <xTaskResumeAll+0x4e>
+80000b1a: 37 09 01 80  	lui	s2, 0x80010
+80000b1e: 03 25 89 13  	lw	a0, 0x138(s2)
+80000b22: 79 c1        	beqz	a0, 0x80000be8 <xTaskResumeAll+0x154>
+80000b24: 13 0a 89 13  	addi	s4, s2, 0x138
+80000b28: b7 09 01 80  	lui	s3, 0x80010
+80000b2c: 37 05 01 80  	lui	a0, 0x80010
+80000b30: 13 0c 45 0d  	addi	s8, a0, 0xd4
+80000b34: b7 0a 01 80  	lui	s5, 0x80010
+80000b38: 37 0b 01 80  	lui	s6, 0x80010
+80000b3c: 85 4b        	li	s7, 0x1
+80000b3e: 03 25 ca 00  	lw	a0, 0xc(s4)
+80000b42: 44 45        	lw	s1, 0xc(a0)
+80000b44: 88 54        	lw	a0, 0x28(s1)
+80000b46: 8c 50        	lw	a1, 0x20(s1)
+80000b48: d0 4c        	lw	a2, 0x1c(s1)
+80000b4a: 54 41        	lw	a3, 0x4(a0)
+80000b4c: 13 87 84 01  	addi	a4, s1, 0x18
+80000b50: 0c c6        	sw	a1, 0x8(a2)
+80000b52: d0 c1        	sw	a2, 0x4(a1)
+80000b54: 63 93 e6 00  	bne	a3, a4, 0x80000b5a <xTaskResumeAll+0xc6>
+80000b58: 4c c1        	sw	a1, 0x4(a0)
+80000b5a: 0c 41        	lw	a1, 0x0(a0)
+80000b5c: 23 a4 04 02  	sw	zero, 0x28(s1)
+80000b60: fd 15        	addi	a1, a1, -0x1
+80000b62: 0c c1        	sw	a1, 0x0(a0)
+80000b64: c8 48        	lw	a0, 0x14(s1)
+80000b66: cc 44        	lw	a1, 0xc(s1)
+80000b68: 90 44        	lw	a2, 0x8(s1)
+80000b6a: 54 41        	lw	a3, 0x4(a0)
+80000b6c: 93 8c 44 00  	addi	s9, s1, 0x4
+80000b70: 0c c6        	sw	a1, 0x8(a2)
+80000b72: d0 c1        	sw	a2, 0x4(a1)
+80000b74: 63 93 96 01  	bne	a3, s9, 0x80000b7a <xTaskResumeAll+0xe6>
+80000b78: 4c c1        	sw	a1, 0x4(a0)
+80000b7a: 0c 41        	lw	a1, 0x0(a0)
+80000b7c: fd 15        	addi	a1, a1, -0x1
+80000b7e: 0c c1        	sw	a1, 0x0(a0)
+80000b80: c0 54        	lw	s0, 0x2c(s1)
+80000b82: 03 a5 89 09  	lw	a0, 0x98(s3)
+80000b86: 63 74 85 00  	bgeu	a0, s0, 0x80000b8e <xTaskResumeAll+0xfa>
+80000b8a: 23 ac 89 08  	sw	s0, 0x98(s3)
+80000b8e: d1 45        	li	a1, 0x14
+80000b90: 22 85        	mv	a0, s0
+80000b92: 97 f0 ff ff  	auipc	ra, 0xfffff
+80000b96: e7 80 60 5d  	jalr	0x5d6(ra) <__bss_end+0xfffee8b8>
+80000b9a: 62 95        	add	a0, a0, s8
+80000b9c: 4c 41        	lw	a1, 0x4(a0)
+80000b9e: 90 45        	lw	a2, 0x8(a1)
+80000ba0: 8c c4        	sw	a1, 0x8(s1)
+80000ba2: d0 c4        	sw	a2, 0xc(s1)
+80000ba4: 14 41        	lw	a3, 0x0(a0)
+80000ba6: 23 22 96 01  	sw	s9, 0x4(a2)
+80000baa: 23 a4 95 01  	sw	s9, 0x8(a1)
+80000bae: c8 c8        	sw	a0, 0x14(s1)
+80000bb0: 85 06        	addi	a3, a3, 0x1
+80000bb2: 14 c1        	sw	a3, 0x0(a0)
+80000bb4: 03 a5 8a 08  	lw	a0, 0x88(s5)
+80000bb8: 48 55        	lw	a0, 0x2c(a0)
+80000bba: 63 74 85 00  	bgeu	a0, s0, 0x80000bc2 <xTaskResumeAll+0x12e>
+80000bbe: 23 2e 7b 09  	sw	s7, 0x9c(s6)
+80000bc2: 03 25 89 13  	lw	a0, 0x138(s2)
+80000bc6: 25 fd        	bnez	a0, 0x80000b3e <xTaskResumeAll+0xaa>
+80000bc8: 37 05 01 80  	lui	a0, 0x80010
+80000bcc: 83 25 05 0b  	lw	a1, 0xb0(a0)
+80000bd0: 8c 41        	lw	a1, 0x0(a1)
+80000bd2: 91 c5        	beqz	a1, 0x80000bde <xTaskResumeAll+0x14a>
+80000bd4: 03 25 05 0b  	lw	a0, 0xb0(a0)
+80000bd8: 48 45        	lw	a0, 0xc(a0)
+80000bda: 08 41        	lw	a0, 0x0(a0)
+80000bdc: 11 a0        	j	0x80000be0 <xTaskResumeAll+0x14c>
+80000bde: 7d 55        	li	a0, -0x1
+80000be0: b7 05 01 80  	lui	a1, 0x80010
+80000be4: 23 a0 a5 0a  	sw	a0, 0xa0(a1)
+80000be8: 37 05 01 80  	lui	a0, 0x80010
+80000bec: 03 24 c5 0a  	lw	s0, 0xac(a0)
+80000bf0: 0d c0        	beqz	s0, 0x80000c12 <xTaskResumeAll+0x17e>
+80000bf2: 37 09 01 80  	lui	s2, 0x80010
+80000bf6: 85 44        	li	s1, 0x1
+80000bf8: 97 00 00 00  	auipc	ra, 0x0
+80000bfc: e7 80 e0 31  	jalr	0x31e(ra) <xTaskIncrementTick>
+80000c00: 19 c1        	beqz	a0, 0x80000c06 <xTaskResumeAll+0x172>
+80000c02: 23 2e 99 08  	sw	s1, 0x9c(s2)
+80000c06: 7d 14        	addi	s0, s0, -0x1
+80000c08: 65 f8        	bnez	s0, 0x80000bf8 <xTaskResumeAll+0x164>
+80000c0a: 37 05 01 80  	lui	a0, 0x80010
+80000c0e: 23 26 05 0a  	sw	zero, 0xac(a0)
+80000c12: 37 05 01 80  	lui	a0, 0x80010
+80000c16: 03 25 c5 09  	lw	a0, 0x9c(a0)
+80000c1a: e3 04 05 ec  	beqz	a0, 0x80000ae2 <xTaskResumeAll+0x4e>
+80000c1e: 37 05 01 80  	lui	a0, 0x80010
+80000c22: 03 20 85 08  	lw	zero, 0x88(a0)
+80000c26: 73 00 00 00  	ecall
+80000c2a: 05 45        	li	a0, 0x1
+80000c2c: 5d bd        	j	0x80000ae2 <xTaskResumeAll+0x4e>
+
+80000c2e <vTaskSuspend>:
+80000c2e: 41 11        	addi	sp, sp, -0x10
+80000c30: 06 c6        	sw	ra, 0xc(sp)
+80000c32: 22 c4        	sw	s0, 0x8(sp)
+80000c34: 26 c2        	sw	s1, 0x4(sp)
+80000c36: 73 70 04 30  	csrci	mstatus, 0x8
+80000c3a: b7 05 01 80  	lui	a1, 0x80010
+80000c3e: 03 a6 85 04  	lw	a2, 0x48(a1)
+80000c42: 2a 84        	mv	s0, a0
+80000c44: 05 06        	addi	a2, a2, 0x1
+80000c46: 23 a4 c5 04  	sw	a2, 0x48(a1)
+80000c4a: 11 e9        	bnez	a0, 0x80000c5e <vTaskSuspend+0x30>
+80000c4c: 37 05 01 80  	lui	a0, 0x80010
+80000c50: 03 24 85 08  	lw	s0, 0x88(a0)
+80000c54: 09 e4        	bnez	s0, 0x80000c5e <vTaskSuspend+0x30>
+80000c56: 97 f0 ff ff  	auipc	ra, 0xfffff
+80000c5a: e7 80 e0 56  	jalr	0x56e(ra) <__bss_end+0xfffee914>
+80000c5e: 93 04 44 00  	addi	s1, s0, 0x4
+80000c62: 26 85        	mv	a0, s1
+80000c64: 97 10 00 00  	auipc	ra, 0x1
+80000c68: e7 80 00 bb  	jalr	-0x450(ra) <uxListRemove>
+80000c6c: 08 54        	lw	a0, 0x28(s0)
+80000c6e: 19 c5        	beqz	a0, 0x80000c7c <vTaskSuspend+0x4e>
+80000c70: 13 05 84 01  	addi	a0, s0, 0x18
+80000c74: 97 10 00 00  	auipc	ra, 0x1
+80000c78: e7 80 00 ba  	jalr	-0x460(ra) <uxListRemove>
+80000c7c: 37 05 01 80  	lui	a0, 0x80010
+80000c80: 13 05 05 0c  	addi	a0, a0, 0xc0
+80000c84: a6 85        	mv	a1, s1
+80000c86: 97 10 00 00  	auipc	ra, 0x1
+80000c8a: e7 80 a0 b4  	jalr	-0x4b6(ra) <vListInsertEnd>
+80000c8e: 03 45 84 04  	lbu	a0, 0x48(s0)
+80000c92: 85 45        	li	a1, 0x1
+80000c94: 63 14 b5 00  	bne	a0, a1, 0x80000c9c <vTaskSuspend+0x6e>
+80000c98: 23 04 04 04  	sb	zero, 0x48(s0)
+80000c9c: 37 05 01 80  	lui	a0, 0x80010
+80000ca0: 83 25 85 04  	lw	a1, 0x48(a0)
+80000ca4: fd 15        	addi	a1, a1, -0x1
+80000ca6: 23 24 b5 04  	sw	a1, 0x48(a0)
+80000caa: 99 e1        	bnez	a1, 0x80000cb0 <vTaskSuspend+0x82>
+80000cac: 73 60 04 30  	csrsi	mstatus, 0x8
+80000cb0: 37 05 01 80  	lui	a0, 0x80010
+80000cb4: 03 25 05 09  	lw	a0, 0x90(a0)
+80000cb8: 21 c1        	beqz	a0, 0x80000cf8 <vTaskSuspend+0xca>
+80000cba: 73 70 04 30  	csrci	mstatus, 0x8
+80000cbe: b7 05 01 80  	lui	a1, 0x80010
+80000cc2: 03 a5 85 04  	lw	a0, 0x48(a1)
+80000cc6: 13 06 15 00  	addi	a2, a0, 0x1
+80000cca: 23 a4 c5 04  	sw	a2, 0x48(a1)
+80000cce: 37 06 01 80  	lui	a2, 0x80010
+80000cd2: 83 26 06 0b  	lw	a3, 0xb0(a2)
+80000cd6: 94 42        	lw	a3, 0x0(a3)
+80000cd8: 91 c6        	beqz	a3, 0x80000ce4 <vTaskSuspend+0xb6>
+80000cda: 03 26 06 0b  	lw	a2, 0xb0(a2)
+80000cde: 50 46        	lw	a2, 0xc(a2)
+80000ce0: 10 42        	lw	a2, 0x0(a2)
+80000ce2: 11 a0        	j	0x80000ce6 <vTaskSuspend+0xb8>
+80000ce4: 7d 56        	li	a2, -0x1
+80000ce6: b7 06 01 80  	lui	a3, 0x80010
+80000cea: 23 a0 c6 0a  	sw	a2, 0xa0(a3)
+80000cee: 23 a4 a5 04  	sw	a0, 0x48(a1)
+80000cf2: 19 e1        	bnez	a0, 0x80000cf8 <vTaskSuspend+0xca>
+80000cf4: 73 60 04 30  	csrsi	mstatus, 0x8
+80000cf8: 37 05 01 80  	lui	a0, 0x80010
+80000cfc: 03 25 85 08  	lw	a0, 0x88(a0)
+80000d00: 63 11 a4 04  	bne	s0, a0, 0x80000d42 <vTaskSuspend+0x114>
+80000d04: 37 05 01 80  	lui	a0, 0x80010
+80000d08: 03 25 05 09  	lw	a0, 0x90(a0)
+80000d0c: 09 cd        	beqz	a0, 0x80000d26 <vTaskSuspend+0xf8>
+80000d0e: 37 05 01 80  	lui	a0, 0x80010
+80000d12: 03 25 c5 08  	lw	a0, 0x8c(a0)
+80000d16: 09 c5        	beqz	a0, 0x80000d20 <vTaskSuspend+0xf2>
+80000d18: 97 f0 ff ff  	auipc	ra, 0xfffff
+80000d1c: e7 80 c0 4a  	jalr	0x4ac(ra) <__bss_end+0xfffee914>
+80000d20: 73 00 00 00  	ecall
+80000d24: 39 a8        	j	0x80000d42 <vTaskSuspend+0x114>
+80000d26: 37 05 01 80  	lui	a0, 0x80010
+80000d2a: 03 25 05 0c  	lw	a0, 0xc0(a0)
+80000d2e: b7 05 01 80  	lui	a1, 0x80010
+80000d32: 83 a5 45 09  	lw	a1, 0x94(a1)
+80000d36: 63 1b b5 00  	bne	a0, a1, 0x80000d4c <vTaskSuspend+0x11e>
+80000d3a: 37 05 01 80  	lui	a0, 0x80010
+80000d3e: 23 24 05 08  	sw	zero, 0x88(a0)
+80000d42: b2 40        	lw	ra, 0xc(sp)
+80000d44: 22 44        	lw	s0, 0x8(sp)
+80000d46: 92 44        	lw	s1, 0x4(sp)
+80000d48: 41 01        	addi	sp, sp, 0x10
+80000d4a: 82 80        	ret
+80000d4c: b2 40        	lw	ra, 0xc(sp)
+80000d4e: 22 44        	lw	s0, 0x8(sp)
+80000d50: 92 44        	lw	s1, 0x4(sp)
+80000d52: 41 01        	addi	sp, sp, 0x10
+80000d54: 17 03 00 00  	auipc	t1, 0x0
+80000d58: 67 00 83 00  	jr	0x8(t1) <vTaskSwitchContext>
+
+80000d5c <vTaskSwitchContext>:
+80000d5c: 37 05 01 80  	lui	a0, 0x80010
+80000d60: 03 25 c5 08  	lw	a0, 0x8c(a0)
+80000d64: 19 c5        	beqz	a0, 0x80000d72 <vTaskSwitchContext+0x16>
+80000d66: 37 05 01 80  	lui	a0, 0x80010
+80000d6a: 85 45        	li	a1, 0x1
+80000d6c: 23 2e b5 08  	sw	a1, 0x9c(a0)
+80000d70: 82 80        	ret
+80000d72: 41 11        	addi	sp, sp, -0x10
+80000d74: 06 c6        	sw	ra, 0xc(sp)
+80000d76: 22 c4        	sw	s0, 0x8(sp)
+80000d78: 26 c2        	sw	s1, 0x4(sp)
+80000d7a: 4a c0        	sw	s2, 0x0(sp)
+80000d7c: 37 05 01 80  	lui	a0, 0x80010
+80000d80: 23 2e 05 08  	sw	zero, 0x9c(a0)
+80000d84: 37 05 01 80  	lui	a0, 0x80010
+80000d88: 83 25 85 08  	lw	a1, 0x88(a0)
+80000d8c: 8c 59        	lw	a1, 0x30(a1)
+80000d8e: 03 26 85 08  	lw	a2, 0x88(a0)
+80000d92: 10 42        	lw	a2, 0x0(a2)
+80000d94: 83 26 85 08  	lw	a3, 0x88(a0)
+80000d98: 94 5a        	lw	a3, 0x30(a3)
+80000d9a: 63 f6 c6 02  	bgeu	a3, a2, 0x80000dc6 <vTaskSwitchContext+0x6a>
+80000d9e: 94 41        	lw	a3, 0x0(a1)
+80000da0: 37 a6 a5 a5  	lui	a2, 0xa5a5a
+80000da4: 13 06 56 5a  	addi	a2, a2, 0x5a5
+80000da8: 63 9f c6 00  	bne	a3, a2, 0x80000dc6 <vTaskSwitchContext+0x6a>
+80000dac: d4 41        	lw	a3, 0x4(a1)
+80000dae: 63 9c c6 00  	bne	a3, a2, 0x80000dc6 <vTaskSwitchContext+0x6a>
+80000db2: 94 45        	lw	a3, 0x8(a1)
+80000db4: 37 a6 a5 a5  	lui	a2, 0xa5a5a
+80000db8: 13 06 56 5a  	addi	a2, a2, 0x5a5
+80000dbc: 63 95 c6 00  	bne	a3, a2, 0x80000dc6 <vTaskSwitchContext+0x6a>
+80000dc0: cc 45        	lw	a1, 0xc(a1)
+80000dc2: 63 8c c5 00  	beq	a1, a2, 0x80000dda <vTaskSwitchContext+0x7e>
+80000dc6: 83 25 85 08  	lw	a1, 0x88(a0)
+80000dca: 03 25 85 08  	lw	a0, 0x88(a0)
+80000dce: 93 85 45 03  	addi	a1, a1, 0x34
+80000dd2: 97 f0 ff ff  	auipc	ra, 0xfffff
+80000dd6: e7 80 20 40  	jalr	0x402(ra) <__bss_end+0xfffee924>
+80000dda: 37 05 01 80  	lui	a0, 0x80010
+80000dde: 03 24 85 09  	lw	s0, 0x98(a0)
+80000de2: d1 45        	li	a1, 0x14
+80000de4: 22 85        	mv	a0, s0
+80000de6: 97 f0 ff ff  	auipc	ra, 0xfffff
+80000dea: e7 80 20 38  	jalr	0x382(ra) <__bss_end+0xfffee8b8>
+80000dee: b7 05 01 80  	lui	a1, 0x80010
+80000df2: 13 89 45 0d  	addi	s2, a1, 0xd4
+80000df6: 4a 95        	add	a0, a0, s2
+80000df8: 08 41        	lw	a0, 0x0(a0)
+80000dfa: 1d e1        	bnez	a0, 0x80000e20 <vTaskSwitchContext+0xc4>
+80000dfc: d1 45        	li	a1, 0x14
+80000dfe: 22 85        	mv	a0, s0
+80000e00: 97 f0 ff ff  	auipc	ra, 0xfffff
+80000e04: e7 80 80 36  	jalr	0x368(ra) <__bss_end+0xfffee8b8>
+80000e08: 4a 95        	add	a0, a0, s2
+80000e0a: 93 04 c5 fe  	addi	s1, a0, -0x14
+80000e0e: 09 e4        	bnez	s0, 0x80000e18 <vTaskSwitchContext+0xbc>
+80000e10: 97 f0 ff ff  	auipc	ra, 0xfffff
+80000e14: e7 80 40 3b  	jalr	0x3b4(ra) <__bss_end+0xfffee914>
+80000e18: 88 40        	lw	a0, 0x0(s1)
+80000e1a: 7d 14        	addi	s0, s0, -0x1
+80000e1c: b1 14        	addi	s1, s1, -0x14
+80000e1e: 65 d9        	beqz	a0, 0x80000e0e <vTaskSwitchContext+0xb2>
+80000e20: d1 45        	li	a1, 0x14
+80000e22: 22 85        	mv	a0, s0
+80000e24: 97 f0 ff ff  	auipc	ra, 0xfffff
+80000e28: e7 80 40 34  	jalr	0x344(ra) <__bss_end+0xfffee8b8>
+80000e2c: 2a 99        	add	s2, s2, a0
+80000e2e: 03 25 49 00  	lw	a0, 0x4(s2)
+80000e32: 48 41        	lw	a0, 0x4(a0)
+80000e34: 93 05 89 00  	addi	a1, s2, 0x8
+80000e38: 23 22 a9 00  	sw	a0, 0x4(s2)
+80000e3c: 63 11 b5 02  	bne	a0, a1, 0x80000e5e <vTaskSwitchContext+0x102>
+80000e40: 11 09        	addi	s2, s2, 0x4
+80000e42: d1 45        	li	a1, 0x14
+80000e44: 22 85        	mv	a0, s0
+80000e46: 97 f0 ff ff  	auipc	ra, 0xfffff
+80000e4a: e7 80 20 32  	jalr	0x322(ra) <__bss_end+0xfffee8b8>
+80000e4e: b7 05 01 80  	lui	a1, 0x80010
+80000e52: 93 85 45 0d  	addi	a1, a1, 0xd4
+80000e56: 2e 95        	add	a0, a0, a1
+80000e58: 48 45        	lw	a0, 0xc(a0)
+80000e5a: 23 20 a9 00  	sw	a0, 0x0(s2)
+80000e5e: 48 45        	lw	a0, 0xc(a0)
+80000e60: b7 05 01 80  	lui	a1, 0x80010
+80000e64: 23 a4 a5 08  	sw	a0, 0x88(a1)
+80000e68: 37 05 01 80  	lui	a0, 0x80010
+80000e6c: 23 2c 85 08  	sw	s0, 0x98(a0)
+80000e70: 03 a0 85 08  	lw	zero, 0x88(a1)
+80000e74: b2 40        	lw	ra, 0xc(sp)
+80000e76: 22 44        	lw	s0, 0x8(sp)
+80000e78: 92 44        	lw	s1, 0x4(sp)
+80000e7a: 02 49        	lw	s2, 0x0(sp)
+80000e7c: 41 01        	addi	sp, sp, 0x10
+80000e7e: 82 80        	ret
+
+80000e80 <vTaskStartScheduler>:
+80000e80: 41 11        	addi	sp, sp, -0x10
+80000e82: 06 c6        	sw	ra, 0xc(sp)
+80000e84: 02 c2        	sw	zero, 0x4(sp)
+80000e86: 02 c0        	sw	zero, 0x0(sp)
+80000e88: 37 25 00 80  	lui	a0, 0x80002
+80000e8c: 13 05 85 57  	addi	a0, a0, 0x578
+80000e90: 8a 85        	mv	a1, sp
+80000e92: 13 06 51 00  	addi	a2, sp, 0x5
+80000e96: 83 46 05 00  	lbu	a3, 0x0(a0)
+80000e9a: 23 80 d5 00  	sb	a3, 0x0(a1)
+80000e9e: 85 05        	addi	a1, a1, 0x1
+80000ea0: 05 05        	addi	a0, a0, 0x1
+80000ea2: e3 9a c5 fe  	bne	a1, a2, 0x80000e96 <vTaskStartScheduler+0x16>
+80000ea6: 23 02 01 00  	sb	zero, 0x4(sp)
+80000eaa: 37 15 00 80  	lui	a0, 0x80001
+80000eae: 13 05 25 7a  	addi	a0, a0, 0x7a2
+80000eb2: b7 05 01 80  	lui	a1, 0x80010
+80000eb6: 93 87 85 0a  	addi	a5, a1, 0xa8
+80000eba: 8a 85        	mv	a1, sp
+80000ebc: 13 06 00 08  	li	a2, 0x80
+80000ec0: 81 46        	li	a3, 0x0
+80000ec2: 01 47        	li	a4, 0x0
+80000ec4: 97 00 00 00  	auipc	ra, 0x0
+80000ec8: e7 80 a0 80  	jalr	-0x7f6(ra) <xTaskCreate>
+80000ecc: fd 55        	li	a1, -0x1
+80000ece: 63 09 b5 02  	beq	a0, a1, 0x80000f00 <vTaskStartScheduler+0x80>
+80000ed2: 85 45        	li	a1, 0x1
+80000ed4: 63 1a b5 02  	bne	a0, a1, 0x80000f08 <vTaskStartScheduler+0x88>
+80000ed8: 73 70 04 30  	csrci	mstatus, 0x8
+80000edc: 37 05 01 80  	lui	a0, 0x80010
+80000ee0: 7d 56        	li	a2, -0x1
+80000ee2: 23 20 c5 0a  	sw	a2, 0xa0(a0)
+80000ee6: 37 05 01 80  	lui	a0, 0x80010
+80000eea: 23 28 b5 08  	sw	a1, 0x90(a0)
+80000eee: 37 05 01 80  	lui	a0, 0x80010
+80000ef2: 23 22 05 0a  	sw	zero, 0xa4(a0)
+80000ef6: 97 10 00 00  	auipc	ra, 0x1
+80000efa: e7 80 60 34  	jalr	0x346(ra) <xPortStartScheduler>
+80000efe: 29 a0        	j	0x80000f08 <vTaskStartScheduler+0x88>
+80000f00: 97 f0 ff ff  	auipc	ra, 0xfffff
+80000f04: e7 80 40 2c  	jalr	0x2c4(ra) <__bss_end+0xfffee914>
+80000f08: 37 25 00 80  	lui	a0, 0x80002
+80000f0c: 03 20 85 59  	lw	zero, 0x598(a0)
+80000f10: b2 40        	lw	ra, 0xc(sp)
+80000f12: 41 01        	addi	sp, sp, 0x10
+80000f14: 82 80        	ret
+
+80000f16 <xTaskIncrementTick>:
+80000f16: 79 71        	addi	sp, sp, -0x30
+80000f18: 06 d6        	sw	ra, 0x2c(sp)
+80000f1a: 22 d4        	sw	s0, 0x28(sp)
+80000f1c: 26 d2        	sw	s1, 0x24(sp)
+80000f1e: 4a d0        	sw	s2, 0x20(sp)
+80000f20: 4e ce        	sw	s3, 0x1c(sp)
+80000f22: 52 cc        	sw	s4, 0x18(sp)
+80000f24: 56 ca        	sw	s5, 0x14(sp)
+80000f26: 5a c8        	sw	s6, 0x10(sp)
+80000f28: 5e c6        	sw	s7, 0xc(sp)
+80000f2a: 62 c4        	sw	s8, 0x8(sp)
+80000f2c: 66 c2        	sw	s9, 0x4(sp)
+80000f2e: 37 05 01 80  	lui	a0, 0x80010
+80000f32: 03 25 c5 08  	lw	a0, 0x8c(a0)
+80000f36: 11 c9        	beqz	a0, 0x80000f4a <xTaskIncrementTick+0x34>
+80000f38: 37 05 01 80  	lui	a0, 0x80010
+80000f3c: 83 25 c5 0a  	lw	a1, 0xac(a0)
+80000f40: 01 4c        	li	s8, 0x0
+80000f42: 85 05        	addi	a1, a1, 0x1
+80000f44: 23 26 b5 0a  	sw	a1, 0xac(a0)
+80000f48: bd a2        	j	0x800010b6 <xTaskIncrementTick+0x1a0>
+80000f4a: 37 05 01 80  	lui	a0, 0x80010
+80000f4e: 03 29 45 0a  	lw	s2, 0xa4(a0)
+80000f52: 05 09        	addi	s2, s2, 0x1
+80000f54: 23 22 25 0b  	sw	s2, 0xa4(a0)
+80000f58: 63 1d 09 04  	bnez	s2, 0x80000fb2 <xTaskIncrementTick+0x9c>
+80000f5c: 37 04 01 80  	lui	s0, 0x80010
+80000f60: 03 25 04 0b  	lw	a0, 0xb0(s0)
+80000f64: 08 41        	lw	a0, 0x0(a0)
+80000f66: 09 c5        	beqz	a0, 0x80000f70 <xTaskIncrementTick+0x5a>
+80000f68: 97 f0 ff ff  	auipc	ra, 0xfffff
+80000f6c: e7 80 c0 25  	jalr	0x25c(ra) <__bss_end+0xfffee914>
+80000f70: 03 25 04 0b  	lw	a0, 0xb0(s0)
+80000f74: b7 05 01 80  	lui	a1, 0x80010
+80000f78: 03 a6 45 0b  	lw	a2, 0xb4(a1)
+80000f7c: 23 28 c4 0a  	sw	a2, 0xb0(s0)
+80000f80: 23 aa a5 0a  	sw	a0, 0xb4(a1)
+80000f84: 37 05 01 80  	lui	a0, 0x80010
+80000f88: 83 25 85 0b  	lw	a1, 0xb8(a0)
+80000f8c: 85 05        	addi	a1, a1, 0x1
+80000f8e: 23 2c b5 0a  	sw	a1, 0xb8(a0)
+80000f92: 03 25 04 0b  	lw	a0, 0xb0(s0)
+80000f96: 08 41        	lw	a0, 0x0(a0)
+80000f98: 01 c9        	beqz	a0, 0x80000fa8 <xTaskIncrementTick+0x92>
+80000f9a: 37 05 01 80  	lui	a0, 0x80010
+80000f9e: 03 25 05 0b  	lw	a0, 0xb0(a0)
+80000fa2: 48 45        	lw	a0, 0xc(a0)
+80000fa4: 08 41        	lw	a0, 0x0(a0)
+80000fa6: 11 a0        	j	0x80000faa <xTaskIncrementTick+0x94>
+80000fa8: 7d 55        	li	a0, -0x1
+80000faa: b7 05 01 80  	lui	a1, 0x80010
+80000fae: 23 a0 a5 0a  	sw	a0, 0xa0(a1)
+80000fb2: 37 05 01 80  	lui	a0, 0x80010
+80000fb6: 03 25 05 0a  	lw	a0, 0xa0(a0)
+80000fba: 63 74 a9 00  	bgeu	s2, a0, 0x80000fc2 <xTaskIncrementTick+0xac>
+80000fbe: 01 4c        	li	s8, 0x0
+80000fc0: c9 a0        	j	0x80001082 <xTaskIncrementTick+0x16c>
+80000fc2: 37 0a 01 80  	lui	s4, 0x80010
+80000fc6: 03 25 0a 0b  	lw	a0, 0xb0(s4)
+80000fca: 08 41        	lw	a0, 0x0(a0)
+80000fcc: fd 59        	li	s3, -0x1
+80000fce: 01 4c        	li	s8, 0x0
+80000fd0: 4d c5        	beqz	a0, 0x8000107a <xTaskIncrementTick+0x164>
+80000fd2: b7 0a 01 80  	lui	s5, 0x80010
+80000fd6: 37 05 01 80  	lui	a0, 0x80010
+80000fda: 13 0b 45 0d  	addi	s6, a0, 0xd4
+80000fde: b7 0b 01 80  	lui	s7, 0x80010
+80000fe2: 03 25 0a 0b  	lw	a0, 0xb0(s4)
+80000fe6: 48 45        	lw	a0, 0xc(a0)
+80000fe8: 40 45        	lw	s0, 0xc(a0)
+80000fea: 48 40        	lw	a0, 0x4(s0)
+80000fec: 63 66 a9 08  	bltu	s2, a0, 0x80001078 <xTaskIncrementTick+0x162>
+80000ff0: 4c 48        	lw	a1, 0x14(s0)
+80000ff2: 48 44        	lw	a0, 0xc(s0)
+80000ff4: 10 44        	lw	a2, 0x8(s0)
+80000ff6: d4 41        	lw	a3, 0x4(a1)
+80000ff8: 93 0c 44 00  	addi	s9, s0, 0x4
+80000ffc: 08 c6        	sw	a0, 0x8(a2)
+80000ffe: 50 c1        	sw	a2, 0x4(a0)
+80001000: 63 93 96 01  	bne	a3, s9, 0x80001006 <xTaskIncrementTick+0xf0>
+80001004: c8 c1        	sw	a0, 0x4(a1)
+80001006: 90 41        	lw	a2, 0x0(a1)
+80001008: 08 54        	lw	a0, 0x28(s0)
+8000100a: 7d 16        	addi	a2, a2, -0x1
+8000100c: 90 c1        	sw	a2, 0x0(a1)
+8000100e: 05 c1        	beqz	a0, 0x8000102e <xTaskIncrementTick+0x118>
+80001010: 0c 50        	lw	a1, 0x20(s0)
+80001012: 50 4c        	lw	a2, 0x1c(s0)
+80001014: 54 41        	lw	a3, 0x4(a0)
+80001016: 13 07 84 01  	addi	a4, s0, 0x18
+8000101a: 0c c6        	sw	a1, 0x8(a2)
+8000101c: d0 c1        	sw	a2, 0x4(a1)
+8000101e: 63 93 e6 00  	bne	a3, a4, 0x80001024 <xTaskIncrementTick+0x10e>
+80001022: 4c c1        	sw	a1, 0x4(a0)
+80001024: 0c 41        	lw	a1, 0x0(a0)
+80001026: 23 24 04 02  	sw	zero, 0x28(s0)
+8000102a: fd 15        	addi	a1, a1, -0x1
+8000102c: 0c c1        	sw	a1, 0x0(a0)
+8000102e: 44 54        	lw	s1, 0x2c(s0)
+80001030: 03 a5 8a 09  	lw	a0, 0x98(s5)
+80001034: 63 74 95 00  	bgeu	a0, s1, 0x8000103c <xTaskIncrementTick+0x126>
+80001038: 23 ac 9a 08  	sw	s1, 0x98(s5)
+8000103c: d1 45        	li	a1, 0x14
+8000103e: 26 85        	mv	a0, s1
+80001040: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001044: e7 80 80 12  	jalr	0x128(ra) <__bss_end+0xfffee8b8>
+80001048: 5a 95        	add	a0, a0, s6
+8000104a: 4c 41        	lw	a1, 0x4(a0)
+8000104c: 90 45        	lw	a2, 0x8(a1)
+8000104e: 0c c4        	sw	a1, 0x8(s0)
+80001050: 50 c4        	sw	a2, 0xc(s0)
+80001052: 14 41        	lw	a3, 0x0(a0)
+80001054: 23 22 96 01  	sw	s9, 0x4(a2)
+80001058: 23 a4 95 01  	sw	s9, 0x8(a1)
+8000105c: 48 c8        	sw	a0, 0x14(s0)
+8000105e: 85 06        	addi	a3, a3, 0x1
+80001060: 14 c1        	sw	a3, 0x0(a0)
+80001062: 03 a5 8b 08  	lw	a0, 0x88(s7)
+80001066: 48 55        	lw	a0, 0x2c(a0)
+80001068: 63 73 95 00  	bgeu	a0, s1, 0x8000106e <xTaskIncrementTick+0x158>
+8000106c: 05 4c        	li	s8, 0x1
+8000106e: 03 25 0a 0b  	lw	a0, 0xb0(s4)
+80001072: 08 41        	lw	a0, 0x0(a0)
+80001074: 3d f5        	bnez	a0, 0x80000fe2 <xTaskIncrementTick+0xcc>
+80001076: 11 a0        	j	0x8000107a <xTaskIncrementTick+0x164>
+80001078: aa 89        	mv	s3, a0
+8000107a: 37 05 01 80  	lui	a0, 0x80010
+8000107e: 23 20 35 0b  	sw	s3, 0xa0(a0)
+80001082: 37 05 01 80  	lui	a0, 0x80010
+80001086: 03 25 85 08  	lw	a0, 0x88(a0)
+8000108a: 48 55        	lw	a0, 0x2c(a0)
+8000108c: d1 45        	li	a1, 0x14
+8000108e: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001092: e7 80 a0 0d  	jalr	0xda(ra) <__bss_end+0xfffee8b8>
+80001096: b7 05 01 80  	lui	a1, 0x80010
+8000109a: 93 85 45 0d  	addi	a1, a1, 0xd4
+8000109e: 2e 95        	add	a0, a0, a1
+800010a0: 08 41        	lw	a0, 0x0(a0)
+800010a2: 85 45        	li	a1, 0x1
+800010a4: 63 f3 a5 00  	bgeu	a1, a0, 0x800010aa <xTaskIncrementTick+0x194>
+800010a8: 05 4c        	li	s8, 0x1
+800010aa: 37 05 01 80  	lui	a0, 0x80010
+800010ae: 03 25 c5 09  	lw	a0, 0x9c(a0)
+800010b2: 11 c1        	beqz	a0, 0x800010b6 <xTaskIncrementTick+0x1a0>
+800010b4: 05 4c        	li	s8, 0x1
+800010b6: 62 85        	mv	a0, s8
+800010b8: b2 50        	lw	ra, 0x2c(sp)
+800010ba: 22 54        	lw	s0, 0x28(sp)
+800010bc: 92 54        	lw	s1, 0x24(sp)
+800010be: 02 59        	lw	s2, 0x20(sp)
+800010c0: f2 49        	lw	s3, 0x1c(sp)
+800010c2: 62 4a        	lw	s4, 0x18(sp)
+800010c4: d2 4a        	lw	s5, 0x14(sp)
+800010c6: 42 4b        	lw	s6, 0x10(sp)
+800010c8: b2 4b        	lw	s7, 0xc(sp)
+800010ca: 22 4c        	lw	s8, 0x8(sp)
+800010cc: 92 4c        	lw	s9, 0x4(sp)
+800010ce: 45 61        	addi	sp, sp, 0x30
+800010d0: 82 80        	ret
+
+800010d2 <xTaskGetTickCount>:
+800010d2: 37 05 01 80  	lui	a0, 0x80010
+800010d6: 03 25 45 0a  	lw	a0, 0xa4(a0)
+800010da: 82 80        	ret
+
+800010dc <vTaskPlaceOnEventList>:
+800010dc: 41 11        	addi	sp, sp, -0x10
+800010de: 06 c6        	sw	ra, 0xc(sp)
+800010e0: 22 c4        	sw	s0, 0x8(sp)
+800010e2: 26 c2        	sw	s1, 0x4(sp)
+800010e4: 2e 84        	mv	s0, a1
+800010e6: aa 84        	mv	s1, a0
+800010e8: 09 e5        	bnez	a0, 0x800010f2 <vTaskPlaceOnEventList+0x16>
+800010ea: 97 f0 ff ff  	auipc	ra, 0xfffff
+800010ee: e7 80 a0 0d  	jalr	0xda(ra) <__bss_end+0xfffee914>
+800010f2: 37 05 01 80  	lui	a0, 0x80010
+800010f6: 83 25 85 08  	lw	a1, 0x88(a0)
+800010fa: e1 05        	addi	a1, a1, 0x18
+800010fc: 26 85        	mv	a0, s1
+800010fe: 97 00 00 00  	auipc	ra, 0x0
+80001102: e7 80 80 6e  	jalr	0x6e8(ra) <vListInsert>
+80001106: 85 45        	li	a1, 0x1
+80001108: 22 85        	mv	a0, s0
+8000110a: b2 40        	lw	ra, 0xc(sp)
+8000110c: 22 44        	lw	s0, 0x8(sp)
+8000110e: 92 44        	lw	s1, 0x4(sp)
+80001110: 41 01        	addi	sp, sp, 0x10
+80001112: 17 03 00 00  	auipc	t1, 0x0
+80001116: 67 00 43 8a  	jr	-0x75c(t1) <prvAddCurrentTaskToDelayedList>
+
+8000111a <xTaskRemoveFromEventList>:
+8000111a: 41 11        	addi	sp, sp, -0x10
+8000111c: 06 c6        	sw	ra, 0xc(sp)
+8000111e: 22 c4        	sw	s0, 0x8(sp)
+80001120: 26 c2        	sw	s1, 0x4(sp)
+80001122: 4a c0        	sw	s2, 0x0(sp)
+80001124: 48 45        	lw	a0, 0xc(a0)
+80001126: 44 45        	lw	s1, 0xc(a0)
+80001128: 89 e4        	bnez	s1, 0x80001132 <xTaskRemoveFromEventList+0x18>
+8000112a: 97 f0 ff ff  	auipc	ra, 0xfffff
+8000112e: e7 80 a0 09  	jalr	0x9a(ra) <__bss_end+0xfffee914>
+80001132: 8c 54        	lw	a1, 0x28(s1)
+80001134: 90 50        	lw	a2, 0x20(s1)
+80001136: d4 4c        	lw	a3, 0x1c(s1)
+80001138: d8 41        	lw	a4, 0x4(a1)
+8000113a: 13 85 84 01  	addi	a0, s1, 0x18
+8000113e: 90 c6        	sw	a2, 0x8(a3)
+80001140: 54 c2        	sw	a3, 0x4(a2)
+80001142: 63 13 a7 00  	bne	a4, a0, 0x80001148 <xTaskRemoveFromEventList+0x2e>
+80001146: d0 c1        	sw	a2, 0x4(a1)
+80001148: 90 41        	lw	a2, 0x0(a1)
+8000114a: 23 a4 04 02  	sw	zero, 0x28(s1)
+8000114e: 7d 16        	addi	a2, a2, -0x1
+80001150: 90 c1        	sw	a2, 0x0(a1)
+80001152: b7 05 01 80  	lui	a1, 0x80010
+80001156: 83 a5 c5 08  	lw	a1, 0x8c(a1)
+8000115a: 9d c1        	beqz	a1, 0x80001180 <xTaskRemoveFromEventList+0x66>
+8000115c: b7 05 01 80  	lui	a1, 0x80010
+80001160: 13 86 85 13  	addi	a2, a1, 0x138
+80001164: 54 42        	lw	a3, 0x4(a2)
+80001166: 98 46        	lw	a4, 0x8(a3)
+80001168: d4 cc        	sw	a3, 0x1c(s1)
+8000116a: 98 d0        	sw	a4, 0x20(s1)
+8000116c: 48 c3        	sw	a0, 0x4(a4)
+8000116e: 03 a7 85 13  	lw	a4, 0x138(a1)
+80001172: 88 c6        	sw	a0, 0x8(a3)
+80001174: c0 54        	lw	s0, 0x2c(s1)
+80001176: 90 d4        	sw	a2, 0x28(s1)
+80001178: 05 07        	addi	a4, a4, 0x1
+8000117a: 23 ac e5 12  	sw	a4, 0x138(a1)
+8000117e: b9 a8        	j	0x800011dc <xTaskRemoveFromEventList+0xc2>
+80001180: c8 48        	lw	a0, 0x14(s1)
+80001182: cc 44        	lw	a1, 0xc(s1)
+80001184: 90 44        	lw	a2, 0x8(s1)
+80001186: 54 41        	lw	a3, 0x4(a0)
+80001188: 13 89 44 00  	addi	s2, s1, 0x4
+8000118c: 0c c6        	sw	a1, 0x8(a2)
+8000118e: d0 c1        	sw	a2, 0x4(a1)
+80001190: 63 93 26 01  	bne	a3, s2, 0x80001196 <xTaskRemoveFromEventList+0x7c>
+80001194: 4c c1        	sw	a1, 0x4(a0)
+80001196: 0c 41        	lw	a1, 0x0(a0)
+80001198: fd 15        	addi	a1, a1, -0x1
+8000119a: 0c c1        	sw	a1, 0x0(a0)
+8000119c: c0 54        	lw	s0, 0x2c(s1)
+8000119e: 37 05 01 80  	lui	a0, 0x80010
+800011a2: 83 25 85 09  	lw	a1, 0x98(a0)
+800011a6: 63 f4 85 00  	bgeu	a1, s0, 0x800011ae <xTaskRemoveFromEventList+0x94>
+800011aa: 23 2c 85 08  	sw	s0, 0x98(a0)
+800011ae: d1 45        	li	a1, 0x14
+800011b0: 22 85        	mv	a0, s0
+800011b2: 97 f0 ff ff  	auipc	ra, 0xfffff
+800011b6: e7 80 60 fb  	jalr	-0x4a(ra) <__bss_end+0xfffee8b8>
+800011ba: b7 05 01 80  	lui	a1, 0x80010
+800011be: 93 85 45 0d  	addi	a1, a1, 0xd4
+800011c2: 2e 95        	add	a0, a0, a1
+800011c4: 4c 41        	lw	a1, 0x4(a0)
+800011c6: 90 45        	lw	a2, 0x8(a1)
+800011c8: 8c c4        	sw	a1, 0x8(s1)
+800011ca: d0 c4        	sw	a2, 0xc(s1)
+800011cc: 14 41        	lw	a3, 0x0(a0)
+800011ce: 23 22 26 01  	sw	s2, 0x4(a2)
+800011d2: 23 a4 25 01  	sw	s2, 0x8(a1)
+800011d6: c8 c8        	sw	a0, 0x14(s1)
+800011d8: 85 06        	addi	a3, a3, 0x1
+800011da: 14 c1        	sw	a3, 0x0(a0)
+800011dc: 37 05 01 80  	lui	a0, 0x80010
+800011e0: 03 25 85 08  	lw	a0, 0x88(a0)
+800011e4: 48 55        	lw	a0, 0x2c(a0)
+800011e6: 63 78 85 00  	bgeu	a0, s0, 0x800011f6 <xTaskRemoveFromEventList+0xdc>
+800011ea: b7 05 01 80  	lui	a1, 0x80010
+800011ee: 05 45        	li	a0, 0x1
+800011f0: 23 ae a5 08  	sw	a0, 0x9c(a1)
+800011f4: 11 a0        	j	0x800011f8 <xTaskRemoveFromEventList+0xde>
+800011f6: 01 45        	li	a0, 0x0
+800011f8: b2 40        	lw	ra, 0xc(sp)
+800011fa: 22 44        	lw	s0, 0x8(sp)
+800011fc: 92 44        	lw	s1, 0x4(sp)
+800011fe: 02 49        	lw	s2, 0x0(sp)
+80001200: 41 01        	addi	sp, sp, 0x10
+80001202: 82 80        	ret
+
+80001204 <vTaskInternalSetTimeOutState>:
+80001204: b7 05 01 80  	lui	a1, 0x80010
+80001208: 83 a5 85 0b  	lw	a1, 0xb8(a1)
+8000120c: 0c c1        	sw	a1, 0x0(a0)
+8000120e: b7 05 01 80  	lui	a1, 0x80010
+80001212: 83 a5 45 0a  	lw	a1, 0xa4(a1)
+80001216: 4c c1        	sw	a1, 0x4(a0)
+80001218: 82 80        	ret
+
+8000121a <xTaskCheckForTimeOut>:
+8000121a: 41 11        	addi	sp, sp, -0x10
+8000121c: 06 c6        	sw	ra, 0xc(sp)
+8000121e: 22 c4        	sw	s0, 0x8(sp)
+80001220: 26 c2        	sw	s1, 0x4(sp)
+80001222: ae 84        	mv	s1, a1
+80001224: 2a 84        	mv	s0, a0
+80001226: 35 c1        	beqz	a0, 0x8000128a <xTaskCheckForTimeOut+0x70>
+80001228: b5 c4        	beqz	s1, 0x80001294 <xTaskCheckForTimeOut+0x7a>
+8000122a: 73 70 04 30  	csrci	mstatus, 0x8
+8000122e: b7 05 01 80  	lui	a1, 0x80010
+80001232: 03 a5 85 04  	lw	a0, 0x48(a1)
+80001236: 05 05        	addi	a0, a0, 0x1
+80001238: 23 a4 a5 04  	sw	a0, 0x48(a1)
+8000123c: 37 05 01 80  	lui	a0, 0x80010
+80001240: 03 26 45 0a  	lw	a2, 0xa4(a0)
+80001244: 88 40        	lw	a0, 0x0(s1)
+80001246: fd 56        	li	a3, -0x1
+80001248: 63 0b d5 04  	beq	a0, a3, 0x8000129e <xTaskCheckForTimeOut+0x84>
+8000124c: 54 40        	lw	a3, 0x4(s0)
+8000124e: 37 07 01 80  	lui	a4, 0x80010
+80001252: 03 27 87 0b  	lw	a4, 0xb8(a4)
+80001256: 1c 40        	lw	a5, 0x0(s0)
+80001258: 63 04 f7 00  	beq	a4, a5, 0x80001260 <xTaskCheckForTimeOut+0x46>
+8000125c: 63 73 d6 02  	bgeu	a2, a3, 0x80001282 <xTaskCheckForTimeOut+0x68>
+80001260: 15 8e        	sub	a2, a2, a3
+80001262: 63 70 a6 02  	bgeu	a2, a0, 0x80001282 <xTaskCheckForTimeOut+0x68>
+80001266: 11 8d        	sub	a0, a0, a2
+80001268: 88 c0        	sw	a0, 0x0(s1)
+8000126a: 37 05 01 80  	lui	a0, 0x80010
+8000126e: 03 25 85 0b  	lw	a0, 0xb8(a0)
+80001272: 08 c0        	sw	a0, 0x0(s0)
+80001274: 37 05 01 80  	lui	a0, 0x80010
+80001278: 03 26 45 0a  	lw	a2, 0xa4(a0)
+8000127c: 01 45        	li	a0, 0x0
+8000127e: 50 c0        	sw	a2, 0x4(s0)
+80001280: 05 a0        	j	0x800012a0 <xTaskCheckForTimeOut+0x86>
+80001282: 23 a0 04 00  	sw	zero, 0x0(s1)
+80001286: 05 45        	li	a0, 0x1
+80001288: 21 a8        	j	0x800012a0 <xTaskCheckForTimeOut+0x86>
+8000128a: 97 f0 ff ff  	auipc	ra, 0xfffff
+8000128e: e7 80 a0 f3  	jalr	-0xc6(ra) <__bss_end+0xfffee914>
+80001292: c1 fc        	bnez	s1, 0x8000122a <xTaskCheckForTimeOut+0x10>
+80001294: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001298: e7 80 00 f3  	jalr	-0xd0(ra) <__bss_end+0xfffee914>
+8000129c: 79 b7        	j	0x8000122a <xTaskCheckForTimeOut+0x10>
+8000129e: 01 45        	li	a0, 0x0
+800012a0: 03 a6 85 04  	lw	a2, 0x48(a1)
+800012a4: 7d 16        	addi	a2, a2, -0x1
+800012a6: 23 a4 c5 04  	sw	a2, 0x48(a1)
+800012aa: 19 e2        	bnez	a2, 0x800012b0 <xTaskCheckForTimeOut+0x96>
+800012ac: 73 60 04 30  	csrsi	mstatus, 0x8
+800012b0: b2 40        	lw	ra, 0xc(sp)
+800012b2: 22 44        	lw	s0, 0x8(sp)
+800012b4: 92 44        	lw	s1, 0x4(sp)
+800012b6: 41 01        	addi	sp, sp, 0x10
+800012b8: 82 80        	ret
+
+800012ba <vTaskMissedYield>:
+800012ba: 37 05 01 80  	lui	a0, 0x80010
+800012be: 85 45        	li	a1, 0x1
+800012c0: 23 2e b5 08  	sw	a1, 0x9c(a0)
+800012c4: 82 80        	ret
+
+800012c6 <xTaskPriorityInherit>:
+800012c6: 71 c1        	beqz	a0, 0x8000138a <xTaskPriorityInherit+0xc4>
+800012c8: 41 11        	addi	sp, sp, -0x10
+800012ca: 06 c6        	sw	ra, 0xc(sp)
+800012cc: 22 c4        	sw	s0, 0x8(sp)
+800012ce: 26 c2        	sw	s1, 0x4(sp)
+800012d0: 2a 84        	mv	s0, a0
+800012d2: 48 55        	lw	a0, 0x2c(a0)
+800012d4: b7 05 01 80  	lui	a1, 0x80010
+800012d8: 03 a6 85 08  	lw	a2, 0x88(a1)
+800012dc: 50 56        	lw	a2, 0x2c(a2)
+800012de: 63 71 c5 04  	bgeu	a0, a2, 0x80001320 <xTaskPriorityInherit+0x5a>
+800012e2: 0c 4c        	lw	a1, 0x18(s0)
+800012e4: 63 ca 05 00  	bltz	a1, 0x800012f8 <xTaskPriorityInherit+0x32>
+800012e8: b7 05 01 80  	lui	a1, 0x80010
+800012ec: 83 a5 85 08  	lw	a1, 0x88(a1)
+800012f0: cc 55        	lw	a1, 0x2c(a1)
+800012f2: 15 46        	li	a2, 0x5
+800012f4: 0d 8e        	sub	a2, a2, a1
+800012f6: 10 cc        	sw	a2, 0x18(s0)
+800012f8: 44 48        	lw	s1, 0x14(s0)
+800012fa: d1 45        	li	a1, 0x14
+800012fc: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001300: e7 80 c0 e6  	jalr	-0x194(ra) <__bss_end+0xfffee8b8>
+80001304: b7 05 01 80  	lui	a1, 0x80010
+80001308: 93 85 45 0d  	addi	a1, a1, 0xd4
+8000130c: 2e 95        	add	a0, a0, a1
+8000130e: 63 80 a4 02  	beq	s1, a0, 0x8000132e <xTaskPriorityInherit+0x68>
+80001312: 37 05 01 80  	lui	a0, 0x80010
+80001316: 03 25 85 08  	lw	a0, 0x88(a0)
+8000131a: 48 55        	lw	a0, 0x2c(a0)
+8000131c: 48 d4        	sw	a0, 0x2c(s0)
+8000131e: 8d a0        	j	0x80001380 <xTaskPriorityInherit+0xba>
+80001320: 48 5c        	lw	a0, 0x3c(s0)
+80001322: 83 a5 85 08  	lw	a1, 0x88(a1)
+80001326: cc 55        	lw	a1, 0x2c(a1)
+80001328: 33 35 b5 00  	sltu	a0, a0, a1
+8000132c: 99 a8        	j	0x80001382 <xTaskPriorityInherit+0xbc>
+8000132e: 93 04 44 00  	addi	s1, s0, 0x4
+80001332: 26 85        	mv	a0, s1
+80001334: 97 00 00 00  	auipc	ra, 0x0
+80001338: e7 80 00 4e  	jalr	0x4e0(ra) <uxListRemove>
+8000133c: 37 05 01 80  	lui	a0, 0x80010
+80001340: 03 25 85 08  	lw	a0, 0x88(a0)
+80001344: 48 55        	lw	a0, 0x2c(a0)
+80001346: 48 d4        	sw	a0, 0x2c(s0)
+80001348: b7 05 01 80  	lui	a1, 0x80010
+8000134c: 03 a6 85 09  	lw	a2, 0x98(a1)
+80001350: 63 74 a6 00  	bgeu	a2, a0, 0x80001358 <xTaskPriorityInherit+0x92>
+80001354: 23 ac a5 08  	sw	a0, 0x98(a1)
+80001358: d1 45        	li	a1, 0x14
+8000135a: 97 f0 ff ff  	auipc	ra, 0xfffff
+8000135e: e7 80 e0 e0  	jalr	-0x1f2(ra) <__bss_end+0xfffee8b8>
+80001362: b7 05 01 80  	lui	a1, 0x80010
+80001366: 93 85 45 0d  	addi	a1, a1, 0xd4
+8000136a: 2e 95        	add	a0, a0, a1
+8000136c: 4c 41        	lw	a1, 0x4(a0)
+8000136e: 90 45        	lw	a2, 0x8(a1)
+80001370: 0c c4        	sw	a1, 0x8(s0)
+80001372: 50 c4        	sw	a2, 0xc(s0)
+80001374: 14 41        	lw	a3, 0x0(a0)
+80001376: 44 c2        	sw	s1, 0x4(a2)
+80001378: 84 c5        	sw	s1, 0x8(a1)
+8000137a: 48 c8        	sw	a0, 0x14(s0)
+8000137c: 85 06        	addi	a3, a3, 0x1
+8000137e: 14 c1        	sw	a3, 0x0(a0)
+80001380: 05 45        	li	a0, 0x1
+80001382: b2 40        	lw	ra, 0xc(sp)
+80001384: 22 44        	lw	s0, 0x8(sp)
+80001386: 92 44        	lw	s1, 0x4(sp)
+80001388: 41 01        	addi	sp, sp, 0x10
+8000138a: 82 80        	ret
+
+8000138c <xTaskPriorityDisinherit>:
+8000138c: 41 cd        	beqz	a0, 0x80001424 <xTaskPriorityDisinherit+0x98>
+8000138e: 41 11        	addi	sp, sp, -0x10
+80001390: 06 c6        	sw	ra, 0xc(sp)
+80001392: 22 c4        	sw	s0, 0x8(sp)
+80001394: 26 c2        	sw	s1, 0x4(sp)
+80001396: 2a 84        	mv	s0, a0
+80001398: 37 05 01 80  	lui	a0, 0x80010
+8000139c: 03 25 85 08  	lw	a0, 0x88(a0)
+800013a0: 63 06 85 00  	beq	a0, s0, 0x800013ac <xTaskPriorityDisinherit+0x20>
+800013a4: 97 f0 ff ff  	auipc	ra, 0xfffff
+800013a8: e7 80 00 e2  	jalr	-0x1e0(ra) <__bss_end+0xfffee914>
+800013ac: 2c 40        	lw	a1, 0x40(s0)
+800013ae: 91 e5        	bnez	a1, 0x800013ba <xTaskPriorityDisinherit+0x2e>
+800013b0: 97 f0 ff ff  	auipc	ra, 0xfffff
+800013b4: e7 80 40 e1  	jalr	-0x1ec(ra) <__bss_end+0xfffee914>
+800013b8: 2c 40        	lw	a1, 0x40(s0)
+800013ba: 50 54        	lw	a2, 0x2c(s0)
+800013bc: 54 5c        	lw	a3, 0x3c(s0)
+800013be: 01 45        	li	a0, 0x0
+800013c0: fd 15        	addi	a1, a1, -0x1
+800013c2: 2c c0        	sw	a1, 0x40(s0)
+800013c4: 63 0c d6 04  	beq	a2, a3, 0x8000141c <xTaskPriorityDisinherit+0x90>
+800013c8: b1 e9        	bnez	a1, 0x8000141c <xTaskPriorityDisinherit+0x90>
+800013ca: 93 04 44 00  	addi	s1, s0, 0x4
+800013ce: 26 85        	mv	a0, s1
+800013d0: 97 00 00 00  	auipc	ra, 0x0
+800013d4: e7 80 40 44  	jalr	0x444(ra) <uxListRemove>
+800013d8: 48 5c        	lw	a0, 0x3c(s0)
+800013da: 48 d4        	sw	a0, 0x2c(s0)
+800013dc: 95 45        	li	a1, 0x5
+800013de: 89 8d        	sub	a1, a1, a0
+800013e0: 0c cc        	sw	a1, 0x18(s0)
+800013e2: b7 05 01 80  	lui	a1, 0x80010
+800013e6: 03 a6 85 09  	lw	a2, 0x98(a1)
+800013ea: 63 74 a6 00  	bgeu	a2, a0, 0x800013f2 <xTaskPriorityDisinherit+0x66>
+800013ee: 23 ac a5 08  	sw	a0, 0x98(a1)
+800013f2: d1 45        	li	a1, 0x14
+800013f4: 97 f0 ff ff  	auipc	ra, 0xfffff
+800013f8: e7 80 40 d7  	jalr	-0x28c(ra) <__bss_end+0xfffee8b8>
+800013fc: b7 05 01 80  	lui	a1, 0x80010
+80001400: 93 85 45 0d  	addi	a1, a1, 0xd4
+80001404: 2e 95        	add	a0, a0, a1
+80001406: 4c 41        	lw	a1, 0x4(a0)
+80001408: 90 45        	lw	a2, 0x8(a1)
+8000140a: 0c c4        	sw	a1, 0x8(s0)
+8000140c: 50 c4        	sw	a2, 0xc(s0)
+8000140e: 14 41        	lw	a3, 0x0(a0)
+80001410: 44 c2        	sw	s1, 0x4(a2)
+80001412: 84 c5        	sw	s1, 0x8(a1)
+80001414: 48 c8        	sw	a0, 0x14(s0)
+80001416: 85 06        	addi	a3, a3, 0x1
+80001418: 14 c1        	sw	a3, 0x0(a0)
+8000141a: 05 45        	li	a0, 0x1
+8000141c: b2 40        	lw	ra, 0xc(sp)
+8000141e: 22 44        	lw	s0, 0x8(sp)
+80001420: 92 44        	lw	s1, 0x4(sp)
+80001422: 41 01        	addi	sp, sp, 0x10
+80001424: 82 80        	ret
+
+80001426 <vTaskPriorityDisinheritAfterTimeout>:
+80001426: 61 c5        	beqz	a0, 0x800014ee <vTaskPriorityDisinheritAfterTimeout+0xc8>
+80001428: 41 11        	addi	sp, sp, -0x10
+8000142a: 06 c6        	sw	ra, 0xc(sp)
+8000142c: 22 c4        	sw	s0, 0x8(sp)
+8000142e: 26 c2        	sw	s1, 0x4(sp)
+80001430: 4a c0        	sw	s2, 0x0(sp)
+80001432: ae 84        	mv	s1, a1
+80001434: 2a 84        	mv	s0, a0
+80001436: 28 41        	lw	a0, 0x40(a0)
+80001438: 09 e5        	bnez	a0, 0x80001442 <vTaskPriorityDisinheritAfterTimeout+0x1c>
+8000143a: 97 f0 ff ff  	auipc	ra, 0xfffff
+8000143e: e7 80 a0 d8  	jalr	-0x276(ra) <__bss_end+0xfffee914>
+80001442: 03 29 c4 03  	lw	s2, 0x3c(s0)
+80001446: 63 e3 24 01  	bltu	s1, s2, 0x8000144c <vTaskPriorityDisinheritAfterTimeout+0x26>
+8000144a: 26 89        	mv	s2, s1
+8000144c: 48 54        	lw	a0, 0x2c(s0)
+8000144e: 63 0b 25 09  	beq	a0, s2, 0x800014e4 <vTaskPriorityDisinheritAfterTimeout+0xbe>
+80001452: 2c 40        	lw	a1, 0x40(s0)
+80001454: 05 46        	li	a2, 0x1
+80001456: 63 97 c5 08  	bne	a1, a2, 0x800014e4 <vTaskPriorityDisinheritAfterTimeout+0xbe>
+8000145a: b7 05 01 80  	lui	a1, 0x80010
+8000145e: 83 a5 85 08  	lw	a1, 0x88(a1)
+80001462: 63 97 85 00  	bne	a1, s0, 0x80001470 <vTaskPriorityDisinheritAfterTimeout+0x4a>
+80001466: 97 f0 ff ff  	auipc	ra, 0xfffff
+8000146a: e7 80 e0 d5  	jalr	-0x2a2(ra) <__bss_end+0xfffee914>
+8000146e: 48 54        	lw	a0, 0x2c(s0)
+80001470: 0c 4c        	lw	a1, 0x18(s0)
+80001472: 23 26 24 03  	sw	s2, 0x2c(s0)
+80001476: 63 c6 05 00  	bltz	a1, 0x80001482 <vTaskPriorityDisinheritAfterTimeout+0x5c>
+8000147a: 95 45        	li	a1, 0x5
+8000147c: b3 85 25 41  	sub	a1, a1, s2
+80001480: 0c cc        	sw	a1, 0x18(s0)
+80001482: 44 48        	lw	s1, 0x14(s0)
+80001484: d1 45        	li	a1, 0x14
+80001486: 97 f0 ff ff  	auipc	ra, 0xfffff
+8000148a: e7 80 20 ce  	jalr	-0x31e(ra) <__bss_end+0xfffee8b8>
+8000148e: b7 05 01 80  	lui	a1, 0x80010
+80001492: 93 85 45 0d  	addi	a1, a1, 0xd4
+80001496: 2e 95        	add	a0, a0, a1
+80001498: 63 96 a4 04  	bne	s1, a0, 0x800014e4 <vTaskPriorityDisinheritAfterTimeout+0xbe>
+8000149c: 93 04 44 00  	addi	s1, s0, 0x4
+800014a0: 26 85        	mv	a0, s1
+800014a2: 97 00 00 00  	auipc	ra, 0x0
+800014a6: e7 80 20 37  	jalr	0x372(ra) <uxListRemove>
+800014aa: 48 54        	lw	a0, 0x2c(s0)
+800014ac: b7 05 01 80  	lui	a1, 0x80010
+800014b0: 03 a6 85 09  	lw	a2, 0x98(a1)
+800014b4: 63 74 a6 00  	bgeu	a2, a0, 0x800014bc <vTaskPriorityDisinheritAfterTimeout+0x96>
+800014b8: 23 ac a5 08  	sw	a0, 0x98(a1)
+800014bc: d1 45        	li	a1, 0x14
+800014be: 97 f0 ff ff  	auipc	ra, 0xfffff
+800014c2: e7 80 a0 ca  	jalr	-0x356(ra) <__bss_end+0xfffee8b8>
+800014c6: b7 05 01 80  	lui	a1, 0x80010
+800014ca: 93 85 45 0d  	addi	a1, a1, 0xd4
+800014ce: 2e 95        	add	a0, a0, a1
+800014d0: 4c 41        	lw	a1, 0x4(a0)
+800014d2: 90 45        	lw	a2, 0x8(a1)
+800014d4: 0c c4        	sw	a1, 0x8(s0)
+800014d6: 50 c4        	sw	a2, 0xc(s0)
+800014d8: 14 41        	lw	a3, 0x0(a0)
+800014da: 44 c2        	sw	s1, 0x4(a2)
+800014dc: 84 c5        	sw	s1, 0x8(a1)
+800014de: 48 c8        	sw	a0, 0x14(s0)
+800014e0: 85 06        	addi	a3, a3, 0x1
+800014e2: 14 c1        	sw	a3, 0x0(a0)
+800014e4: b2 40        	lw	ra, 0xc(sp)
+800014e6: 22 44        	lw	s0, 0x8(sp)
+800014e8: 92 44        	lw	s1, 0x4(sp)
+800014ea: 02 49        	lw	s2, 0x0(sp)
+800014ec: 41 01        	addi	sp, sp, 0x10
+800014ee: 82 80        	ret
+
+800014f0 <pvTaskIncrementMutexHeldCount>:
+800014f0: 37 05 01 80  	lui	a0, 0x80010
+800014f4: 03 25 85 08  	lw	a0, 0x88(a0)
+800014f8: 01 c5        	beqz	a0, 0x80001500 <pvTaskIncrementMutexHeldCount+0x10>
+800014fa: 2c 41        	lw	a1, 0x40(a0)
+800014fc: 85 05        	addi	a1, a1, 0x1
+800014fe: 2c c1        	sw	a1, 0x40(a0)
+80001500: 82 80        	ret
+
+80001502 <xTaskGenericNotifyWait>:
+80001502: 01 11        	addi	sp, sp, -0x20
+80001504: 06 ce        	sw	ra, 0x1c(sp)
+80001506: 22 cc        	sw	s0, 0x18(sp)
+80001508: 26 ca        	sw	s1, 0x14(sp)
+8000150a: 4a c8        	sw	s2, 0x10(sp)
+8000150c: 4e c6        	sw	s3, 0xc(sp)
+8000150e: 52 c4        	sw	s4, 0x8(sp)
+80001510: 56 c2        	sw	s5, 0x4(sp)
+80001512: ba 84        	mv	s1, a4
+80001514: b6 89        	mv	s3, a3
+80001516: 32 89        	mv	s2, a2
+80001518: 2e 8a        	mv	s4, a1
+8000151a: 2a 84        	mv	s0, a0
+8000151c: 09 c5        	beqz	a0, 0x80001526 <xTaskGenericNotifyWait+0x24>
+8000151e: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001522: e7 80 60 ca  	jalr	-0x35a(ra) <__bss_end+0xfffee914>
+80001526: 37 05 01 80  	lui	a0, 0x80010
+8000152a: 03 25 85 08  	lw	a0, 0x88(a0)
+8000152e: 22 95        	add	a0, a0, s0
+80001530: 03 45 85 04  	lbu	a0, 0x48(a0)
+80001534: 93 1a 24 00  	slli	s5, s0, 0x2
+80001538: c9 c8        	beqz	s1, 0x800015ca <xTaskGenericNotifyWait+0xc8>
+8000153a: 09 46        	li	a2, 0x2
+8000153c: 63 07 c5 08  	beq	a0, a2, 0x800015ca <xTaskGenericNotifyWait+0xc8>
+80001540: 37 05 01 80  	lui	a0, 0x80010
+80001544: 83 25 c5 08  	lw	a1, 0x8c(a0)
+80001548: 85 05        	addi	a1, a1, 0x1
+8000154a: 23 26 b5 08  	sw	a1, 0x8c(a0)
+8000154e: 73 70 04 30  	csrci	mstatus, 0x8
+80001552: b7 05 01 80  	lui	a1, 0x80010
+80001556: 03 a7 85 04  	lw	a4, 0x48(a1)
+8000155a: 13 05 17 00  	addi	a0, a4, 0x1
+8000155e: 23 a4 a5 04  	sw	a0, 0x48(a1)
+80001562: b7 06 01 80  	lui	a3, 0x80010
+80001566: 03 a5 86 08  	lw	a0, 0x88(a3)
+8000156a: 22 95        	add	a0, a0, s0
+8000156c: 03 45 85 04  	lbu	a0, 0x48(a0)
+80001570: 63 03 c5 02  	beq	a0, a2, 0x80001596 <xTaskGenericNotifyWait+0x94>
+80001574: 03 a6 86 08  	lw	a2, 0x88(a3)
+80001578: 56 96        	add	a2, a2, s5
+8000157a: 78 42        	lw	a4, 0x44(a2)
+8000157c: 93 47 fa ff  	not	a5, s4
+80001580: 7d 8f        	and	a4, a4, a5
+80001582: 78 c2        	sw	a4, 0x44(a2)
+80001584: 03 a6 86 08  	lw	a2, 0x88(a3)
+80001588: 22 96        	add	a2, a2, s0
+8000158a: 85 46        	li	a3, 0x1
+8000158c: 23 04 d6 04  	sb	a3, 0x48(a2)
+80001590: 03 a7 85 04  	lw	a4, 0x48(a1)
+80001594: 7d 17        	addi	a4, a4, -0x1
+80001596: 23 a4 e5 04  	sw	a4, 0x48(a1)
+8000159a: 19 e3        	bnez	a4, 0x800015a0 <xTaskGenericNotifyWait+0x9e>
+8000159c: 73 60 04 30  	csrsi	mstatus, 0x8
+800015a0: 89 45        	li	a1, 0x2
+800015a2: 63 17 b5 00  	bne	a0, a1, 0x800015b0 <xTaskGenericNotifyWait+0xae>
+800015a6: 97 f0 ff ff  	auipc	ra, 0xfffff
+800015aa: e7 80 e0 4e  	jalr	0x4ee(ra) <__bss_end+0xfffef1e4>
+800015ae: 31 a8        	j	0x800015ca <xTaskGenericNotifyWait+0xc8>
+800015b0: 85 45        	li	a1, 0x1
+800015b2: 26 85        	mv	a0, s1
+800015b4: 97 f0 ff ff  	auipc	ra, 0xfffff
+800015b8: e7 80 20 40  	jalr	0x402(ra) <__bss_end+0xfffef106>
+800015bc: 97 f0 ff ff  	auipc	ra, 0xfffff
+800015c0: e7 80 80 4d  	jalr	0x4d8(ra) <__bss_end+0xfffef1e4>
+800015c4: 19 e1        	bnez	a0, 0x800015ca <xTaskGenericNotifyWait+0xc8>
+800015c6: 73 00 00 00  	ecall
+800015ca: 73 70 04 30  	csrci	mstatus, 0x8
+800015ce: 37 05 01 80  	lui	a0, 0x80010
+800015d2: 83 25 85 04  	lw	a1, 0x48(a0)
+800015d6: 85 05        	addi	a1, a1, 0x1
+800015d8: 23 24 b5 04  	sw	a1, 0x48(a0)
+800015dc: 63 8a 09 00  	beqz	s3, 0x800015f0 <xTaskGenericNotifyWait+0xee>
+800015e0: 37 05 01 80  	lui	a0, 0x80010
+800015e4: 03 25 85 08  	lw	a0, 0x88(a0)
+800015e8: 56 95        	add	a0, a0, s5
+800015ea: 68 41        	lw	a0, 0x44(a0)
+800015ec: 23 a0 a9 00  	sw	a0, 0x0(s3)
+800015f0: b7 05 01 80  	lui	a1, 0x80010
+800015f4: 03 a5 85 08  	lw	a0, 0x88(a1)
+800015f8: 22 95        	add	a0, a0, s0
+800015fa: 03 45 85 04  	lbu	a0, 0x48(a0)
+800015fe: 09 46        	li	a2, 0x2
+80001600: 63 1c c5 00  	bne	a0, a2, 0x80001618 <xTaskGenericNotifyWait+0x116>
+80001604: 03 a5 85 08  	lw	a0, 0x88(a1)
+80001608: 56 95        	add	a0, a0, s5
+8000160a: 70 41        	lw	a2, 0x44(a0)
+8000160c: 93 46 f9 ff  	not	a3, s2
+80001610: 75 8e        	and	a2, a2, a3
+80001612: 70 c1        	sw	a2, 0x44(a0)
+80001614: 05 45        	li	a0, 0x1
+80001616: 11 a0        	j	0x8000161a <xTaskGenericNotifyWait+0x118>
+80001618: 01 45        	li	a0, 0x0
+8000161a: 83 a5 85 08  	lw	a1, 0x88(a1)
+8000161e: a2 95        	add	a1, a1, s0
+80001620: 23 84 05 04  	sb	zero, 0x48(a1)
+80001624: b7 05 01 80  	lui	a1, 0x80010
+80001628: 03 a6 85 04  	lw	a2, 0x48(a1)
+8000162c: 7d 16        	addi	a2, a2, -0x1
+8000162e: 23 a4 c5 04  	sw	a2, 0x48(a1)
+80001632: 19 e2        	bnez	a2, 0x80001638 <xTaskGenericNotifyWait+0x136>
+80001634: 73 60 04 30  	csrsi	mstatus, 0x8
+80001638: f2 40        	lw	ra, 0x1c(sp)
+8000163a: 62 44        	lw	s0, 0x18(sp)
+8000163c: d2 44        	lw	s1, 0x14(sp)
+8000163e: 42 49        	lw	s2, 0x10(sp)
+80001640: b2 49        	lw	s3, 0xc(sp)
+80001642: 22 4a        	lw	s4, 0x8(sp)
+80001644: 92 4a        	lw	s5, 0x4(sp)
+80001646: 05 61        	addi	sp, sp, 0x20
+80001648: 82 80        	ret
+
+8000164a <xTaskGenericNotify>:
+8000164a: 01 11        	addi	sp, sp, -0x20
+8000164c: 06 ce        	sw	ra, 0x1c(sp)
+8000164e: 22 cc        	sw	s0, 0x18(sp)
+80001650: 26 ca        	sw	s1, 0x14(sp)
+80001652: 4a c8        	sw	s2, 0x10(sp)
+80001654: 4e c6        	sw	s3, 0xc(sp)
+80001656: 52 c4        	sw	s4, 0x8(sp)
+80001658: 3a 8a        	mv	s4, a4
+8000165a: b6 89        	mv	s3, a3
+8000165c: 32 89        	mv	s2, a2
+8000165e: ae 84        	mv	s1, a1
+80001660: 2a 84        	mv	s0, a0
+80001662: 89 c5        	beqz	a1, 0x8000166c <xTaskGenericNotify+0x22>
+80001664: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001668: e7 80 00 b6  	jalr	-0x4a0(ra) <__bss_end+0xfffee914>
+8000166c: 09 e4        	bnez	s0, 0x80001676 <xTaskGenericNotify+0x2c>
+8000166e: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001672: e7 80 60 b5  	jalr	-0x4aa(ra) <__bss_end+0xfffee914>
+80001676: 73 70 04 30  	csrci	mstatus, 0x8
+8000167a: 37 05 01 80  	lui	a0, 0x80010
+8000167e: 83 25 85 04  	lw	a1, 0x48(a0)
+80001682: 85 05        	addi	a1, a1, 0x1
+80001684: 23 24 b5 04  	sw	a1, 0x48(a0)
+80001688: 63 08 0a 00  	beqz	s4, 0x80001698 <xTaskGenericNotify+0x4e>
+8000168c: 13 95 24 00  	slli	a0, s1, 0x2
+80001690: 22 95        	add	a0, a0, s0
+80001692: 68 41        	lw	a0, 0x44(a0)
+80001694: 23 20 aa 00  	sw	a0, 0x0(s4)
+80001698: 33 05 94 00  	add	a0, s0, s1
+8000169c: 03 4a 85 04  	lbu	s4, 0x48(a0)
+800016a0: 89 45        	li	a1, 0x2
+800016a2: 11 46        	li	a2, 0x4
+800016a4: 23 04 b5 04  	sb	a1, 0x48(a0)
+800016a8: 63 60 36 05  	bltu	a2, s3, 0x800016e8 <.LBB34_12+0xc>
+800016ac: 8a 09        	slli	s3, s3, 0x2
+800016ae: 37 25 00 80  	lui	a0, 0x80002
+800016b2: 13 05 45 58  	addi	a0, a0, 0x584
+800016b6: 4e 95        	add	a0, a0, s3
+800016b8: 08 41        	lw	a0, 0x0(a0)
+800016ba: 02 85        	jr	a0
+
+800016bc <.LBB34_8>:
+800016bc: 8a 04        	slli	s1, s1, 0x2
+800016be: a2 94        	add	s1, s1, s0
+800016c0: e8 40        	lw	a0, 0x44(s1)
+800016c2: 33 65 25 01  	or	a0, a0, s2
+800016c6: 39 a8        	j	0x800016e4 <.LBB34_12+0x8>
+
+800016c8 <.LBB34_9>:
+800016c8: 09 45        	li	a0, 0x2
+800016ca: 63 14 aa 00  	bne	s4, a0, 0x800016d2 <.LBB34_11>
+800016ce: 01 49        	li	s2, 0x0
+800016d0: 75 a0        	j	0x8000177c <.LBB34_16+0x82>
+
+800016d2 <.LBB34_11>:
+800016d2: 8a 04        	slli	s1, s1, 0x2
+800016d4: a2 94        	add	s1, s1, s0
+800016d6: 23 a2 24 05  	sw	s2, 0x44(s1)
+800016da: 05 a0        	j	0x800016fa <.LBB34_16>
+
+800016dc <.LBB34_12>:
+800016dc: 8a 04        	slli	s1, s1, 0x2
+800016de: a2 94        	add	s1, s1, s0
+800016e0: e8 40        	lw	a0, 0x44(s1)
+800016e2: 05 05        	addi	a0, a0, 0x1
+800016e4: e8 c0        	sw	a0, 0x44(s1)
+800016e6: 11 a8        	j	0x800016fa <.LBB34_16>
+800016e8: 37 05 01 80  	lui	a0, 0x80010
+800016ec: 03 25 45 0a  	lw	a0, 0xa4(a0)
+800016f0: 09 c5        	beqz	a0, 0x800016fa <.LBB34_16>
+800016f2: 97 f0 ff ff  	auipc	ra, 0xfffff
+800016f6: e7 80 20 ad  	jalr	-0x52e(ra) <__bss_end+0xfffee914>
+
+800016fa <.LBB34_16>:
+800016fa: 05 49        	li	s2, 0x1
+800016fc: 63 10 2a 09  	bne	s4, s2, 0x8000177c <.LBB34_16+0x82>
+80001700: 48 48        	lw	a0, 0x14(s0)
+80001702: 4c 44        	lw	a1, 0xc(s0)
+80001704: 10 44        	lw	a2, 0x8(s0)
+80001706: 54 41        	lw	a3, 0x4(a0)
+80001708: 93 09 44 00  	addi	s3, s0, 0x4
+8000170c: 0c c6        	sw	a1, 0x8(a2)
+8000170e: d0 c1        	sw	a2, 0x4(a1)
+80001710: 63 93 36 01  	bne	a3, s3, 0x80001716 <.LBB34_16+0x1c>
+80001714: 4c c1        	sw	a1, 0x4(a0)
+80001716: 0c 41        	lw	a1, 0x0(a0)
+80001718: fd 15        	addi	a1, a1, -0x1
+8000171a: 0c c1        	sw	a1, 0x0(a0)
+8000171c: 44 54        	lw	s1, 0x2c(s0)
+8000171e: 37 05 01 80  	lui	a0, 0x80010
+80001722: 83 25 85 09  	lw	a1, 0x98(a0)
+80001726: 63 f4 95 00  	bgeu	a1, s1, 0x8000172e <.LBB34_16+0x34>
+8000172a: 23 2c 95 08  	sw	s1, 0x98(a0)
+8000172e: d1 45        	li	a1, 0x14
+80001730: 26 85        	mv	a0, s1
+80001732: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001736: e7 80 60 a3  	jalr	-0x5ca(ra) <__bss_end+0xfffee8b8>
+8000173a: b7 05 01 80  	lui	a1, 0x80010
+8000173e: 93 85 45 0d  	addi	a1, a1, 0xd4
+80001742: 2e 95        	add	a0, a0, a1
+80001744: 4c 41        	lw	a1, 0x4(a0)
+80001746: 90 45        	lw	a2, 0x8(a1)
+80001748: 0c c4        	sw	a1, 0x8(s0)
+8000174a: 50 c4        	sw	a2, 0xc(s0)
+8000174c: 23 22 36 01  	sw	s3, 0x4(a2)
+80001750: 10 41        	lw	a2, 0x0(a0)
+80001752: 14 54        	lw	a3, 0x28(s0)
+80001754: 23 a4 35 01  	sw	s3, 0x8(a1)
+80001758: 48 c8        	sw	a0, 0x14(s0)
+8000175a: 05 06        	addi	a2, a2, 0x1
+8000175c: 10 c1        	sw	a2, 0x0(a0)
+8000175e: 91 c6        	beqz	a3, 0x8000176a <.LBB34_16+0x70>
+80001760: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001764: e7 80 40 a6  	jalr	-0x59c(ra) <__bss_end+0xfffee914>
+80001768: 44 54        	lw	s1, 0x2c(s0)
+8000176a: 37 05 01 80  	lui	a0, 0x80010
+8000176e: 03 25 85 08  	lw	a0, 0x88(a0)
+80001772: 48 55        	lw	a0, 0x2c(a0)
+80001774: 63 74 95 00  	bgeu	a0, s1, 0x8000177c <.LBB34_16+0x82>
+80001778: 73 00 00 00  	ecall
+8000177c: 37 05 01 80  	lui	a0, 0x80010
+80001780: 83 25 85 04  	lw	a1, 0x48(a0)
+80001784: fd 15        	addi	a1, a1, -0x1
+80001786: 23 24 b5 04  	sw	a1, 0x48(a0)
+8000178a: 99 e1        	bnez	a1, 0x80001790 <.LBB34_16+0x96>
+8000178c: 73 60 04 30  	csrsi	mstatus, 0x8
+80001790: 4a 85        	mv	a0, s2
+80001792: f2 40        	lw	ra, 0x1c(sp)
+80001794: 62 44        	lw	s0, 0x18(sp)
+80001796: d2 44        	lw	s1, 0x14(sp)
+80001798: 42 49        	lw	s2, 0x10(sp)
+8000179a: b2 49        	lw	s3, 0xc(sp)
+8000179c: 22 4a        	lw	s4, 0x8(sp)
+8000179e: 05 61        	addi	sp, sp, 0x20
+800017a0: 82 80        	ret
+
+800017a2 <prvIdleTask>:
+800017a2: 37 05 01 80  	lui	a0, 0x80010
+800017a6: 03 25 45 0d  	lw	a0, 0xd4(a0)
+800017aa: 89 45        	li	a1, 0x2
+800017ac: 63 60 b5 00  	bltu	a0, a1, 0x800017ac <prvIdleTask+0xa>
+800017b0: 73 00 00 00  	ecall
+800017b4: e5 bf        	j	0x800017ac <prvIdleTask+0xa>
+
+800017b6 <vListInitialise>:
+800017b6: 93 05 85 00  	addi	a1, a0, 0x8
+800017ba: 4c c1        	sw	a1, 0x4(a0)
+800017bc: 7d 56        	li	a2, -0x1
+800017be: 10 c5        	sw	a2, 0x8(a0)
+800017c0: 4c c5        	sw	a1, 0xc(a0)
+800017c2: 0c c9        	sw	a1, 0x10(a0)
+800017c4: 23 20 05 00  	sw	zero, 0x0(a0)
+800017c8: 82 80        	ret
+
+800017ca <vListInitialiseItem>:
+800017ca: 23 28 05 00  	sw	zero, 0x10(a0)
+800017ce: 82 80        	ret
+
+800017d0 <vListInsertEnd>:
+800017d0: 50 41        	lw	a2, 0x4(a0)
+800017d2: 14 46        	lw	a3, 0x8(a2)
+800017d4: d0 c1        	sw	a2, 0x4(a1)
+800017d6: 94 c5        	sw	a3, 0x8(a1)
+800017d8: 18 41        	lw	a4, 0x0(a0)
+800017da: cc c2        	sw	a1, 0x4(a3)
+800017dc: 0c c6        	sw	a1, 0x8(a2)
+800017de: 88 c9        	sw	a0, 0x10(a1)
+800017e0: 05 07        	addi	a4, a4, 0x1
+800017e2: 18 c1        	sw	a4, 0x0(a0)
+800017e4: 82 80        	ret
+
+800017e6 <vListInsert>:
+800017e6: 98 41        	lw	a4, 0x0(a1)
+800017e8: 7d 56        	li	a2, -0x1
+800017ea: 63 0a c7 00  	beq	a4, a2, 0x800017fe <vListInsert+0x18>
+800017ee: 93 06 85 00  	addi	a3, a0, 0x8
+800017f2: 36 86        	mv	a2, a3
+800017f4: d4 42        	lw	a3, 0x4(a3)
+800017f6: 9c 42        	lw	a5, 0x0(a3)
+800017f8: e3 7d f7 fe  	bgeu	a4, a5, 0x800017f2 <vListInsert+0xc>
+800017fc: 19 a0        	j	0x80001802 <vListInsert+0x1c>
+800017fe: 10 49        	lw	a2, 0x10(a0)
+80001800: 54 42        	lw	a3, 0x4(a2)
+80001802: d4 c1        	sw	a3, 0x4(a1)
+80001804: 8c c6        	sw	a1, 0x8(a3)
+80001806: 14 41        	lw	a3, 0x0(a0)
+80001808: 90 c5        	sw	a2, 0x8(a1)
+8000180a: 4c c2        	sw	a1, 0x4(a2)
+8000180c: 88 c9        	sw	a0, 0x10(a1)
+8000180e: 85 06        	addi	a3, a3, 0x1
+80001810: 14 c1        	sw	a3, 0x0(a0)
+80001812: 82 80        	ret
+
+80001814 <uxListRemove>:
+80001814: 0c 49        	lw	a1, 0x10(a0)
+80001816: 10 45        	lw	a2, 0x8(a0)
+80001818: 54 41        	lw	a3, 0x4(a0)
+8000181a: d8 41        	lw	a4, 0x4(a1)
+8000181c: 90 c6        	sw	a2, 0x8(a3)
+8000181e: 54 c2        	sw	a3, 0x4(a2)
+80001820: 63 13 a7 00  	bne	a4, a0, 0x80001826 <uxListRemove+0x12>
+80001824: d0 c1        	sw	a2, 0x4(a1)
+80001826: 90 41        	lw	a2, 0x0(a1)
+80001828: 23 28 05 00  	sw	zero, 0x10(a0)
+8000182c: 13 05 f6 ff  	addi	a0, a2, -0x1
+80001830: 88 c1        	sw	a0, 0x0(a1)
+80001832: 82 80        	ret
+
+80001834 <xQueueGenericReset>:
+80001834: 01 11        	addi	sp, sp, -0x20
+80001836: 06 ce        	sw	ra, 0x1c(sp)
+80001838: 22 cc        	sw	s0, 0x18(sp)
+8000183a: 26 ca        	sw	s1, 0x14(sp)
+8000183c: 4a c8        	sw	s2, 0x10(sp)
+8000183e: 4e c6        	sw	s3, 0xc(sp)
+80001840: 52 c4        	sw	s4, 0x8(sp)
+80001842: 59 cd        	beqz	a0, 0x800018e0 <xQueueGenericReset+0xac>
+80001844: 2a 84        	mv	s0, a0
+80001846: 48 5d        	lw	a0, 0x3c(a0)
+80001848: 45 c1        	beqz	a0, 0x800018e8 <xQueueGenericReset+0xb4>
+8000184a: 2e 8a        	mv	s4, a1
+8000184c: 30 40        	lw	a2, 0x40(s0)
+8000184e: 81 45        	li	a1, 0x0
+80001850: 81 46        	li	a3, 0x0
+80001852: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001856: e7 80 e0 92  	jalr	-0x6d2(ra) <__bss_end+0xfffee8d0>
+8000185a: d9 e5        	bnez	a1, 0x800018e8 <xQueueGenericReset+0xb4>
+8000185c: 73 70 04 30  	csrci	mstatus, 0x8
+80001860: 37 05 01 80  	lui	a0, 0x80010
+80001864: 83 25 85 04  	lw	a1, 0x48(a0)
+80001868: 04 40        	lw	s1, 0x0(s0)
+8000186a: 03 29 c4 03  	lw	s2, 0x3c(s0)
+8000186e: 83 29 04 04  	lw	s3, 0x40(s0)
+80001872: 85 05        	addi	a1, a1, 0x1
+80001874: 23 24 b5 04  	sw	a1, 0x48(a0)
+80001878: 4e 85        	mv	a0, s3
+8000187a: ca 85        	mv	a1, s2
+8000187c: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001880: e7 80 c0 8e  	jalr	-0x714(ra) <__bss_end+0xfffee8b8>
+80001884: 26 95        	add	a0, a0, s1
+80001886: 08 c4        	sw	a0, 0x8(s0)
+80001888: 23 2c 04 02  	sw	zero, 0x38(s0)
+8000188c: 44 c0        	sw	s1, 0x4(s0)
+8000188e: 13 05 f9 ff  	addi	a0, s2, -0x1
+80001892: ce 85        	mv	a1, s3
+80001894: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001898: e7 80 40 8d  	jalr	-0x72c(ra) <__bss_end+0xfffee8b8>
+8000189c: 26 95        	add	a0, a0, s1
+8000189e: 48 c4        	sw	a0, 0xc(s0)
+800018a0: 13 05 f0 0f  	li	a0, 0xff
+800018a4: 23 02 a4 04  	sb	a0, 0x44(s0)
+800018a8: a3 02 a4 04  	sb	a0, 0x45(s0)
+800018ac: 13 05 04 01  	addi	a0, s0, 0x10
+800018b0: 63 09 0a 04  	beqz	s4, 0x80001902 <xQueueGenericReset+0xce>
+800018b4: 97 00 00 00  	auipc	ra, 0x0
+800018b8: e7 80 20 f0  	jalr	-0xfe(ra) <vListInitialise>
+800018bc: 13 05 44 02  	addi	a0, s0, 0x24
+800018c0: 97 00 00 00  	auipc	ra, 0x0
+800018c4: e7 80 60 ef  	jalr	-0x10a(ra) <vListInitialise>
+800018c8: 37 05 01 80  	lui	a0, 0x80010
+800018cc: 83 25 85 04  	lw	a1, 0x48(a0)
+800018d0: fd 15        	addi	a1, a1, -0x1
+800018d2: 23 24 b5 04  	sw	a1, 0x48(a0)
+800018d6: 05 45        	li	a0, 0x1
+800018d8: 89 ed        	bnez	a1, 0x800018f2 <xQueueGenericReset+0xbe>
+800018da: 73 60 04 30  	csrsi	mstatus, 0x8
+800018de: 11 a8        	j	0x800018f2 <xQueueGenericReset+0xbe>
+800018e0: 97 f0 ff ff  	auipc	ra, 0xfffff
+800018e4: e7 80 40 8e  	jalr	-0x71c(ra) <__bss_end+0xfffee914>
+800018e8: 97 f0 ff ff  	auipc	ra, 0xfffff
+800018ec: e7 80 c0 8d  	jalr	-0x724(ra) <__bss_end+0xfffee914>
+800018f0: 01 45        	li	a0, 0x0
+800018f2: f2 40        	lw	ra, 0x1c(sp)
+800018f4: 62 44        	lw	s0, 0x18(sp)
+800018f6: d2 44        	lw	s1, 0x14(sp)
+800018f8: 42 49        	lw	s2, 0x10(sp)
+800018fa: b2 49        	lw	s3, 0xc(sp)
+800018fc: 22 4a        	lw	s4, 0x8(sp)
+800018fe: 05 61        	addi	sp, sp, 0x20
+80001900: 82 80        	ret
+80001902: 0c 41        	lw	a1, 0x0(a0)
+80001904: f1 d1        	beqz	a1, 0x800018c8 <xQueueGenericReset+0x94>
+80001906: 97 00 00 00  	auipc	ra, 0x0
+8000190a: e7 80 40 81  	jalr	-0x7ec(ra) <xTaskRemoveFromEventList>
+8000190e: 4d dd        	beqz	a0, 0x800018c8 <xQueueGenericReset+0x94>
+80001910: 73 00 00 00  	ecall
+80001914: 55 bf        	j	0x800018c8 <xQueueGenericReset+0x94>
+
+80001916 <xQueueGenericCreate>:
+80001916: 41 11        	addi	sp, sp, -0x10
+80001918: 06 c6        	sw	ra, 0xc(sp)
+8000191a: 22 c4        	sw	s0, 0x8(sp)
+8000191c: 26 c2        	sw	s1, 0x4(sp)
+8000191e: 4a c0        	sw	s2, 0x0(sp)
+80001920: 31 cd        	beqz	a0, 0x8000197c <xQueueGenericCreate+0x66>
+80001922: 2e 89        	mv	s2, a1
+80001924: aa 84        	mv	s1, a0
+80001926: 81 45        	li	a1, 0x0
+80001928: 4a 86        	mv	a2, s2
+8000192a: 81 46        	li	a3, 0x0
+8000192c: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001930: e7 80 40 85  	jalr	-0x7ac(ra) <__bss_end+0xfffee8d0>
+80001934: a1 e5        	bnez	a1, 0x8000197c <xQueueGenericCreate+0x66>
+80001936: 4a 85        	mv	a0, s2
+80001938: a6 85        	mv	a1, s1
+8000193a: 97 f0 ff ff  	auipc	ra, 0xfffff
+8000193e: e7 80 e0 82  	jalr	-0x7d2(ra) <__bss_end+0xfffee8b8>
+80001942: 93 05 70 fb  	li	a1, -0x49
+80001946: 63 eb a5 02  	bltu	a1, a0, 0x8000197c <xQueueGenericCreate+0x66>
+8000194a: 13 05 85 04  	addi	a0, a0, 0x48
+8000194e: 97 00 00 00  	auipc	ra, 0x0
+80001952: e7 80 00 7e  	jalr	0x7e0(ra) <pvPortMalloc>
+80001956: 1d c5        	beqz	a0, 0x80001984 <xQueueGenericCreate+0x6e>
+80001958: 2a 84        	mv	s0, a0
+8000195a: 13 35 19 00  	seqz	a0, s2
+8000195e: 7d 15        	addi	a0, a0, -0x1
+80001960: 13 75 85 04  	andi	a0, a0, 0x48
+80001964: 22 95        	add	a0, a0, s0
+80001966: 08 c0        	sw	a0, 0x0(s0)
+80001968: 44 dc        	sw	s1, 0x3c(s0)
+8000196a: 23 20 24 05  	sw	s2, 0x40(s0)
+8000196e: 85 45        	li	a1, 0x1
+80001970: 22 85        	mv	a0, s0
+80001972: 97 00 00 00  	auipc	ra, 0x0
+80001976: e7 80 20 ec  	jalr	-0x13e(ra) <xQueueGenericReset>
+8000197a: 31 a0        	j	0x80001986 <xQueueGenericCreate+0x70>
+8000197c: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001980: e7 80 80 84  	jalr	-0x7b8(ra) <__bss_end+0xfffee914>
+80001984: 01 44        	li	s0, 0x0
+80001986: 22 85        	mv	a0, s0
+80001988: b2 40        	lw	ra, 0xc(sp)
+8000198a: 22 44        	lw	s0, 0x8(sp)
+8000198c: 92 44        	lw	s1, 0x4(sp)
+8000198e: 02 49        	lw	s2, 0x0(sp)
+80001990: 41 01        	addi	sp, sp, 0x10
+80001992: 82 80        	ret
+
+80001994 <xQueueCreateMutex>:
+80001994: 41 11        	addi	sp, sp, -0x10
+80001996: 06 c6        	sw	ra, 0xc(sp)
+80001998: 22 c4        	sw	s0, 0x8(sp)
+8000199a: 05 45        	li	a0, 0x1
+8000199c: 81 45        	li	a1, 0x0
+8000199e: 01 46        	li	a2, 0x0
+800019a0: 97 00 00 00  	auipc	ra, 0x0
+800019a4: e7 80 60 f7  	jalr	-0x8a(ra) <xQueueGenericCreate>
+800019a8: 2a 84        	mv	s0, a0
+800019aa: 19 cd        	beqz	a0, 0x800019c8 <xQueueCreateMutex+0x34>
+800019ac: 23 24 04 00  	sw	zero, 0x8(s0)
+800019b0: 23 20 04 00  	sw	zero, 0x0(s0)
+800019b4: 23 26 04 00  	sw	zero, 0xc(s0)
+800019b8: 22 85        	mv	a0, s0
+800019ba: 81 45        	li	a1, 0x0
+800019bc: 01 46        	li	a2, 0x0
+800019be: 81 46        	li	a3, 0x0
+800019c0: 97 00 00 00  	auipc	ra, 0x0
+800019c4: e7 80 20 01  	jalr	0x12(ra) <xQueueGenericSend>
+800019c8: 22 85        	mv	a0, s0
+800019ca: b2 40        	lw	ra, 0xc(sp)
+800019cc: 22 44        	lw	s0, 0x8(sp)
+800019ce: 41 01        	addi	sp, sp, 0x10
+800019d0: 82 80        	ret
+
+800019d2 <xQueueGenericSend>:
+800019d2: 79 71        	addi	sp, sp, -0x30
+800019d4: 06 d6        	sw	ra, 0x2c(sp)
+800019d6: 22 d4        	sw	s0, 0x28(sp)
+800019d8: 26 d2        	sw	s1, 0x24(sp)
+800019da: 4a d0        	sw	s2, 0x20(sp)
+800019dc: 4e ce        	sw	s3, 0x1c(sp)
+800019de: 52 cc        	sw	s4, 0x18(sp)
+800019e0: 56 ca        	sw	s5, 0x14(sp)
+800019e2: 36 8a        	mv	s4, a3
+800019e4: 2e 89        	mv	s2, a1
+800019e6: 2a 84        	mv	s0, a0
+800019e8: 32 c8        	sw	a2, 0x10(sp)
+800019ea: 01 c5        	beqz	a0, 0x800019f2 <xQueueGenericSend+0x20>
+800019ec: 63 1f 09 00  	bnez	s2, 0x80001a0a <xQueueGenericSend+0x38>
+800019f0: 39 a0        	j	0x800019fe <xQueueGenericSend+0x2c>
+800019f2: 97 e0 ff ff  	auipc	ra, 0xffffe
+800019f6: e7 80 20 7d  	jalr	0x7d2(ra) <__bss_end+0xfffee914>
+800019fa: 63 18 09 00  	bnez	s2, 0x80001a0a <xQueueGenericSend+0x38>
+800019fe: 28 40        	lw	a0, 0x40(s0)
+80001a00: 09 c5        	beqz	a0, 0x80001a0a <xQueueGenericSend+0x38>
+80001a02: 97 e0 ff ff  	auipc	ra, 0xffffe
+80001a06: e7 80 20 7c  	jalr	0x7c2(ra) <__bss_end+0xfffee914>
+80001a0a: 89 44        	li	s1, 0x2
+80001a0c: 63 1a 9a 00  	bne	s4, s1, 0x80001a20 <xQueueGenericSend+0x4e>
+80001a10: 48 5c        	lw	a0, 0x3c(s0)
+80001a12: 85 45        	li	a1, 0x1
+80001a14: 63 06 b5 00  	beq	a0, a1, 0x80001a20 <xQueueGenericSend+0x4e>
+80001a18: 97 e0 ff ff  	auipc	ra, 0xffffe
+80001a1c: e7 80 c0 7a  	jalr	0x7ac(ra) <__bss_end+0xfffee914>
+80001a20: 73 70 04 30  	csrci	mstatus, 0x8
+80001a24: 37 06 01 80  	lui	a2, 0x80010
+80001a28: 83 25 86 04  	lw	a1, 0x48(a2)
+80001a2c: 13 85 15 00  	addi	a0, a1, 0x1
+80001a30: 23 24 a6 04  	sw	a0, 0x48(a2)
+80001a34: 10 5c        	lw	a2, 0x38(s0)
+80001a36: 63 0e 9a 0e  	beq	s4, s1, 0x80001b32 <xQueueGenericSend+0x160>
+80001a3a: 54 5c        	lw	a3, 0x3c(s0)
+80001a3c: 63 6b d6 0e  	bltu	a2, a3, 0x80001b32 <xQueueGenericSend+0x160>
+80001a40: 42 46        	lw	a2, 0x10(sp)
+80001a42: 79 ce        	beqz	a2, 0x80001b20 <xQueueGenericSend+0x14e>
+80001a44: 93 09 04 01  	addi	s3, s0, 0x10
+80001a48: 05 46        	li	a2, 0x1
+80001a4a: b7 04 01 80  	lui	s1, 0x80010
+80001a4e: 93 0a f0 0f  	li	s5, 0xff
+80001a52: 05 8a        	andi	a2, a2, 0x1
+80001a54: 01 ca        	beqz	a2, 0x80001a64 <xQueueGenericSend+0x92>
+80001a56: 28 00        	addi	a0, sp, 0x8
+80001a58: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001a5c: e7 80 c0 7a  	jalr	0x7ac(ra) <__bss_end+0xfffef954>
+80001a60: 03 a5 84 04  	lw	a0, 0x48(s1)
+80001a64: 7d 15        	addi	a0, a0, -0x1
+80001a66: 23 a4 a4 04  	sw	a0, 0x48(s1)
+80001a6a: 19 e1        	bnez	a0, 0x80001a70 <xQueueGenericSend+0x9e>
+80001a6c: 73 60 04 30  	csrsi	mstatus, 0x8
+80001a70: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001a74: e7 80 60 f3  	jalr	-0xca(ra) <__bss_end+0xfffef0f6>
+80001a78: 73 70 04 30  	csrci	mstatus, 0x8
+80001a7c: 03 a5 84 04  	lw	a0, 0x48(s1)
+80001a80: 83 45 44 04  	lbu	a1, 0x44(s0)
+80001a84: 63 94 55 01  	bne	a1, s5, 0x80001a8c <xQueueGenericSend+0xba>
+80001a88: 23 02 04 04  	sb	zero, 0x44(s0)
+80001a8c: 83 45 54 04  	lbu	a1, 0x45(s0)
+80001a90: 63 86 55 05  	beq	a1, s5, 0x80001adc <xQueueGenericSend+0x10a>
+80001a94: 39 c5        	beqz	a0, 0x80001ae2 <xQueueGenericSend+0x110>
+80001a96: 28 00        	addi	a0, sp, 0x8
+80001a98: 0c 08        	addi	a1, sp, 0x10
+80001a9a: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001a9e: e7 80 00 78  	jalr	0x780(ra) <__bss_end+0xfffef96a>
+80001aa2: 71 e9        	bnez	a0, 0x80001b76 <xQueueGenericSend+0x1a4>
+80001aa4: 73 70 04 30  	csrci	mstatus, 0x8
+80001aa8: 03 a6 84 04  	lw	a2, 0x48(s1)
+80001aac: 08 5c        	lw	a0, 0x38(s0)
+80001aae: 4c 5c        	lw	a1, 0x3c(s0)
+80001ab0: 05 ce        	beqz	a2, 0x80001ae8 <xQueueGenericSend+0x116>
+80001ab2: 63 1f b5 02  	bne	a0, a1, 0x80001af0 <xQueueGenericSend+0x11e>
+80001ab6: c2 45        	lw	a1, 0x10(sp)
+80001ab8: 4e 85        	mv	a0, s3
+80001aba: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001abe: e7 80 20 62  	jalr	0x622(ra) <__bss_end+0xfffef82c>
+80001ac2: 22 85        	mv	a0, s0
+80001ac4: 97 00 00 00  	auipc	ra, 0x0
+80001ac8: e7 80 20 17  	jalr	0x172(ra) <prvUnlockQueue>
+80001acc: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001ad0: e7 80 80 fc  	jalr	-0x38(ra) <__bss_end+0xfffef1e4>
+80001ad4: 1d e5        	bnez	a0, 0x80001b02 <xQueueGenericSend+0x130>
+80001ad6: 73 00 00 00  	ecall
+80001ada: 25 a0        	j	0x80001b02 <xQueueGenericSend+0x130>
+80001adc: a3 02 04 04  	sb	zero, 0x45(s0)
+80001ae0: 5d f9        	bnez	a0, 0x80001a96 <xQueueGenericSend+0xc4>
+80001ae2: 73 60 04 30  	csrsi	mstatus, 0x8
+80001ae6: 45 bf        	j	0x80001a96 <xQueueGenericSend+0xc4>
+80001ae8: 73 60 04 30  	csrsi	mstatus, 0x8
+80001aec: e3 05 b5 fc  	beq	a0, a1, 0x80001ab6 <xQueueGenericSend+0xe4>
+80001af0: 22 85        	mv	a0, s0
+80001af2: 97 00 00 00  	auipc	ra, 0x0
+80001af6: e7 80 40 14  	jalr	0x144(ra) <prvUnlockQueue>
+80001afa: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001afe: e7 80 a0 f9  	jalr	-0x66(ra) <__bss_end+0xfffef1e4>
+80001b02: 73 70 04 30  	csrci	mstatus, 0x8
+80001b06: 83 a5 84 04  	lw	a1, 0x48(s1)
+80001b0a: 13 85 15 00  	addi	a0, a1, 0x1
+80001b0e: 23 a4 a4 04  	sw	a0, 0x48(s1)
+80001b12: 10 5c        	lw	a2, 0x38(s0)
+80001b14: 54 5c        	lw	a3, 0x3c(s0)
+80001b16: 63 6e d6 00  	bltu	a2, a3, 0x80001b32 <xQueueGenericSend+0x160>
+80001b1a: c2 46        	lw	a3, 0x10(sp)
+80001b1c: 01 46        	li	a2, 0x0
+80001b1e: 95 fa        	bnez	a3, 0x80001a52 <xQueueGenericSend+0x80>
+80001b20: 37 05 01 80  	lui	a0, 0x80010
+80001b24: 23 24 b5 04  	sw	a1, 0x48(a0)
+80001b28: a5 e1        	bnez	a1, 0x80001b88 <xQueueGenericSend+0x1b6>
+80001b2a: 01 45        	li	a0, 0x0
+80001b2c: 73 60 04 30  	csrsi	mstatus, 0x8
+80001b30: a9 a8        	j	0x80001b8a <xQueueGenericSend+0x1b8>
+80001b32: 22 85        	mv	a0, s0
+80001b34: ca 85        	mv	a1, s2
+80001b36: 52 86        	mv	a2, s4
+80001b38: 97 00 00 00  	auipc	ra, 0x0
+80001b3c: e7 80 40 06  	jalr	0x64(ra) <prvCopyDataToQueue>
+80001b40: 4c 50        	lw	a1, 0x24(s0)
+80001b42: 99 c9        	beqz	a1, 0x80001b58 <xQueueGenericSend+0x186>
+80001b44: 13 05 44 02  	addi	a0, s0, 0x24
+80001b48: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001b4c: e7 80 20 5d  	jalr	0x5d2(ra) <__bss_end+0xfffef86a>
+80001b50: 19 c5        	beqz	a0, 0x80001b5e <xQueueGenericSend+0x18c>
+80001b52: 73 00 00 00  	ecall
+80001b56: 21 a0        	j	0x80001b5e <xQueueGenericSend+0x18c>
+80001b58: 19 c1        	beqz	a0, 0x80001b5e <xQueueGenericSend+0x18c>
+80001b5a: 73 00 00 00  	ecall
+80001b5e: 37 05 01 80  	lui	a0, 0x80010
+80001b62: 83 25 85 04  	lw	a1, 0x48(a0)
+80001b66: fd 15        	addi	a1, a1, -0x1
+80001b68: 23 24 b5 04  	sw	a1, 0x48(a0)
+80001b6c: 05 45        	li	a0, 0x1
+80001b6e: 91 ed        	bnez	a1, 0x80001b8a <xQueueGenericSend+0x1b8>
+80001b70: 73 60 04 30  	csrsi	mstatus, 0x8
+80001b74: 19 a8        	j	0x80001b8a <xQueueGenericSend+0x1b8>
+80001b76: 22 85        	mv	a0, s0
+80001b78: 97 00 00 00  	auipc	ra, 0x0
+80001b7c: e7 80 e0 0b  	jalr	0xbe(ra) <prvUnlockQueue>
+80001b80: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001b84: e7 80 40 f1  	jalr	-0xec(ra) <__bss_end+0xfffef1e4>
+80001b88: 01 45        	li	a0, 0x0
+80001b8a: b2 50        	lw	ra, 0x2c(sp)
+80001b8c: 22 54        	lw	s0, 0x28(sp)
+80001b8e: 92 54        	lw	s1, 0x24(sp)
+80001b90: 02 59        	lw	s2, 0x20(sp)
+80001b92: f2 49        	lw	s3, 0x1c(sp)
+80001b94: 62 4a        	lw	s4, 0x18(sp)
+80001b96: d2 4a        	lw	s5, 0x14(sp)
+80001b98: 45 61        	addi	sp, sp, 0x30
+80001b9a: 82 80        	ret
+
+80001b9c <prvCopyDataToQueue>:
+80001b9c: 41 11        	addi	sp, sp, -0x10
+80001b9e: 06 c6        	sw	ra, 0xc(sp)
+80001ba0: 22 c4        	sw	s0, 0x8(sp)
+80001ba2: 26 c2        	sw	s1, 0x4(sp)
+80001ba4: 4a c0        	sw	s2, 0x0(sp)
+80001ba6: 2a 84        	mv	s0, a0
+80001ba8: 03 29 85 03  	lw	s2, 0x38(a0)
+80001bac: 34 41        	lw	a3, 0x40(a0)
+80001bae: 9d ce        	beqz	a3, 0x80001bec <prvCopyDataToQueue+0x50>
+80001bb0: b2 84        	mv	s1, a2
+80001bb2: 39 c6        	beqz	a2, 0x80001c00 <prvCopyDataToQueue+0x64>
+80001bb4: 48 44        	lw	a0, 0xc(s0)
+80001bb6: 36 86        	mv	a2, a3
+80001bb8: 97 e0 ff ff  	auipc	ra, 0xffffe
+80001bbc: e7 80 40 59  	jalr	0x594(ra) <__bss_end+0xfffee89c>
+80001bc0: 28 40        	lw	a0, 0x40(s0)
+80001bc2: 4c 44        	lw	a1, 0xc(s0)
+80001bc4: 10 40        	lw	a2, 0x0(s0)
+80001bc6: 89 8d        	sub	a1, a1, a0
+80001bc8: 4c c4        	sw	a1, 0xc(s0)
+80001bca: 63 f7 c5 00  	bgeu	a1, a2, 0x80001bd8 <prvCopyDataToQueue+0x3c>
+80001bce: 0c 44        	lw	a1, 0x8(s0)
+80001bd0: 33 05 a0 40  	neg	a0, a0
+80001bd4: 2e 95        	add	a0, a0, a1
+80001bd6: 48 c4        	sw	a0, 0xc(s0)
+80001bd8: 01 45        	li	a0, 0x0
+80001bda: f9 14        	addi	s1, s1, -0x2
+80001bdc: 93 b5 14 00  	seqz	a1, s1
+80001be0: 33 36 20 01  	snez	a2, s2
+80001be4: f1 8d        	and	a1, a1, a2
+80001be6: 33 09 b9 40  	sub	s2, s2, a1
+80001bea: 2d a8        	j	0x80001c24 <prvCopyDataToQueue+0x88>
+80001bec: 08 40        	lw	a0, 0x0(s0)
+80001bee: 15 e5        	bnez	a0, 0x80001c1a <prvCopyDataToQueue+0x7e>
+80001bf0: 08 44        	lw	a0, 0x8(s0)
+80001bf2: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001bf6: e7 80 a0 79  	jalr	0x79a(ra) <__bss_end+0xfffefadc>
+80001bfa: 23 24 04 00  	sw	zero, 0x8(s0)
+80001bfe: 1d a0        	j	0x80001c24 <prvCopyDataToQueue+0x88>
+80001c00: 48 40        	lw	a0, 0x4(s0)
+80001c02: 36 86        	mv	a2, a3
+80001c04: 97 e0 ff ff  	auipc	ra, 0xffffe
+80001c08: e7 80 80 54  	jalr	0x548(ra) <__bss_end+0xfffee89c>
+80001c0c: 28 40        	lw	a0, 0x40(s0)
+80001c0e: 4c 40        	lw	a1, 0x4(s0)
+80001c10: 10 44        	lw	a2, 0x8(s0)
+80001c12: 2e 95        	add	a0, a0, a1
+80001c14: 48 c0        	sw	a0, 0x4(s0)
+80001c16: 63 74 c5 00  	bgeu	a0, a2, 0x80001c1e <prvCopyDataToQueue+0x82>
+80001c1a: 01 45        	li	a0, 0x0
+80001c1c: 21 a0        	j	0x80001c24 <prvCopyDataToQueue+0x88>
+80001c1e: 0c 40        	lw	a1, 0x0(s0)
+80001c20: 01 45        	li	a0, 0x0
+80001c22: 4c c0        	sw	a1, 0x4(s0)
+80001c24: 05 09        	addi	s2, s2, 0x1
+80001c26: 23 2c 24 03  	sw	s2, 0x38(s0)
+80001c2a: b2 40        	lw	ra, 0xc(sp)
+80001c2c: 22 44        	lw	s0, 0x8(sp)
+80001c2e: 92 44        	lw	s1, 0x4(sp)
+80001c30: 02 49        	lw	s2, 0x0(sp)
+80001c32: 41 01        	addi	sp, sp, 0x10
+80001c34: 82 80        	ret
+
+80001c36 <prvUnlockQueue>:
+80001c36: 01 11        	addi	sp, sp, -0x20
+80001c38: 06 ce        	sw	ra, 0x1c(sp)
+80001c3a: 22 cc        	sw	s0, 0x18(sp)
+80001c3c: 26 ca        	sw	s1, 0x14(sp)
+80001c3e: 4a c8        	sw	s2, 0x10(sp)
+80001c40: 4e c6        	sw	s3, 0xc(sp)
+80001c42: 52 c4        	sw	s4, 0x8(sp)
+80001c44: 73 70 04 30  	csrci	mstatus, 0x8
+80001c48: 37 09 01 80  	lui	s2, 0x80010
+80001c4c: 83 25 89 04  	lw	a1, 0x48(s2)
+80001c50: aa 89        	mv	s3, a0
+80001c52: 13 85 15 00  	addi	a0, a1, 0x1
+80001c56: 23 24 a9 04  	sw	a0, 0x48(s2)
+80001c5a: 03 84 59 04  	lb	s0, 0x45(s3)
+80001c5e: 63 5c 80 02  	blez	s0, 0x80001c96 <prvUnlockQueue+0x60>
+80001c62: 93 84 49 02  	addi	s1, s3, 0x24
+80001c66: 05 4a        	li	s4, 0x1
+80001c68: 88 40        	lw	a0, 0x0(s1)
+80001c6a: 0d c1        	beqz	a0, 0x80001c8c <prvUnlockQueue+0x56>
+80001c6c: 26 85        	mv	a0, s1
+80001c6e: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001c72: e7 80 c0 4a  	jalr	0x4ac(ra) <__bss_end+0xfffef86a>
+80001c76: 09 c5        	beqz	a0, 0x80001c80 <prvUnlockQueue+0x4a>
+80001c78: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001c7c: e7 80 20 64  	jalr	0x642(ra) <__bss_end+0xfffefa0a>
+80001c80: 13 15 84 01  	slli	a0, s0, 0x18
+80001c84: 7d 14        	addi	s0, s0, -0x1
+80001c86: 61 85        	srai	a0, a0, 0x18
+80001c88: e3 40 aa fe  	blt	s4, a0, 0x80001c68 <prvUnlockQueue+0x32>
+80001c8c: 37 05 01 80  	lui	a0, 0x80010
+80001c90: 83 25 85 04  	lw	a1, 0x48(a0)
+80001c94: fd 15        	addi	a1, a1, -0x1
+80001c96: 13 05 f0 0f  	li	a0, 0xff
+80001c9a: a3 82 a9 04  	sb	a0, 0x45(s3)
+80001c9e: 23 24 b9 04  	sw	a1, 0x48(s2)
+80001ca2: 99 e1        	bnez	a1, 0x80001ca8 <prvUnlockQueue+0x72>
+80001ca4: 73 60 04 30  	csrsi	mstatus, 0x8
+80001ca8: 73 70 04 30  	csrci	mstatus, 0x8
+80001cac: 37 09 01 80  	lui	s2, 0x80010
+80001cb0: 03 25 89 04  	lw	a0, 0x48(s2)
+80001cb4: 93 05 15 00  	addi	a1, a0, 0x1
+80001cb8: 23 24 b9 04  	sw	a1, 0x48(s2)
+80001cbc: 03 84 49 04  	lb	s0, 0x44(s3)
+80001cc0: 63 5c 80 02  	blez	s0, 0x80001cf8 <prvUnlockQueue+0xc2>
+80001cc4: 93 84 09 01  	addi	s1, s3, 0x10
+80001cc8: 05 4a        	li	s4, 0x1
+80001cca: 88 40        	lw	a0, 0x0(s1)
+80001ccc: 0d c1        	beqz	a0, 0x80001cee <prvUnlockQueue+0xb8>
+80001cce: 26 85        	mv	a0, s1
+80001cd0: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001cd4: e7 80 a0 44  	jalr	0x44a(ra) <__bss_end+0xfffef86a>
+80001cd8: 09 c5        	beqz	a0, 0x80001ce2 <prvUnlockQueue+0xac>
+80001cda: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001cde: e7 80 00 5e  	jalr	0x5e0(ra) <__bss_end+0xfffefa0a>
+80001ce2: 13 15 84 01  	slli	a0, s0, 0x18
+80001ce6: 7d 14        	addi	s0, s0, -0x1
+80001ce8: 61 85        	srai	a0, a0, 0x18
+80001cea: e3 40 aa fe  	blt	s4, a0, 0x80001cca <prvUnlockQueue+0x94>
+80001cee: 37 05 01 80  	lui	a0, 0x80010
+80001cf2: 03 25 85 04  	lw	a0, 0x48(a0)
+80001cf6: 7d 15        	addi	a0, a0, -0x1
+80001cf8: 93 05 f0 0f  	li	a1, 0xff
+80001cfc: 23 82 b9 04  	sb	a1, 0x44(s3)
+80001d00: 23 24 a9 04  	sw	a0, 0x48(s2)
+80001d04: 19 e1        	bnez	a0, 0x80001d0a <prvUnlockQueue+0xd4>
+80001d06: 73 60 04 30  	csrsi	mstatus, 0x8
+80001d0a: f2 40        	lw	ra, 0x1c(sp)
+80001d0c: 62 44        	lw	s0, 0x18(sp)
+80001d0e: d2 44        	lw	s1, 0x14(sp)
+80001d10: 42 49        	lw	s2, 0x10(sp)
+80001d12: b2 49        	lw	s3, 0xc(sp)
+80001d14: 22 4a        	lw	s4, 0x8(sp)
+80001d16: 05 61        	addi	sp, sp, 0x20
+80001d18: 82 80        	ret
+
+80001d1a <xQueueReceive>:
+80001d1a: 79 71        	addi	sp, sp, -0x30
+80001d1c: 06 d6        	sw	ra, 0x2c(sp)
+80001d1e: 22 d4        	sw	s0, 0x28(sp)
+80001d20: 26 d2        	sw	s1, 0x24(sp)
+80001d22: 4a d0        	sw	s2, 0x20(sp)
+80001d24: 4e ce        	sw	s3, 0x1c(sp)
+80001d26: 52 cc        	sw	s4, 0x18(sp)
+80001d28: 56 ca        	sw	s5, 0x14(sp)
+80001d2a: ae 89        	mv	s3, a1
+80001d2c: 2a 84        	mv	s0, a0
+80001d2e: 32 c8        	sw	a2, 0x10(sp)
+80001d30: 01 c5        	beqz	a0, 0x80001d38 <xQueueReceive+0x1e>
+80001d32: 63 9f 09 00  	bnez	s3, 0x80001d50 <xQueueReceive+0x36>
+80001d36: 39 a0        	j	0x80001d44 <xQueueReceive+0x2a>
+80001d38: 97 e0 ff ff  	auipc	ra, 0xffffe
+80001d3c: e7 80 c0 48  	jalr	0x48c(ra) <__bss_end+0xfffee914>
+80001d40: 63 98 09 00  	bnez	s3, 0x80001d50 <xQueueReceive+0x36>
+80001d44: 28 40        	lw	a0, 0x40(s0)
+80001d46: 09 c5        	beqz	a0, 0x80001d50 <xQueueReceive+0x36>
+80001d48: 97 e0 ff ff  	auipc	ra, 0xffffe
+80001d4c: e7 80 c0 47  	jalr	0x47c(ra) <__bss_end+0xfffee914>
+80001d50: 73 70 04 30  	csrci	mstatus, 0x8
+80001d54: 37 06 01 80  	lui	a2, 0x80010
+80001d58: 83 25 86 04  	lw	a1, 0x48(a2)
+80001d5c: 13 85 15 00  	addi	a0, a1, 0x1
+80001d60: 23 24 a6 04  	sw	a0, 0x48(a2)
+80001d64: 04 5c        	lw	s1, 0x38(s0)
+80001d66: a9 c0        	beqz	s1, 0x80001da8 <xQueueReceive+0x8e>
+80001d68: 22 85        	mv	a0, s0
+80001d6a: ce 85        	mv	a1, s3
+80001d6c: 97 00 00 00  	auipc	ra, 0x0
+80001d70: e7 80 c0 15  	jalr	0x15c(ra) <prvCopyDataFromQueue>
+80001d74: fd 14        	addi	s1, s1, -0x1
+80001d76: 04 dc        	sw	s1, 0x38(s0)
+80001d78: 08 48        	lw	a0, 0x10(s0)
+80001d7a: 11 c9        	beqz	a0, 0x80001d8e <xQueueReceive+0x74>
+80001d7c: 13 05 04 01  	addi	a0, s0, 0x10
+80001d80: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001d84: e7 80 a0 39  	jalr	0x39a(ra) <__bss_end+0xfffef86a>
+80001d88: 19 c1        	beqz	a0, 0x80001d8e <xQueueReceive+0x74>
+80001d8a: 73 00 00 00  	ecall
+80001d8e: 37 05 01 80  	lui	a0, 0x80010
+80001d92: 83 25 85 04  	lw	a1, 0x48(a0)
+80001d96: fd 15        	addi	a1, a1, -0x1
+80001d98: 23 24 b5 04  	sw	a1, 0x48(a0)
+80001d9c: 05 45        	li	a0, 0x1
+80001d9e: 63 9c 05 10  	bnez	a1, 0x80001eb6 <xQueueReceive+0x19c>
+80001da2: 73 60 04 30  	csrsi	mstatus, 0x8
+80001da6: 01 aa        	j	0x80001eb6 <xQueueReceive+0x19c>
+80001da8: 42 46        	lw	a2, 0x10(sp)
+80001daa: 75 ce        	beqz	a2, 0x80001ea6 <xQueueReceive+0x18c>
+80001dac: 13 09 44 02  	addi	s2, s0, 0x24
+80001db0: 05 46        	li	a2, 0x1
+80001db2: b7 0a 01 80  	lui	s5, 0x80010
+80001db6: 13 0a f0 0f  	li	s4, 0xff
+80001dba: 05 8a        	andi	a2, a2, 0x1
+80001dbc: 01 ca        	beqz	a2, 0x80001dcc <xQueueReceive+0xb2>
+80001dbe: 28 00        	addi	a0, sp, 0x8
+80001dc0: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001dc4: e7 80 40 44  	jalr	0x444(ra) <__bss_end+0xfffef954>
+80001dc8: 03 a5 8a 04  	lw	a0, 0x48(s5)
+80001dcc: 7d 15        	addi	a0, a0, -0x1
+80001dce: 23 a4 aa 04  	sw	a0, 0x48(s5)
+80001dd2: 19 e1        	bnez	a0, 0x80001dd8 <xQueueReceive+0xbe>
+80001dd4: 73 60 04 30  	csrsi	mstatus, 0x8
+80001dd8: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001ddc: e7 80 e0 bc  	jalr	-0x432(ra) <__bss_end+0xfffef0f6>
+80001de0: 73 70 04 30  	csrci	mstatus, 0x8
+80001de4: 03 a5 8a 04  	lw	a0, 0x48(s5)
+80001de8: 83 45 44 04  	lbu	a1, 0x44(s0)
+80001dec: 63 94 45 01  	bne	a1, s4, 0x80001df4 <xQueueReceive+0xda>
+80001df0: 23 02 04 04  	sb	zero, 0x44(s0)
+80001df4: 83 45 54 04  	lbu	a1, 0x45(s0)
+80001df8: 63 8d 45 03  	beq	a1, s4, 0x80001e32 <xQueueReceive+0x118>
+80001dfc: 15 cd        	beqz	a0, 0x80001e38 <xQueueReceive+0x11e>
+80001dfe: 28 00        	addi	a0, sp, 0x8
+80001e00: 0c 08        	addi	a1, sp, 0x10
+80001e02: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001e06: e7 80 80 41  	jalr	0x418(ra) <__bss_end+0xfffef96a>
+80001e0a: 15 c9        	beqz	a0, 0x80001e3e <xQueueReceive+0x124>
+80001e0c: 22 85        	mv	a0, s0
+80001e0e: 97 00 00 00  	auipc	ra, 0x0
+80001e12: e7 80 80 e2  	jalr	-0x1d8(ra) <prvUnlockQueue>
+80001e16: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001e1a: e7 80 e0 c7  	jalr	-0x382(ra) <__bss_end+0xfffef1e4>
+80001e1e: 73 70 04 30  	csrci	mstatus, 0x8
+80001e22: 83 a5 8a 04  	lw	a1, 0x48(s5)
+80001e26: 08 5c        	lw	a0, 0x38(s0)
+80001e28: 99 e1        	bnez	a1, 0x80001e2e <xQueueReceive+0x114>
+80001e2a: 73 60 04 30  	csrsi	mstatus, 0x8
+80001e2e: 31 ed        	bnez	a0, 0x80001e8a <xQueueReceive+0x170>
+80001e30: 59 a0        	j	0x80001eb6 <xQueueReceive+0x19c>
+80001e32: a3 02 04 04  	sb	zero, 0x45(s0)
+80001e36: 61 f5        	bnez	a0, 0x80001dfe <xQueueReceive+0xe4>
+80001e38: 73 60 04 30  	csrsi	mstatus, 0x8
+80001e3c: c9 b7        	j	0x80001dfe <xQueueReceive+0xe4>
+80001e3e: 73 70 04 30  	csrci	mstatus, 0x8
+80001e42: 83 a5 8a 04  	lw	a1, 0x48(s5)
+80001e46: 08 5c        	lw	a0, 0x38(s0)
+80001e48: 81 cd        	beqz	a1, 0x80001e60 <xQueueReceive+0x146>
+80001e4a: 11 cd        	beqz	a0, 0x80001e66 <xQueueReceive+0x14c>
+80001e4c: 22 85        	mv	a0, s0
+80001e4e: 97 00 00 00  	auipc	ra, 0x0
+80001e52: e7 80 80 de  	jalr	-0x218(ra) <prvUnlockQueue>
+80001e56: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001e5a: e7 80 e0 c3  	jalr	-0x3c2(ra) <__bss_end+0xfffef1e4>
+80001e5e: 35 a0        	j	0x80001e8a <xQueueReceive+0x170>
+80001e60: 73 60 04 30  	csrsi	mstatus, 0x8
+80001e64: 65 f5        	bnez	a0, 0x80001e4c <xQueueReceive+0x132>
+80001e66: c2 45        	lw	a1, 0x10(sp)
+80001e68: 4a 85        	mv	a0, s2
+80001e6a: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001e6e: e7 80 20 27  	jalr	0x272(ra) <__bss_end+0xfffef82c>
+80001e72: 22 85        	mv	a0, s0
+80001e74: 97 00 00 00  	auipc	ra, 0x0
+80001e78: e7 80 20 dc  	jalr	-0x23e(ra) <prvUnlockQueue>
+80001e7c: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001e80: e7 80 80 c1  	jalr	-0x3e8(ra) <__bss_end+0xfffef1e4>
+80001e84: 19 e1        	bnez	a0, 0x80001e8a <xQueueReceive+0x170>
+80001e86: 73 00 00 00  	ecall
+80001e8a: 73 70 04 30  	csrci	mstatus, 0x8
+80001e8e: 83 a5 8a 04  	lw	a1, 0x48(s5)
+80001e92: 13 85 15 00  	addi	a0, a1, 0x1
+80001e96: 23 a4 aa 04  	sw	a0, 0x48(s5)
+80001e9a: 04 5c        	lw	s1, 0x38(s0)
+80001e9c: e3 96 04 ec  	bnez	s1, 0x80001d68 <xQueueReceive+0x4e>
+80001ea0: c2 46        	lw	a3, 0x10(sp)
+80001ea2: 01 46        	li	a2, 0x0
+80001ea4: 99 fa        	bnez	a3, 0x80001dba <xQueueReceive+0xa0>
+80001ea6: 37 05 01 80  	lui	a0, 0x80010
+80001eaa: 23 24 b5 04  	sw	a1, 0x48(a0)
+80001eae: 01 45        	li	a0, 0x0
+80001eb0: 99 e1        	bnez	a1, 0x80001eb6 <xQueueReceive+0x19c>
+80001eb2: 73 60 04 30  	csrsi	mstatus, 0x8
+80001eb6: b2 50        	lw	ra, 0x2c(sp)
+80001eb8: 22 54        	lw	s0, 0x28(sp)
+80001eba: 92 54        	lw	s1, 0x24(sp)
+80001ebc: 02 59        	lw	s2, 0x20(sp)
+80001ebe: f2 49        	lw	s3, 0x1c(sp)
+80001ec0: 62 4a        	lw	s4, 0x18(sp)
+80001ec2: d2 4a        	lw	s5, 0x14(sp)
+80001ec4: 45 61        	addi	sp, sp, 0x30
+80001ec6: 82 80        	ret
+
+80001ec8 <prvCopyDataFromQueue>:
+80001ec8: 30 41        	lw	a2, 0x40(a0)
+80001eca: 19 ce        	beqz	a2, 0x80001ee8 <prvCopyDataFromQueue+0x20>
+80001ecc: 54 45        	lw	a3, 0xc(a0)
+80001ece: 18 45        	lw	a4, 0x8(a0)
+80001ed0: b2 96        	add	a3, a3, a2
+80001ed2: 54 c5        	sw	a3, 0xc(a0)
+80001ed4: 63 e4 e6 00  	bltu	a3, a4, 0x80001edc <prvCopyDataFromQueue+0x14>
+80001ed8: 14 41        	lw	a3, 0x0(a0)
+80001eda: 54 c5        	sw	a3, 0xc(a0)
+80001edc: 2e 85        	mv	a0, a1
+80001ede: b6 85        	mv	a1, a3
+80001ee0: 17 e3 ff ff  	auipc	t1, 0xffffe
+80001ee4: 67 00 c3 26  	jr	0x26c(t1) <__bss_end+0xfffee89c>
+80001ee8: 82 80        	ret
+
+80001eea <xQueueSemaphoreTake>:
+80001eea: 79 71        	addi	sp, sp, -0x30
+80001eec: 06 d6        	sw	ra, 0x2c(sp)
+80001eee: 22 d4        	sw	s0, 0x28(sp)
+80001ef0: 26 d2        	sw	s1, 0x24(sp)
+80001ef2: 4a d0        	sw	s2, 0x20(sp)
+80001ef4: 4e ce        	sw	s3, 0x1c(sp)
+80001ef6: 52 cc        	sw	s4, 0x18(sp)
+80001ef8: 2a 84        	mv	s0, a0
+80001efa: 2e ca        	sw	a1, 0x14(sp)
+80001efc: 09 e5        	bnez	a0, 0x80001f06 <xQueueSemaphoreTake+0x1c>
+80001efe: 97 e0 ff ff  	auipc	ra, 0xffffe
+80001f02: e7 80 60 2c  	jalr	0x2c6(ra) <__bss_end+0xfffee914>
+80001f06: 28 40        	lw	a0, 0x40(s0)
+80001f08: 09 c5        	beqz	a0, 0x80001f12 <xQueueSemaphoreTake+0x28>
+80001f0a: 97 e0 ff ff  	auipc	ra, 0xffffe
+80001f0e: e7 80 a0 2b  	jalr	0x2ba(ra) <__bss_end+0xfffee914>
+80001f12: 73 70 04 30  	csrci	mstatus, 0x8
+80001f16: 37 06 01 80  	lui	a2, 0x80010
+80001f1a: 83 25 86 04  	lw	a1, 0x48(a2)
+80001f1e: 13 85 15 00  	addi	a0, a1, 0x1
+80001f22: 23 24 a6 04  	sw	a0, 0x48(a2)
+80001f26: 10 5c        	lw	a2, 0x38(s0)
+80001f28: 31 c2        	beqz	a2, 0x80001f6c <xQueueSemaphoreTake+0x82>
+80001f2a: 7d 16        	addi	a2, a2, -0x1
+80001f2c: 10 dc        	sw	a2, 0x38(s0)
+80001f2e: 08 40        	lw	a0, 0x0(s0)
+80001f30: 11 e5        	bnez	a0, 0x80001f3c <xQueueSemaphoreTake+0x52>
+80001f32: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001f36: e7 80 e0 5b  	jalr	0x5be(ra) <__bss_end+0xfffefc40>
+80001f3a: 08 c4        	sw	a0, 0x8(s0)
+80001f3c: 08 48        	lw	a0, 0x10(s0)
+80001f3e: 11 c9        	beqz	a0, 0x80001f52 <xQueueSemaphoreTake+0x68>
+80001f40: 13 05 04 01  	addi	a0, s0, 0x10
+80001f44: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001f48: e7 80 60 1d  	jalr	0x1d6(ra) <__bss_end+0xfffef86a>
+80001f4c: 19 c1        	beqz	a0, 0x80001f52 <xQueueSemaphoreTake+0x68>
+80001f4e: 73 00 00 00  	ecall
+80001f52: 37 05 01 80  	lui	a0, 0x80010
+80001f56: 83 25 85 04  	lw	a1, 0x48(a0)
+80001f5a: fd 15        	addi	a1, a1, -0x1
+80001f5c: 23 24 b5 04  	sw	a1, 0x48(a0)
+80001f60: 05 45        	li	a0, 0x1
+80001f62: 63 97 05 14  	bnez	a1, 0x800020b0 <xQueueSemaphoreTake+0x1c6>
+80001f66: 73 60 04 30  	csrsi	mstatus, 0x8
+80001f6a: 99 a2        	j	0x800020b0 <xQueueSemaphoreTake+0x1c6>
+80001f6c: 52 46        	lw	a2, 0x14(sp)
+80001f6e: 63 07 06 12  	beqz	a2, 0x8000209c <xQueueSemaphoreTake+0x1b2>
+80001f72: 01 49        	li	s2, 0x0
+80001f74: 93 09 44 02  	addi	s3, s0, 0x24
+80001f78: 05 46        	li	a2, 0x1
+80001f7a: b7 04 01 80  	lui	s1, 0x80010
+80001f7e: 13 0a f0 0f  	li	s4, 0xff
+80001f82: 05 8a        	andi	a2, a2, 0x1
+80001f84: 01 ca        	beqz	a2, 0x80001f94 <xQueueSemaphoreTake+0xaa>
+80001f86: 68 00        	addi	a0, sp, 0xc
+80001f88: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001f8c: e7 80 c0 27  	jalr	0x27c(ra) <__bss_end+0xfffef954>
+80001f90: 03 a5 84 04  	lw	a0, 0x48(s1)
+80001f94: 7d 15        	addi	a0, a0, -0x1
+80001f96: 23 a4 a4 04  	sw	a0, 0x48(s1)
+80001f9a: 19 e1        	bnez	a0, 0x80001fa0 <xQueueSemaphoreTake+0xb6>
+80001f9c: 73 60 04 30  	csrsi	mstatus, 0x8
+80001fa0: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001fa4: e7 80 60 a0  	jalr	-0x5fa(ra) <__bss_end+0xfffef0f6>
+80001fa8: 73 70 04 30  	csrci	mstatus, 0x8
+80001fac: 03 a5 84 04  	lw	a0, 0x48(s1)
+80001fb0: 83 45 44 04  	lbu	a1, 0x44(s0)
+80001fb4: 63 94 45 01  	bne	a1, s4, 0x80001fbc <xQueueSemaphoreTake+0xd2>
+80001fb8: 23 02 04 04  	sb	zero, 0x44(s0)
+80001fbc: 83 45 54 04  	lbu	a1, 0x45(s0)
+80001fc0: 63 8d 45 03  	beq	a1, s4, 0x80001ffa <xQueueSemaphoreTake+0x110>
+80001fc4: 15 cd        	beqz	a0, 0x80002000 <xQueueSemaphoreTake+0x116>
+80001fc6: 68 00        	addi	a0, sp, 0xc
+80001fc8: 4c 08        	addi	a1, sp, 0x14
+80001fca: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001fce: e7 80 00 25  	jalr	0x250(ra) <__bss_end+0xfffef96a>
+80001fd2: 15 c9        	beqz	a0, 0x80002006 <xQueueSemaphoreTake+0x11c>
+80001fd4: 22 85        	mv	a0, s0
+80001fd6: 97 00 00 00  	auipc	ra, 0x0
+80001fda: e7 80 00 c6  	jalr	-0x3a0(ra) <prvUnlockQueue>
+80001fde: 97 f0 ff ff  	auipc	ra, 0xfffff
+80001fe2: e7 80 60 ab  	jalr	-0x54a(ra) <__bss_end+0xfffef1e4>
+80001fe6: 73 70 04 30  	csrci	mstatus, 0x8
+80001fea: 83 a5 84 04  	lw	a1, 0x48(s1)
+80001fee: 08 5c        	lw	a0, 0x38(s0)
+80001ff0: 99 e1        	bnez	a1, 0x80001ff6 <xQueueSemaphoreTake+0x10c>
+80001ff2: 73 60 04 30  	csrsi	mstatus, 0x8
+80001ff6: 49 e5        	bnez	a0, 0x80002080 <xQueueSemaphoreTake+0x196>
+80001ff8: e1 a0        	j	0x800020c0 <xQueueSemaphoreTake+0x1d6>
+80001ffa: a3 02 04 04  	sb	zero, 0x45(s0)
+80001ffe: 61 f5        	bnez	a0, 0x80001fc6 <xQueueSemaphoreTake+0xdc>
+80002000: 73 60 04 30  	csrsi	mstatus, 0x8
+80002004: c9 b7        	j	0x80001fc6 <xQueueSemaphoreTake+0xdc>
+80002006: 73 70 04 30  	csrci	mstatus, 0x8
+8000200a: 83 a5 84 04  	lw	a1, 0x48(s1)
+8000200e: 08 5c        	lw	a0, 0x38(s0)
+80002010: 81 cd        	beqz	a1, 0x80002028 <xQueueSemaphoreTake+0x13e>
+80002012: 11 cd        	beqz	a0, 0x8000202e <xQueueSemaphoreTake+0x144>
+80002014: 22 85        	mv	a0, s0
+80002016: 97 00 00 00  	auipc	ra, 0x0
+8000201a: e7 80 00 c2  	jalr	-0x3e0(ra) <prvUnlockQueue>
+8000201e: 97 f0 ff ff  	auipc	ra, 0xfffff
+80002022: e7 80 60 a7  	jalr	-0x58a(ra) <__bss_end+0xfffef1e4>
+80002026: a9 a8        	j	0x80002080 <xQueueSemaphoreTake+0x196>
+80002028: 73 60 04 30  	csrsi	mstatus, 0x8
+8000202c: 65 f5        	bnez	a0, 0x80002014 <xQueueSemaphoreTake+0x12a>
+8000202e: 08 40        	lw	a0, 0x0(s0)
+80002030: 15 e5        	bnez	a0, 0x8000205c <xQueueSemaphoreTake+0x172>
+80002032: 73 70 04 30  	csrci	mstatus, 0x8
+80002036: 83 a5 84 04  	lw	a1, 0x48(s1)
+8000203a: 08 44        	lw	a0, 0x8(s0)
+8000203c: 85 05        	addi	a1, a1, 0x1
+8000203e: 23 a4 b4 04  	sw	a1, 0x48(s1)
+80002042: 97 f0 ff ff  	auipc	ra, 0xfffff
+80002046: e7 80 40 28  	jalr	0x284(ra) <__bss_end+0xfffefa16>
+8000204a: 83 a5 84 04  	lw	a1, 0x48(s1)
+8000204e: 2a 89        	mv	s2, a0
+80002050: fd 15        	addi	a1, a1, -0x1
+80002052: 23 a4 b4 04  	sw	a1, 0x48(s1)
+80002056: 99 e1        	bnez	a1, 0x8000205c <xQueueSemaphoreTake+0x172>
+80002058: 73 60 04 30  	csrsi	mstatus, 0x8
+8000205c: d2 45        	lw	a1, 0x14(sp)
+8000205e: 4e 85        	mv	a0, s3
+80002060: 97 f0 ff ff  	auipc	ra, 0xfffff
+80002064: e7 80 c0 07  	jalr	0x7c(ra) <__bss_end+0xfffef82c>
+80002068: 22 85        	mv	a0, s0
+8000206a: 97 00 00 00  	auipc	ra, 0x0
+8000206e: e7 80 c0 bc  	jalr	-0x434(ra) <prvUnlockQueue>
+80002072: 97 f0 ff ff  	auipc	ra, 0xfffff
+80002076: e7 80 20 a2  	jalr	-0x5de(ra) <__bss_end+0xfffef1e4>
+8000207a: 19 e1        	bnez	a0, 0x80002080 <xQueueSemaphoreTake+0x196>
+8000207c: 73 00 00 00  	ecall
+80002080: 73 70 04 30  	csrci	mstatus, 0x8
+80002084: 83 a5 84 04  	lw	a1, 0x48(s1)
+80002088: 13 85 15 00  	addi	a0, a1, 0x1
+8000208c: 23 a4 a4 04  	sw	a0, 0x48(s1)
+80002090: 10 5c        	lw	a2, 0x38(s0)
+80002092: e3 1c 06 e8  	bnez	a2, 0x80001f2a <xQueueSemaphoreTake+0x40>
+80002096: d2 46        	lw	a3, 0x14(sp)
+80002098: e3 95 06 ee  	bnez	a3, 0x80001f82 <xQueueSemaphoreTake+0x98>
+8000209c: 37 05 01 80  	lui	a0, 0x80010
+800020a0: 23 24 b5 04  	sw	a1, 0x48(a0)
+800020a4: 99 c1        	beqz	a1, 0x800020aa <xQueueSemaphoreTake+0x1c0>
+800020a6: 01 45        	li	a0, 0x0
+800020a8: 21 a0        	j	0x800020b0 <xQueueSemaphoreTake+0x1c6>
+800020aa: 01 45        	li	a0, 0x0
+800020ac: 73 60 04 30  	csrsi	mstatus, 0x8
+800020b0: b2 50        	lw	ra, 0x2c(sp)
+800020b2: 22 54        	lw	s0, 0x28(sp)
+800020b4: 92 54        	lw	s1, 0x24(sp)
+800020b6: 02 59        	lw	s2, 0x20(sp)
+800020b8: f2 49        	lw	s3, 0x1c(sp)
+800020ba: 62 4a        	lw	s4, 0x18(sp)
+800020bc: 45 61        	addi	sp, sp, 0x30
+800020be: 82 80        	ret
+800020c0: e3 03 09 fe  	beqz	s2, 0x800020a6 <xQueueSemaphoreTake+0x1bc>
+800020c4: 73 70 04 30  	csrci	mstatus, 0x8
+800020c8: b7 04 01 80  	lui	s1, 0x80010
+800020cc: 03 a5 84 04  	lw	a0, 0x48(s1)
+800020d0: 83 a5 09 00  	lw	a1, 0x0(s3)
+800020d4: 05 05        	addi	a0, a0, 0x1
+800020d6: 23 a4 a4 04  	sw	a0, 0x48(s1)
+800020da: 89 c5        	beqz	a1, 0x800020e4 <xQueueSemaphoreTake+0x1fa>
+800020dc: 08 58        	lw	a0, 0x30(s0)
+800020de: 08 41        	lw	a0, 0x0(a0)
+800020e0: 95 45        	li	a1, 0x5
+800020e2: 89 8d        	sub	a1, a1, a0
+800020e4: 08 44        	lw	a0, 0x8(s0)
+800020e6: 97 f0 ff ff  	auipc	ra, 0xfffff
+800020ea: e7 80 00 34  	jalr	0x340(ra) <__bss_end+0xfffefb76>
+800020ee: 03 a5 84 04  	lw	a0, 0x48(s1)
+800020f2: 7d 15        	addi	a0, a0, -0x1
+800020f4: 23 a4 a4 04  	sw	a0, 0x48(s1)
+800020f8: 5d f5        	bnez	a0, 0x800020a6 <xQueueSemaphoreTake+0x1bc>
+800020fa: 73 60 04 30  	csrsi	mstatus, 0x8
+800020fe: 4d bf        	j	0x800020b0 <xQueueSemaphoreTake+0x1c6>
+
+80002100 <uxQueueMessagesWaiting>:
+80002100: 41 11        	addi	sp, sp, -0x10
+80002102: 06 c6        	sw	ra, 0xc(sp)
+80002104: 22 c4        	sw	s0, 0x8(sp)
+80002106: 2a 84        	mv	s0, a0
+80002108: 09 e5        	bnez	a0, 0x80002112 <uxQueueMessagesWaiting+0x12>
+8000210a: 97 e0 ff ff  	auipc	ra, 0xffffe
+8000210e: e7 80 a0 0b  	jalr	0xba(ra) <__bss_end+0xfffee914>
+80002112: 73 70 04 30  	csrci	mstatus, 0x8
+80002116: 37 05 01 80  	lui	a0, 0x80010
+8000211a: 83 25 85 04  	lw	a1, 0x48(a0)
+8000211e: 08 5c        	lw	a0, 0x38(s0)
+80002120: 99 e1        	bnez	a1, 0x80002126 <uxQueueMessagesWaiting+0x26>
+80002122: 73 60 04 30  	csrsi	mstatus, 0x8
+80002126: b2 40        	lw	ra, 0xc(sp)
+80002128: 22 44        	lw	s0, 0x8(sp)
+8000212a: 41 01        	addi	sp, sp, 0x10
+8000212c: 82 80        	ret
+
+8000212e <pvPortMalloc>:
+8000212e: 41 11        	addi	sp, sp, -0x10
+80002130: 06 c6        	sw	ra, 0xc(sp)
+80002132: 22 c4        	sw	s0, 0x8(sp)
+80002134: 26 c2        	sw	s1, 0x4(sp)
+80002136: 4a c0        	sw	s2, 0x0(sp)
+80002138: 2a 84        	mv	s0, a0
+8000213a: 3d 89        	andi	a0, a0, 0xf
+8000213c: 01 c9        	beqz	a0, 0x8000214c <pvPortMalloc+0x1e>
+8000213e: 3d 15        	addi	a0, a0, -0x11
+80002140: 63 74 85 00  	bgeu	a0, s0, 0x80002148 <pvPortMalloc+0x1a>
+80002144: 01 44        	li	s0, 0x0
+80002146: 19 a0        	j	0x8000214c <pvPortMalloc+0x1e>
+80002148: 41 98        	andi	s0, s0, -0x10
+8000214a: 41 04        	addi	s0, s0, 0x10
+8000214c: 97 f0 ff ff  	auipc	ra, 0xfffff
+80002150: e7 80 a0 85  	jalr	-0x7a6(ra) <__bss_end+0xfffef0f6>
+80002154: 37 05 01 80  	lui	a0, 0x80010
+80002158: 83 24 45 17  	lw	s1, 0x174(a0)
+8000215c: 99 c0        	beqz	s1, 0x80002162 <pvPortMalloc+0x34>
+8000215e: 11 e8        	bnez	s0, 0x80002172 <pvPortMalloc+0x44>
+80002160: a1 a0        	j	0x800021a8 <pvPortMalloc+0x7a>
+80002162: b7 05 01 80  	lui	a1, 0x80010
+80002166: 93 84 b5 18  	addi	s1, a1, 0x18b
+8000216a: c1 98        	andi	s1, s1, -0x10
+8000216c: 23 2a 95 16  	sw	s1, 0x174(a0)
+80002170: 05 cc        	beqz	s0, 0x800021a8 <pvPortMalloc+0x7a>
+80002172: 37 05 01 80  	lui	a0, 0x80010
+80002176: 03 29 85 17  	lw	s2, 0x178(a0)
+8000217a: 13 45 f4 ff  	not	a0, s0
+8000217e: 63 65 25 03  	bltu	a0, s2, 0x800021a8 <pvPortMalloc+0x7a>
+80002182: 4a 94        	add	s0, s0, s2
+80002184: 13 55 34 00  	srli	a0, s0, 0x3
+80002188: 93 05 10 2a  	li	a1, 0x2a1
+8000218c: 63 7e b5 00  	bgeu	a0, a1, 0x800021a8 <pvPortMalloc+0x7a>
+80002190: 37 05 01 80  	lui	a0, 0x80010
+80002194: 23 2c 85 16  	sw	s0, 0x178(a0)
+80002198: 97 f0 ff ff  	auipc	ra, 0xfffff
+8000219c: e7 80 c0 8f  	jalr	-0x704(ra) <__bss_end+0xfffef1e4>
+800021a0: 81 c8        	beqz	s1, 0x800021b0 <pvPortMalloc+0x82>
+800021a2: 33 85 24 01  	add	a0, s1, s2
+800021a6: 11 a8        	j	0x800021ba <pvPortMalloc+0x8c>
+800021a8: 97 f0 ff ff  	auipc	ra, 0xfffff
+800021ac: e7 80 c0 8e  	jalr	-0x714(ra) <__bss_end+0xfffef1e4>
+800021b0: 97 e0 ff ff  	auipc	ra, 0xffffe
+800021b4: e7 80 40 03  	jalr	0x34(ra) <__bss_end+0xfffee934>
+800021b8: 01 45        	li	a0, 0x0
+800021ba: b2 40        	lw	ra, 0xc(sp)
+800021bc: 22 44        	lw	s0, 0x8(sp)
+800021be: 92 44        	lw	s1, 0x4(sp)
+800021c0: 02 49        	lw	s2, 0x0(sp)
+800021c2: 41 01        	addi	sp, sp, 0x10
+800021c4: 82 80        	ret
+
+800021c6 <vPortFree>:
+800021c6: 09 c5        	beqz	a0, 0x800021d0 <vPortFree+0xa>
+800021c8: 17 e3 ff ff  	auipc	t1, 0xffffe
+800021cc: 67 00 c3 ff  	jr	-0x4(t1) <__bss_end+0xfffee914>
+800021d0: 82 80        	ret
+
+800021d2 <vPortSetupTimerInterrupt>:
+800021d2: 41 11        	addi	sp, sp, -0x10
+800021d4: 73 25 40 f1  	csrr	a0, mhartid
+800021d8: 2a c6        	sw	a0, 0xc(sp)
+800021da: 32 45        	lw	a0, 0xc(sp)
+800021dc: 0e 05        	slli	a0, a0, 0x3
+800021de: b7 45 00 02  	lui	a1, 0x2004
+800021e2: 2e 95        	add	a0, a0, a1
+800021e4: b7 25 01 80  	lui	a1, 0x80012
+800021e8: 23 a4 a5 8a  	sw	a0, -0x758(a1)
+800021ec: b7 c6 00 02  	lui	a3, 0x200c
+800021f0: 83 a5 c6 ff  	lw	a1, -0x4(a3)
+800021f4: 03 a6 86 ff  	lw	a2, -0x8(a3)
+800021f8: 03 a7 c6 ff  	lw	a4, -0x4(a3)
+800021fc: e3 9a e5 fe  	bne	a1, a4, 0x800021f0 <vPortSetupTimerInterrupt+0x1e>
+80002200: 89 66        	lui	a3, 0x2
+80002202: 93 86 06 71  	addi	a3, a3, 0x710
+80002206: 33 07 d6 00  	add	a4, a2, a3
+8000220a: 33 36 c7 00  	sltu	a2, a4, a2
+8000220e: b2 95        	add	a1, a1, a2
+80002210: 37 26 01 80  	lui	a2, 0x80012
+80002214: 23 22 b6 8a  	sw	a1, -0x75c(a2)
+80002218: 23 20 e6 8a  	sw	a4, -0x760(a2)
+8000221c: 4c c1        	sw	a1, 0x4(a0)
+8000221e: 18 c1        	sw	a4, 0x0(a0)
+80002220: 03 25 06 8a  	lw	a0, -0x760(a2)
+80002224: 83 25 46 8a  	lw	a1, -0x75c(a2)
+80002228: aa 96        	add	a3, a3, a0
+8000222a: 33 b5 a6 00  	sltu	a0, a3, a0
+8000222e: 2e 95        	add	a0, a0, a1
+80002230: 23 20 d6 8a  	sw	a3, -0x760(a2)
+80002234: 23 22 a6 8a  	sw	a0, -0x75c(a2)
+80002238: 41 01        	addi	sp, sp, 0x10
+8000223a: 82 80        	ret
+
+8000223c <xPortStartScheduler>:
+8000223c: 41 11        	addi	sp, sp, -0x10
+8000223e: 06 c6        	sw	ra, 0xc(sp)
+80002240: 37 15 01 80  	lui	a0, 0x80011
+80002244: 13 05 05 6a  	addi	a0, a0, 0x6a0
+80002248: 93 05 e0 0e  	li	a1, 0xee
+8000224c: 13 06 00 20  	li	a2, 0x200
+80002250: 97 e0 ff ff  	auipc	ra, 0xffffe
+80002254: e7 80 60 ee  	jalr	-0x11a(ra) <__bss_end+0xfffee886>
+80002258: 97 00 00 00  	auipc	ra, 0x0
+8000225c: e7 80 a0 f7  	jalr	-0x86(ra) <vPortSetupTimerInterrupt>
+80002260: 45 45        	li	a0, 0x11
+80002262: 1e 05        	slli	a0, a0, 0x7
+80002264: 73 20 45 30  	csrs	mie, a0
+80002268: 97 00 00 00  	auipc	ra, 0x0
+8000226c: e7 80 80 05  	jalr	0x58(ra) <xPortStartFirstTask>
+80002270: 01 45        	li	a0, 0x0
+80002272: b2 40        	lw	ra, 0xc(sp)
+80002274: 41 01        	addi	sp, sp, 0x10
+80002276: 82 80        	ret
+
+80002278 <pxPortInitialiseStack>:
+80002278: 71 15        	addi	a0, a0, -0x4
+8000227a: 23 20 05 00  	sw	zero, 0x0(a0)
+8000227e: 13 05 85 fa  	addi	a0, a0, -0x58
+80002282: 10 c1        	sw	a2, 0x0(a0)
+80002284: 21 15        	addi	a0, a0, -0x18
+
+80002286 <.Lpcrel_hi0>:
+80002286: 97 f2 00 00  	auipc	t0, 0xf
+8000228a: 83 a2 62 62  	lw	t0, 0x626(t0)
+8000228e: 23 20 55 00  	sw	t0, 0x0(a0)
+80002292: f3 22 00 30  	csrr	t0, mstatus
+80002296: 93 f2 72 ff  	andi	t0, t0, -0x9
+8000229a: 13 03 80 18  	li	t1, 0x188
+8000229e: 12 03        	slli	t1, t1, 0x4
+800022a0: b3 e2 62 00  	or	t0, t0, t1
+800022a4: 71 15        	addi	a0, a0, -0x4
+800022a6: 23 20 55 00  	sw	t0, 0x0(a0)
+800022aa: 81 42        	li	t0, 0x0
+
+800022ac <chip_specific_stack_frame>:
+800022ac: 63 87 02 00  	beqz	t0, 0x800022ba <chip_specific_stack_frame+0xe>
+800022b0: 71 15        	addi	a0, a0, -0x4
+800022b2: 23 20 05 00  	sw	zero, 0x0(a0)
+800022b6: fd 12        	addi	t0, t0, -0x1
+800022b8: d5 bf        	j	0x800022ac <chip_specific_stack_frame>
+800022ba: 71 15        	addi	a0, a0, -0x4
+800022bc: 0c c1        	sw	a1, 0x0(a0)
+800022be: 82 80        	ret
+
+800022c0 <xPortStartFirstTask>:
+800022c0: 17 e1 00 00  	auipc	sp, 0xe
+800022c4: 03 21 81 dc  	lw	sp, -0x238(sp)
+800022c8: 02 41        	lw	sp, 0x0(sp)
+800022ca: 82 40        	lw	ra, 0x0(sp)
+800022cc: 92 42        	lw	t0, 0x4(sp)
+800022ce: a1 02        	addi	t0, t0, 0x8
+800022d0: 73 90 02 30  	csrw	mstatus, t0
+800022d4: d2 43        	lw	t2, 0x14(sp)
+800022d6: 62 44        	lw	s0, 0x18(sp)
+800022d8: f2 44        	lw	s1, 0x1c(sp)
+800022da: 02 55        	lw	a0, 0x20(sp)
+800022dc: 92 55        	lw	a1, 0x24(sp)
+800022de: 22 56        	lw	a2, 0x28(sp)
+800022e0: b2 56        	lw	a3, 0x2c(sp)
+800022e2: 42 57        	lw	a4, 0x30(sp)
+800022e4: d2 57        	lw	a5, 0x34(sp)
+800022e6: 62 58        	lw	a6, 0x38(sp)
+800022e8: f2 58        	lw	a7, 0x3c(sp)
+800022ea: 06 49        	lw	s2, 0x40(sp)
+800022ec: 96 49        	lw	s3, 0x44(sp)
+800022ee: 26 4a        	lw	s4, 0x48(sp)
+800022f0: b6 4a        	lw	s5, 0x4c(sp)
+800022f2: 46 4b        	lw	s6, 0x50(sp)
+800022f4: d6 4b        	lw	s7, 0x54(sp)
+800022f6: 66 4c        	lw	s8, 0x58(sp)
+800022f8: f6 4c        	lw	s9, 0x5c(sp)
+800022fa: 06 5d        	lw	s10, 0x60(sp)
+800022fc: 96 5d        	lw	s11, 0x64(sp)
+800022fe: 26 5e        	lw	t3, 0x68(sp)
+80002300: b6 5e        	lw	t4, 0x6c(sp)
+80002302: 46 5f        	lw	t5, 0x70(sp)
+80002304: d6 5f        	lw	t6, 0x74(sp)
+80002306: e6 52        	lw	t0, 0x78(sp)
+
+80002308 <.Lpcrel_hi2>:
+80002308: 17 e3 00 00  	auipc	t1, 0xe
+8000230c: 03 23 43 d4  	lw	t1, -0x2bc(t1)
+80002310: 23 20 53 00  	sw	t0, 0x0(t1)
+80002314: b2 42        	lw	t0, 0xc(sp)
+80002316: 42 43        	lw	t1, 0x10(sp)
+80002318: 13 01 c1 07  	addi	sp, sp, 0x7c
+8000231c: 82 80        	ret
+8000231e: f3 22 20 34  	csrr	t0, mcause
+80002322: 73 23 10 34  	csrr	t1, mepc
+80002326: f3 23 00 30  	csrr	t2, mstatus
+8000232a: 01 a0        	j	0x8000232a <.Lpcrel_hi2+0x22>
+8000232c: f3 22 20 34  	csrr	t0, mcause
+80002330: 73 23 10 34  	csrr	t1, mepc
+80002334: f3 23 00 30  	csrr	t2, mstatus
+80002338: 01 a0        	j	0x80002338 <.Lpcrel_hi2+0x30>
+		...
+800023fe: 00 00        	unimp
+
+80002400 <freertos_risc_v_trap_handler>:
+80002400: 13 01 41 f8  	addi	sp, sp, -0x7c
+80002404: 06 c4        	sw	ra, 0x8(sp)
+80002406: 16 c6        	sw	t0, 0xc(sp)
+80002408: 1a c8        	sw	t1, 0x10(sp)
+8000240a: 1e ca        	sw	t2, 0x14(sp)
+8000240c: 22 cc        	sw	s0, 0x18(sp)
+8000240e: 26 ce        	sw	s1, 0x1c(sp)
+80002410: 2a d0        	sw	a0, 0x20(sp)
+80002412: 2e d2        	sw	a1, 0x24(sp)
+80002414: 32 d4        	sw	a2, 0x28(sp)
+80002416: 36 d6        	sw	a3, 0x2c(sp)
+80002418: 3a d8        	sw	a4, 0x30(sp)
+8000241a: 3e da        	sw	a5, 0x34(sp)
+8000241c: 42 dc        	sw	a6, 0x38(sp)
+8000241e: 46 de        	sw	a7, 0x3c(sp)
+80002420: ca c0        	sw	s2, 0x40(sp)
+80002422: ce c2        	sw	s3, 0x44(sp)
+80002424: d2 c4        	sw	s4, 0x48(sp)
+80002426: d6 c6        	sw	s5, 0x4c(sp)
+80002428: da c8        	sw	s6, 0x50(sp)
+8000242a: de ca        	sw	s7, 0x54(sp)
+8000242c: e2 cc        	sw	s8, 0x58(sp)
+8000242e: e6 ce        	sw	s9, 0x5c(sp)
+80002430: ea d0        	sw	s10, 0x60(sp)
+80002432: ee d2        	sw	s11, 0x64(sp)
+80002434: f2 d4        	sw	t3, 0x68(sp)
+80002436: f6 d6        	sw	t4, 0x6c(sp)
+80002438: fa d8        	sw	t5, 0x70(sp)
+8000243a: fe da        	sw	t6, 0x74(sp)
+
+8000243c <.Lpcrel_hi23>:
+8000243c: 97 e2 00 00  	auipc	t0, 0xe
+80002440: 83 a2 c2 c0  	lw	t0, -0x3f4(t0)
+80002444: 96 dc        	sw	t0, 0x78(sp)
+80002446: f3 22 00 30  	csrr	t0, mstatus
+8000244a: 16 c2        	sw	t0, 0x4(sp)
+
+8000244c <.Lpcrel_hi24>:
+8000244c: 97 e2 00 00  	auipc	t0, 0xe
+80002450: 83 a2 c2 c3  	lw	t0, -0x3c4(t0)
+80002454: 23 a0 22 00  	sw	sp, 0x0(t0)
+80002458: 73 25 20 34  	csrr	a0, mcause
+8000245c: f3 25 10 34  	csrr	a1, mepc
+80002460: 63 58 05 00  	bgez	a0, 0x80002470 <synchronous_exception>
+
+80002464 <asynchronous_interrupt>:
+80002464: 2e c0        	sw	a1, 0x0(sp)
+
+80002466 <.Lpcrel_hi25>:
+80002466: 17 01 00 00  	auipc	sp, 0x0
+8000246a: 03 21 61 13  	lw	sp, 0x136(sp)
+8000246e: 01 a8        	j	0x8000247e <test_if_mtimer>
+
+80002470 <synchronous_exception>:
+80002470: 91 05        	addi	a1, a1, 0x4
+80002472: 2e c0        	sw	a1, 0x0(sp)
+
+80002474 <.Lpcrel_hi26>:
+80002474: 17 01 00 00  	auipc	sp, 0x0
+80002478: 03 21 81 12  	lw	sp, 0x128(sp)
+8000247c: 8d a0        	j	0x800024de <handle_exception>
+
+8000247e <test_if_mtimer>:
+8000247e: 85 42        	li	t0, 0x1
+80002480: fe 02        	slli	t0, t0, 0x1f
+80002482: 13 83 72 00  	addi	t1, t0, 0x7
+80002486: 63 17 65 04  	bne	a0, t1, 0x800024d4 <application_interrupt_handler>
+
+8000248a <.Lpcrel_hi27>:
+8000248a: 17 f5 00 00  	auipc	a0, 0xf
+8000248e: 03 25 e5 41  	lw	a0, 0x41e(a0)
+
+80002492 <.Lpcrel_hi28>:
+80002492: 97 e5 00 00  	auipc	a1, 0xe
+80002496: 83 a5 25 bb  	lw	a1, -0x44e(a1)
+8000249a: 7d 57        	li	a4, -0x1
+8000249c: 90 41        	lw	a2, 0x0(a1)
+8000249e: d4 41        	lw	a3, 0x4(a1)
+800024a0: 18 c1        	sw	a4, 0x0(a0)
+800024a2: 54 c1        	sw	a3, 0x4(a0)
+800024a4: 10 c1        	sw	a2, 0x0(a0)
+
+800024a6 <.Lpcrel_hi29>:
+800024a6: 97 02 00 00  	auipc	t0, 0x0
+800024aa: 83 a2 a2 0f  	lw	t0, 0xfa(t0)
+800024ae: 33 87 c2 00  	add	a4, t0, a2
+800024b2: 33 33 c7 00  	sltu	t1, a4, a2
+800024b6: b3 83 66 00  	add	t2, a3, t1
+800024ba: 98 c1        	sw	a4, 0x0(a1)
+800024bc: 23 a2 75 00  	sw	t2, 0x4(a1)
+800024c0: 97 f0 ff ff  	auipc	ra, 0xfffff
+800024c4: e7 80 60 a5  	jalr	-0x5aa(ra) <__bss_end+0xfffef666>
+800024c8: 05 c9        	beqz	a0, 0x800024f8 <processed_source>
+800024ca: 97 f0 ff ff  	auipc	ra, 0xfffff
+800024ce: e7 80 20 89  	jalr	-0x76e(ra) <__bss_end+0xfffef4ac>
+800024d2: 1d a0        	j	0x800024f8 <processed_source>
+
+800024d4 <application_interrupt_handler>:
+800024d4: 97 e0 ff ff  	auipc	ra, 0xffffe
+800024d8: e7 80 e0 d3  	jalr	-0x2c2(ra) <__bss_end+0xfffee962>
+800024dc: 31 a8        	j	0x800024f8 <processed_source>
+
+800024de <handle_exception>:
+800024de: ad 42        	li	t0, 0xb
+800024e0: 63 17 55 00  	bne	a0, t0, 0x800024ee <application_exception_handler>
+800024e4: 97 f0 ff ff  	auipc	ra, 0xfffff
+800024e8: e7 80 80 87  	jalr	-0x788(ra) <__bss_end+0xfffef4ac>
+800024ec: 31 a0        	j	0x800024f8 <processed_source>
+
+800024ee <application_exception_handler>:
+800024ee: 97 e0 ff ff  	auipc	ra, 0xffffe
+800024f2: e7 80 60 d0  	jalr	-0x2fa(ra) <__bss_end+0xfffee944>
+800024f6: 09 a0        	j	0x800024f8 <processed_source>
+
+800024f8 <processed_source>:
+800024f8: 17 e3 00 00  	auipc	t1, 0xe
+800024fc: 03 23 03 b9  	lw	t1, -0x470(t1)
+80002500: 03 21 03 00  	lw	sp, 0x0(t1)
+80002504: 82 42        	lw	t0, 0x0(sp)
+80002506: 73 90 12 34  	csrw	mepc, t0
+8000250a: 12 4e        	lw	t3, 0x4(sp)
+8000250c: 73 10 0e 30  	csrw	mstatus, t3
+80002510: e6 52        	lw	t0, 0x78(sp)
+
+80002512 <.Lpcrel_hi31>:
+80002512: 17 e3 00 00  	auipc	t1, 0xe
+80002516: 03 23 a3 b3  	lw	t1, -0x4c6(t1)
+8000251a: 23 20 53 00  	sw	t0, 0x0(t1)
+8000251e: a2 40        	lw	ra, 0x8(sp)
+80002520: b2 42        	lw	t0, 0xc(sp)
+80002522: 42 43        	lw	t1, 0x10(sp)
+80002524: d2 43        	lw	t2, 0x14(sp)
+80002526: 62 44        	lw	s0, 0x18(sp)
+80002528: f2 44        	lw	s1, 0x1c(sp)
+8000252a: 02 55        	lw	a0, 0x20(sp)
+8000252c: 92 55        	lw	a1, 0x24(sp)
+8000252e: 22 56        	lw	a2, 0x28(sp)
+80002530: b2 56        	lw	a3, 0x2c(sp)
+80002532: 42 57        	lw	a4, 0x30(sp)
+80002534: d2 57        	lw	a5, 0x34(sp)
+80002536: 62 58        	lw	a6, 0x38(sp)
+80002538: f2 58        	lw	a7, 0x3c(sp)
+8000253a: 06 49        	lw	s2, 0x40(sp)
+8000253c: 96 49        	lw	s3, 0x44(sp)
+8000253e: 26 4a        	lw	s4, 0x48(sp)
+80002540: b6 4a        	lw	s5, 0x4c(sp)
+80002542: 46 4b        	lw	s6, 0x50(sp)
+80002544: d6 4b        	lw	s7, 0x54(sp)
+80002546: 66 4c        	lw	s8, 0x58(sp)
+80002548: f6 4c        	lw	s9, 0x5c(sp)
+8000254a: 06 5d        	lw	s10, 0x60(sp)
+8000254c: 96 5d        	lw	s11, 0x64(sp)
+8000254e: 26 5e        	lw	t3, 0x68(sp)
+80002550: b6 5e        	lw	t4, 0x6c(sp)
+80002552: 46 5f        	lw	t5, 0x70(sp)
+80002554: d6 5f        	lw	t6, 0x74(sp)
+80002556: 13 01 c1 07  	addi	sp, sp, 0x7c
+8000255a: 73 00 20 30  	mret
+8000255e: 74 69        	<unknown>
+80002560: 63 6b 00 6d  	bltu	zero, a6, 0x80002c36 <uxTimerIncrementsForOneTick+0x696>
+80002564: 41 00        	c.nop	0x10
+80002566: 63 6f 6e 73  	bltu	t3, s6, 0x80002ca4 <uxTimerIncrementsForOneTick+0x704>
+8000256a: 00 70        	<unknown>
+8000256c: 72 6f        	<unknown>
+8000256e: 64 00        	addi	s1, sp, 0xc
+80002570: 6d 42        	li	tp, 0x1b
+80002572: 00 62        	<unknown>
+80002574: 75 73        	lui	t1, 0xffffd
+80002576: 79 00        	c.nop	0x1e
+80002578: 49 44        	li	s0, 0x12
+8000257a: 4c 45        	lw	a1, 0xc(a0)
+8000257c: 00 63        	<unknown>
+8000257e: 68 6b        	<unknown>
+80002580: 00 00        	unimp
+80002582: 00 00        	unimp
+
+80002584 <.LJTI34_0>:
+80002584: fa 16        	c.slli	a3, 0x3e
+80002586: 00 80        	<unknown>
+80002588: bc 16        	addi	a5, sp, 0x368
+8000258a: 00 80        	<unknown>
+8000258c: dc 16        	addi	a5, sp, 0x364
+8000258e: 00 80        	<unknown>
+80002590: d2 16        	c.slli	a3, 0x34
+80002592: 00 80        	<unknown>
+80002594: c8 16        	addi	a0, sp, 0x364
+80002596: 00 80        	<unknown>
+
+80002598 <uxTopUsedPriority>:
+80002598: 04 00 00 00                     ....
+
+8000259c <xISRStackTop>:
+8000259c: a0 18 01 80                     ....
+
+800025a0 <uxTimerIncrementsForOneTick>:
+800025a0: 10 27 00 00                     .'..

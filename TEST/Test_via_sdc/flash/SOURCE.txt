@@ -1,0 +1,7 @@
+spiflash.v - SPI flash simulation model from PicoSoC (PicoRV32 project).
+Source : https://github.com/YosysHQ/picorv32  (picosoc/spiflash.v)
+Commit : ef203c2b0a3fb793280f5114941416c425c5b461
+License: ISC (see LICENSE_picorv32.txt and the header of spiflash.v). File is unmodified.
+Used only in simulation (testbench). It is not part of the SoC RTL.
+Commands used by the neumann boot ROM: 0xAB (power-up), 0x03 (read).
+Memory: 16 MB byte array, loaded with $readmemh from +firmware=<file> (one byte per line).

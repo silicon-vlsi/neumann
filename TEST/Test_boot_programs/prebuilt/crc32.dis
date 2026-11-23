@@ -1,0 +1,473 @@
+
+/home/claude/clean/neumann_soc/TEST/Test_boot_programs/build/crc32.elf:	file format elf32-littleriscv
+
+Disassembly of section .vectors:
+
+80000000 <_vectors>:
+80000000: 6f 00 80 0c  	j	0x800000c8 <trap_entry>
+80000004: 6f 00 40 0c  	j	0x800000c8 <trap_entry>
+80000008: 6f 00 00 0c  	j	0x800000c8 <trap_entry>
+8000000c: 6f 00 c0 0b  	j	0x800000c8 <trap_entry>
+80000010: 6f 00 80 0b  	j	0x800000c8 <trap_entry>
+80000014: 6f 00 40 0b  	j	0x800000c8 <trap_entry>
+80000018: 6f 00 00 0b  	j	0x800000c8 <trap_entry>
+8000001c: 6f 00 c0 0a  	j	0x800000c8 <trap_entry>
+80000020: 6f 00 80 0a  	j	0x800000c8 <trap_entry>
+80000024: 6f 00 40 0a  	j	0x800000c8 <trap_entry>
+80000028: 6f 00 00 0a  	j	0x800000c8 <trap_entry>
+8000002c: 6f 00 c0 09  	j	0x800000c8 <trap_entry>
+80000030: 6f 00 80 09  	j	0x800000c8 <trap_entry>
+80000034: 6f 00 40 09  	j	0x800000c8 <trap_entry>
+80000038: 6f 00 00 09  	j	0x800000c8 <trap_entry>
+8000003c: 6f 00 c0 08  	j	0x800000c8 <trap_entry>
+80000040: 6f 00 80 08  	j	0x800000c8 <trap_entry>
+80000044: 6f 00 40 08  	j	0x800000c8 <trap_entry>
+80000048: 6f 00 00 08  	j	0x800000c8 <trap_entry>
+8000004c: 6f 00 c0 07  	j	0x800000c8 <trap_entry>
+80000050: 6f 00 80 07  	j	0x800000c8 <trap_entry>
+80000054: 6f 00 40 07  	j	0x800000c8 <trap_entry>
+80000058: 6f 00 00 07  	j	0x800000c8 <trap_entry>
+8000005c: 6f 00 c0 06  	j	0x800000c8 <trap_entry>
+80000060: 6f 00 80 06  	j	0x800000c8 <trap_entry>
+80000064: 6f 00 40 06  	j	0x800000c8 <trap_entry>
+80000068: 6f 00 00 06  	j	0x800000c8 <trap_entry>
+8000006c: 6f 00 c0 05  	j	0x800000c8 <trap_entry>
+80000070: 6f 00 80 05  	j	0x800000c8 <trap_entry>
+80000074: 6f 00 40 05  	j	0x800000c8 <trap_entry>
+80000078: 6f 00 00 05  	j	0x800000c8 <trap_entry>
+8000007c: 6f 00 c0 04  	j	0x800000c8 <trap_entry>
+80000080: 6f 00 00 01  	j	0x80000090 <_start>
+80000084: 6f 00 40 04  	j	0x800000c8 <trap_entry>
+80000088: 6f 00 00 04  	j	0x800000c8 <trap_entry>
+8000008c: 6f 00 c0 03  	j	0x800000c8 <trap_entry>
+
+Disassembly of section .text:
+
+80000090 <_start>:
+80000090: 17 21 01 00  	auipc	sp, 0x12
+80000094: 13 01 01 f7  	addi	sp, sp, -0x90
+
+80000098 <.Lpcrel_hi1>:
+80000098: 97 02 01 00  	auipc	t0, 0x10
+8000009c: 93 82 82 0a  	addi	t0, t0, 0xa8
+
+800000a0 <.Lpcrel_hi2>:
+800000a0: 17 03 01 00  	auipc	t1, 0x10
+800000a4: 13 03 03 1a  	addi	t1, t1, 0x1a0
+800000a8: 63 f6 62 00  	bgeu	t0, t1, 0x800000b4 <.Lpcrel_hi2+0x14>
+800000ac: 23 a0 02 00  	sw	zero, 0x0(t0)
+800000b0: 91 02        	addi	t0, t0, 0x4
+800000b2: dd bf        	j	0x800000a8 <.Lpcrel_hi2+0x8>
+800000b4: 97 00 00 00  	auipc	ra, 0x0
+800000b8: e7 80 60 08  	jalr	0x86(ra) <main>
+800000bc: b7 02 01 80  	lui	t0, 0x80010
+800000c0: 23 a0 a2 00  	sw	a0, 0x0(t0)
+800000c4: 01 a0        	j	0x800000c4 <.Lpcrel_hi2+0x24>
+800000c6: 01 00        	nop
+
+800000c8 <trap_entry>:
+800000c8: 39 71        	addi	sp, sp, -0x40
+800000ca: 06 c0        	sw	ra, 0x0(sp)
+800000cc: 16 c2        	sw	t0, 0x4(sp)
+800000ce: 1a c4        	sw	t1, 0x8(sp)
+800000d0: 1e c6        	sw	t2, 0xc(sp)
+800000d2: 2a c8        	sw	a0, 0x10(sp)
+800000d4: 2e ca        	sw	a1, 0x14(sp)
+800000d6: 32 cc        	sw	a2, 0x18(sp)
+800000d8: 36 ce        	sw	a3, 0x1c(sp)
+800000da: 3a d0        	sw	a4, 0x20(sp)
+800000dc: 3e d2        	sw	a5, 0x24(sp)
+800000de: 42 d4        	sw	a6, 0x28(sp)
+800000e0: 46 d6        	sw	a7, 0x2c(sp)
+800000e2: 72 d8        	sw	t3, 0x30(sp)
+800000e4: 76 da        	sw	t4, 0x34(sp)
+800000e6: 7a dc        	sw	t5, 0x38(sp)
+800000e8: 7e de        	sw	t6, 0x3c(sp)
+800000ea: 73 25 20 34  	csrr	a0, mcause
+800000ee: f3 25 10 34  	csrr	a1, mepc
+800000f2: 97 00 00 00  	auipc	ra, 0x0
+800000f6: e7 80 20 03  	jalr	0x32(ra) <c_trap>
+800000fa: 73 10 15 34  	csrw	mepc, a0
+800000fe: 82 40        	lw	ra, 0x0(sp)
+80000100: 92 42        	lw	t0, 0x4(sp)
+80000102: 22 43        	lw	t1, 0x8(sp)
+80000104: b2 43        	lw	t2, 0xc(sp)
+80000106: 42 45        	lw	a0, 0x10(sp)
+80000108: d2 45        	lw	a1, 0x14(sp)
+8000010a: 62 46        	lw	a2, 0x18(sp)
+8000010c: f2 46        	lw	a3, 0x1c(sp)
+8000010e: 02 57        	lw	a4, 0x20(sp)
+80000110: 92 57        	lw	a5, 0x24(sp)
+80000112: 22 58        	lw	a6, 0x28(sp)
+80000114: b2 58        	lw	a7, 0x2c(sp)
+80000116: 42 5e        	lw	t3, 0x30(sp)
+80000118: d2 5e        	lw	t4, 0x34(sp)
+8000011a: 62 5f        	lw	t5, 0x38(sp)
+8000011c: f2 5f        	lw	t6, 0x3c(sp)
+8000011e: 21 61        	addi	sp, sp, 0x40
+80000120: 73 00 20 30  	mret
+
+80000124 <c_trap>:
+80000124: b7 f5 d0 ba  	lui	a1, 0xbad0f
+80000128: 4d 8d        	or	a0, a0, a1
+8000012a: b7 05 d1 ba  	lui	a1, 0xbad10
+8000012e: fd 15        	addi	a1, a1, -0x1
+80000130: 6d 8d        	and	a0, a0, a1
+80000132: b7 05 01 80  	lui	a1, 0x80010
+80000136: 88 c1        	sw	a0, 0x0(a1)
+80000138: 01 a0        	j	0x80000138 <c_trap+0x14>
+
+8000013a <main>:
+8000013a: 41 11        	addi	sp, sp, -0x10
+8000013c: 22 c6        	sw	s0, 0xc(sp)
+8000013e: 37 05 00 80  	lui	a0, 0x80000
+80000142: 93 0f c5 5c  	addi	t6, a0, 0x5cc
+80000146: 7d 57        	li	a4, -0x1
+80000148: b7 85 b8 ed  	lui	a1, 0xedb88
+8000014c: 93 8e 05 32  	addi	t4, a1, 0x320
+80000150: 37 c6 6d 07  	lui	a2, 0x76dc
+80000154: 13 08 96 41  	addi	a6, a2, 0x419
+80000158: 37 96 db 0e  	lui	a2, 0xedb9
+8000015c: 93 08 26 83  	addi	a7, a2, -0x7ce
+80000160: 37 16 b7 1d  	lui	a2, 0x1db71
+80000164: 93 02 46 06  	addi	t0, a2, 0x64
+80000168: 37 26 6e 3b  	lui	a2, 0x3b6e2
+8000016c: 13 03 86 0c  	addi	t1, a2, 0xc8
+80000170: 37 46 dc 76  	lui	a2, 0x76dc4
+80000174: 93 03 06 19  	addi	t2, a2, 0x190
+80000178: 13 8e 9f 00  	addi	t3, t6, 0x9
+8000017c: 83 c7 0f 00  	lbu	a5, 0x0(t6)
+80000180: 33 45 f7 00  	xor	a0, a4, a5
+80000184: 93 57 15 00  	srli	a5, a0, 0x1
+80000188: 13 17 f5 01  	slli	a4, a0, 0x1f
+8000018c: 7d 87        	srai	a4, a4, 0x1f
+8000018e: 33 77 d7 01  	and	a4, a4, t4
+80000192: 33 4f f7 00  	xor	t5, a4, a5
+80000196: 13 57 1f 00  	srli	a4, t5, 0x1
+8000019a: 93 17 e5 01  	slli	a5, a0, 0x1e
+8000019e: fd 87        	srai	a5, a5, 0x1f
+800001a0: b3 f7 d7 01  	and	a5, a5, t4
+800001a4: 3d 8f        	xor	a4, a4, a5
+800001a6: 13 54 67 00  	srli	s0, a4, 0x6
+800001aa: 13 16 d5 01  	slli	a2, a0, 0x1d
+800001ae: 7d 86        	srai	a2, a2, 0x1f
+800001b0: 33 76 06 01  	and	a2, a2, a6
+800001b4: 93 15 c5 01  	slli	a1, a0, 0x1c
+800001b8: fd 85        	srai	a1, a1, 0x1f
+800001ba: b3 f5 15 01  	and	a1, a1, a7
+800001be: 93 16 b5 01  	slli	a3, a0, 0x1b
+800001c2: fd 86        	srai	a3, a3, 0x1f
+800001c4: b3 f6 56 00  	and	a3, a3, t0
+800001c8: 6a 05        	slli	a0, a0, 0x1a
+800001ca: 7d 85        	srai	a0, a0, 0x1f
+800001cc: 33 75 65 00  	and	a0, a0, t1
+800001d0: 6a 0f        	slli	t5, t5, 0x1a
+800001d2: 93 57 ff 41  	srai	a5, t5, 0x1f
+800001d6: b3 f7 77 00  	and	a5, a5, t2
+800001da: 6a 07        	slli	a4, a4, 0x1a
+800001dc: 7d 87        	srai	a4, a4, 0x1f
+800001de: 33 77 d7 01  	and	a4, a4, t4
+800001e2: b1 8d        	xor	a1, a1, a2
+800001e4: 35 8d        	xor	a0, a0, a3
+800001e6: 2d 8d        	xor	a0, a0, a1
+800001e8: 21 8d        	xor	a0, a0, s0
+800001ea: 3d 8d        	xor	a0, a0, a5
+800001ec: 85 0f        	addi	t6, t6, 0x1
+800001ee: 29 8f        	xor	a4, a4, a0
+800001f0: e3 96 cf f9  	bne	t6, t3, 0x8000017c <main+0x42>
+800001f4: 13 45 f7 ff  	not	a0, a4
+800001f8: b7 25 01 80  	lui	a1, 0x80012
+800001fc: 23 a0 a5 c0  	sw	a0, -0x400(a1)
+80000200: 37 05 01 80  	lui	a0, 0x80010
+80000204: 13 05 05 04  	addi	a0, a0, 0x40
+80000208: 7d 57        	li	a4, -0x1
+8000020a: b7 85 b8 ed  	lui	a1, 0xedb88
+8000020e: 93 8e 05 32  	addi	t4, a1, 0x320
+80000212: 37 c6 6d 07  	lui	a2, 0x76dc
+80000216: 13 08 96 41  	addi	a6, a2, 0x419
+8000021a: 37 96 db 0e  	lui	a2, 0xedb9
+8000021e: 93 08 26 83  	addi	a7, a2, -0x7ce
+80000222: 37 16 b7 1d  	lui	a2, 0x1db71
+80000226: 93 02 46 06  	addi	t0, a2, 0x64
+8000022a: 37 26 6e 3b  	lui	a2, 0x3b6e2
+8000022e: 13 03 86 0c  	addi	t1, a2, 0xc8
+80000232: 37 46 dc 76  	lui	a2, 0x76dc4
+80000236: 93 03 06 19  	addi	t2, a2, 0x190
+8000023a: 13 0e 05 10  	addi	t3, a0, 0x100
+8000023e: 03 44 05 00  	lbu	s0, 0x0(a0)
+80000242: 33 46 87 00  	xor	a2, a4, s0
+80000246: 13 54 16 00  	srli	s0, a2, 0x1
+8000024a: 13 17 f6 01  	slli	a4, a2, 0x1f
+8000024e: 7d 87        	srai	a4, a4, 0x1f
+80000250: 33 77 d7 01  	and	a4, a4, t4
+80000254: 33 4f 87 00  	xor	t5, a4, s0
+80000258: 13 57 1f 00  	srli	a4, t5, 0x1
+8000025c: 13 14 e6 01  	slli	s0, a2, 0x1e
+80000260: 7d 84        	srai	s0, s0, 0x1f
+80000262: 33 74 d4 01  	and	s0, s0, t4
+80000266: 21 8f        	xor	a4, a4, s0
+80000268: 93 5f 67 00  	srli	t6, a4, 0x6
+8000026c: 93 17 d6 01  	slli	a5, a2, 0x1d
+80000270: fd 87        	srai	a5, a5, 0x1f
+80000272: b3 f7 07 01  	and	a5, a5, a6
+80000276: 93 16 c6 01  	slli	a3, a2, 0x1c
+8000027a: fd 86        	srai	a3, a3, 0x1f
+8000027c: b3 f6 16 01  	and	a3, a3, a7
+80000280: 93 15 b6 01  	slli	a1, a2, 0x1b
+80000284: fd 85        	srai	a1, a1, 0x1f
+80000286: b3 f5 55 00  	and	a1, a1, t0
+8000028a: 6a 06        	slli	a2, a2, 0x1a
+8000028c: 7d 86        	srai	a2, a2, 0x1f
+8000028e: 33 76 66 00  	and	a2, a2, t1
+80000292: 6a 0f        	slli	t5, t5, 0x1a
+80000294: 13 54 ff 41  	srai	s0, t5, 0x1f
+80000298: 33 74 74 00  	and	s0, s0, t2
+8000029c: 6a 07        	slli	a4, a4, 0x1a
+8000029e: 7d 87        	srai	a4, a4, 0x1f
+800002a0: 33 77 d7 01  	and	a4, a4, t4
+800002a4: bd 8e        	xor	a3, a3, a5
+800002a6: b1 8d        	xor	a1, a1, a2
+800002a8: b5 8d        	xor	a1, a1, a3
+800002aa: b3 c5 f5 01  	xor	a1, a1, t6
+800002ae: a1 8d        	xor	a1, a1, s0
+800002b0: 05 05        	addi	a0, a0, 0x1
+800002b2: 2d 8f        	xor	a4, a4, a1
+800002b4: e3 15 c5 f9  	bne	a0, t3, 0x8000023e <main+0x104>
+800002b8: 13 45 f7 ff  	not	a0, a4
+800002bc: b7 25 01 80  	lui	a1, 0x80012
+800002c0: 23 a2 a5 c0  	sw	a0, -0x3fc(a1)
+800002c4: 37 05 01 80  	lui	a0, 0x80010
+800002c8: 93 06 05 04  	addi	a3, a0, 0x40
+800002cc: 13 85 36 00  	addi	a0, a3, 0x3
+800002d0: 7d 57        	li	a4, -0x1
+800002d2: b7 85 b8 ed  	lui	a1, 0xedb88
+800002d6: 93 8e 05 32  	addi	t4, a1, 0x320
+800002da: 37 c6 6d 07  	lui	a2, 0x76dc
+800002de: 13 08 96 41  	addi	a6, a2, 0x419
+800002e2: 37 96 db 0e  	lui	a2, 0xedb9
+800002e6: 93 08 26 83  	addi	a7, a2, -0x7ce
+800002ea: 37 16 b7 1d  	lui	a2, 0x1db71
+800002ee: 93 02 46 06  	addi	t0, a2, 0x64
+800002f2: 37 26 6e 3b  	lui	a2, 0x3b6e2
+800002f6: 13 03 86 0c  	addi	t1, a2, 0xc8
+800002fa: 37 46 dc 76  	lui	a2, 0x76dc4
+800002fe: 93 03 06 19  	addi	t2, a2, 0x190
+80000302: 13 8e 86 06  	addi	t3, a3, 0x68
+80000306: 03 44 05 00  	lbu	s0, 0x0(a0)
+8000030a: 33 46 87 00  	xor	a2, a4, s0
+8000030e: 13 54 16 00  	srli	s0, a2, 0x1
+80000312: 13 17 f6 01  	slli	a4, a2, 0x1f
+80000316: 7d 87        	srai	a4, a4, 0x1f
+80000318: 33 77 d7 01  	and	a4, a4, t4
+8000031c: 33 4f 87 00  	xor	t5, a4, s0
+80000320: 13 57 1f 00  	srli	a4, t5, 0x1
+80000324: 13 14 e6 01  	slli	s0, a2, 0x1e
+80000328: 7d 84        	srai	s0, s0, 0x1f
+8000032a: 33 74 d4 01  	and	s0, s0, t4
+8000032e: 21 8f        	xor	a4, a4, s0
+80000330: 93 5f 67 00  	srli	t6, a4, 0x6
+80000334: 93 17 d6 01  	slli	a5, a2, 0x1d
+80000338: fd 87        	srai	a5, a5, 0x1f
+8000033a: b3 f7 07 01  	and	a5, a5, a6
+8000033e: 93 16 c6 01  	slli	a3, a2, 0x1c
+80000342: fd 86        	srai	a3, a3, 0x1f
+80000344: b3 f6 16 01  	and	a3, a3, a7
+80000348: 93 15 b6 01  	slli	a1, a2, 0x1b
+8000034c: fd 85        	srai	a1, a1, 0x1f
+8000034e: b3 f5 55 00  	and	a1, a1, t0
+80000352: 6a 06        	slli	a2, a2, 0x1a
+80000354: 7d 86        	srai	a2, a2, 0x1f
+80000356: 33 76 66 00  	and	a2, a2, t1
+8000035a: 6a 0f        	slli	t5, t5, 0x1a
+8000035c: 13 54 ff 41  	srai	s0, t5, 0x1f
+80000360: 33 74 74 00  	and	s0, s0, t2
+80000364: 6a 07        	slli	a4, a4, 0x1a
+80000366: 7d 87        	srai	a4, a4, 0x1f
+80000368: 33 77 d7 01  	and	a4, a4, t4
+8000036c: bd 8e        	xor	a3, a3, a5
+8000036e: b1 8d        	xor	a1, a1, a2
+80000370: b5 8d        	xor	a1, a1, a3
+80000372: b3 c5 f5 01  	xor	a1, a1, t6
+80000376: a1 8d        	xor	a1, a1, s0
+80000378: 05 05        	addi	a0, a0, 0x1
+8000037a: 2d 8f        	xor	a4, a4, a1
+8000037c: e3 15 c5 f9  	bne	a0, t3, 0x80000306 <main+0x1cc>
+80000380: 01 45        	li	a0, 0x0
+80000382: 93 45 f7 ff  	not	a1, a4
+80000386: 37 26 01 80  	lui	a2, 0x80012
+8000038a: 23 24 b6 c0  	sw	a1, -0x3f8(a2)
+8000038e: b7 05 01 80  	lui	a1, 0x80010
+80000392: 93 85 05 04  	addi	a1, a1, 0x40
+80000396: 13 86 05 10  	addi	a2, a1, 0x100
+8000039a: 83 86 05 00  	lb	a3, 0x0(a1)
+8000039e: 85 05        	addi	a1, a1, 0x1
+800003a0: 36 95        	add	a0, a0, a3
+800003a2: e3 9c c5 fe  	bne	a1, a2, 0x8000039a <main+0x260>
+800003a6: 81 45        	li	a1, 0x0
+800003a8: 01 46        	li	a2, 0x0
+800003aa: b7 06 01 80  	lui	a3, 0x80010
+800003ae: 93 86 06 04  	addi	a3, a3, 0x40
+800003b2: 13 87 06 10  	addi	a4, a3, 0x100
+800003b6: 83 d7 06 00  	lhu	a5, 0x0(a3)
+800003ba: 03 94 06 00  	lh	s0, 0x0(a3)
+800003be: be 95        	add	a1, a1, a5
+800003c0: 89 06        	addi	a3, a3, 0x2
+800003c2: 22 96        	add	a2, a2, s0
+800003c4: e3 99 e6 fe  	bne	a3, a4, 0x800003b6 <main+0x27c>
+800003c8: 81 46        	li	a3, 0x0
+800003ca: 37 27 01 80  	lui	a4, 0x80012
+800003ce: 23 26 a7 c0  	sw	a0, -0x3f4(a4)
+800003d2: 23 28 b7 c0  	sw	a1, -0x3f0(a4)
+800003d6: 23 2a c7 c0  	sw	a2, -0x3ec(a4)
+800003da: 37 05 01 80  	lui	a0, 0x80010
+800003de: 13 05 05 04  	addi	a0, a0, 0x40
+800003e2: b7 05 01 80  	lui	a1, 0x80010
+800003e6: 93 85 05 14  	addi	a1, a1, 0x140
+800003ea: 13 06 00 10  	li	a2, 0x100
+800003ee: 33 07 d5 00  	add	a4, a0, a3
+800003f2: 03 47 07 00  	lbu	a4, 0x0(a4)
+800003f6: 93 c7 f6 0f  	xori	a5, a3, 0xff
+800003fa: ae 97        	add	a5, a5, a1
+800003fc: 85 06        	addi	a3, a3, 0x1
+800003fe: 23 80 e7 00  	sb	a4, 0x0(a5)
+80000402: e3 96 c6 fe  	bne	a3, a2, 0x800003ee <main+0x2b4>
+80000406: 37 05 01 80  	lui	a0, 0x80010
+8000040a: 13 05 05 14  	addi	a0, a0, 0x140
+8000040e: 7d 57        	li	a4, -0x1
+80000410: b7 85 b8 ed  	lui	a1, 0xedb88
+80000414: 93 8e 05 32  	addi	t4, a1, 0x320
+80000418: b7 c5 6d 07  	lui	a1, 0x76dc
+8000041c: 13 88 95 41  	addi	a6, a1, 0x419
+80000420: b7 95 db 0e  	lui	a1, 0xedb9
+80000424: 93 88 25 83  	addi	a7, a1, -0x7ce
+80000428: b7 15 b7 1d  	lui	a1, 0x1db71
+8000042c: 93 82 45 06  	addi	t0, a1, 0x64
+80000430: b7 25 6e 3b  	lui	a1, 0x3b6e2
+80000434: 13 83 85 0c  	addi	t1, a1, 0xc8
+80000438: b7 45 dc 76  	lui	a1, 0x76dc4
+8000043c: 93 83 05 19  	addi	t2, a1, 0x190
+80000440: 13 0e 05 10  	addi	t3, a0, 0x100
+80000444: 03 44 05 00  	lbu	s0, 0x0(a0)
+80000448: 33 46 87 00  	xor	a2, a4, s0
+8000044c: 13 54 16 00  	srli	s0, a2, 0x1
+80000450: 13 17 f6 01  	slli	a4, a2, 0x1f
+80000454: 7d 87        	srai	a4, a4, 0x1f
+80000456: 33 77 d7 01  	and	a4, a4, t4
+8000045a: 33 4f 87 00  	xor	t5, a4, s0
+8000045e: 13 57 1f 00  	srli	a4, t5, 0x1
+80000462: 13 14 e6 01  	slli	s0, a2, 0x1e
+80000466: 7d 84        	srai	s0, s0, 0x1f
+80000468: 33 74 d4 01  	and	s0, s0, t4
+8000046c: 21 8f        	xor	a4, a4, s0
+8000046e: 93 5f 67 00  	srli	t6, a4, 0x6
+80000472: 93 17 d6 01  	slli	a5, a2, 0x1d
+80000476: fd 87        	srai	a5, a5, 0x1f
+80000478: b3 f7 07 01  	and	a5, a5, a6
+8000047c: 93 16 c6 01  	slli	a3, a2, 0x1c
+80000480: fd 86        	srai	a3, a3, 0x1f
+80000482: b3 f6 16 01  	and	a3, a3, a7
+80000486: 93 15 b6 01  	slli	a1, a2, 0x1b
+8000048a: fd 85        	srai	a1, a1, 0x1f
+8000048c: b3 f5 55 00  	and	a1, a1, t0
+80000490: 6a 06        	slli	a2, a2, 0x1a
+80000492: 7d 86        	srai	a2, a2, 0x1f
+80000494: 33 76 66 00  	and	a2, a2, t1
+80000498: 6a 0f        	slli	t5, t5, 0x1a
+8000049a: 13 54 ff 41  	srai	s0, t5, 0x1f
+8000049e: 33 74 74 00  	and	s0, s0, t2
+800004a2: 6a 07        	slli	a4, a4, 0x1a
+800004a4: 7d 87        	srai	a4, a4, 0x1f
+800004a6: 33 77 d7 01  	and	a4, a4, t4
+800004aa: bd 8e        	xor	a3, a3, a5
+800004ac: b1 8d        	xor	a1, a1, a2
+800004ae: b5 8d        	xor	a1, a1, a3
+800004b0: b3 c5 f5 01  	xor	a1, a1, t6
+800004b4: a1 8d        	xor	a1, a1, s0
+800004b6: 05 05        	addi	a0, a0, 0x1
+800004b8: 2d 8f        	xor	a4, a4, a1
+800004ba: e3 15 c5 f9  	bne	a0, t3, 0x80000444 <main+0x30a>
+800004be: 13 45 f7 ff  	not	a0, a4
+800004c2: b7 25 01 80  	lui	a1, 0x80012
+800004c6: 23 ac a5 c0  	sw	a0, -0x3e8(a1)
+800004ca: 37 05 01 80  	lui	a0, 0x80010
+800004ce: 13 05 05 14  	addi	a0, a0, 0x140
+800004d2: b7 05 01 80  	lui	a1, 0x80010
+800004d6: 93 85 05 04  	addi	a1, a1, 0x40
+800004da: 29 66        	lui	a2, 0xa
+800004dc: 13 06 56 5a  	addi	a2, a2, 0x5a5
+800004e0: 93 06 05 10  	addi	a3, a0, 0x100
+800004e4: 03 97 05 00  	lh	a4, 0x0(a1)
+800004e8: 31 8f        	xor	a4, a4, a2
+800004ea: 23 10 e5 00  	sh	a4, 0x0(a0)
+800004ee: 09 05        	addi	a0, a0, 0x2
+800004f0: 89 05        	addi	a1, a1, 0x2
+800004f2: e3 19 d5 fe  	bne	a0, a3, 0x800004e4 <main+0x3aa>
+800004f6: 37 05 01 80  	lui	a0, 0x80010
+800004fa: 13 05 05 14  	addi	a0, a0, 0x140
+800004fe: 7d 57        	li	a4, -0x1
+80000500: b7 85 b8 ed  	lui	a1, 0xedb88
+80000504: 93 8e 05 32  	addi	t4, a1, 0x320
+80000508: b7 c5 6d 07  	lui	a1, 0x76dc
+8000050c: 13 88 95 41  	addi	a6, a1, 0x419
+80000510: b7 95 db 0e  	lui	a1, 0xedb9
+80000514: 93 88 25 83  	addi	a7, a1, -0x7ce
+80000518: b7 15 b7 1d  	lui	a1, 0x1db71
+8000051c: 93 82 45 06  	addi	t0, a1, 0x64
+80000520: b7 25 6e 3b  	lui	a1, 0x3b6e2
+80000524: 13 83 85 0c  	addi	t1, a1, 0xc8
+80000528: b7 45 dc 76  	lui	a1, 0x76dc4
+8000052c: 93 83 05 19  	addi	t2, a1, 0x190
+80000530: 13 0e 05 10  	addi	t3, a0, 0x100
+80000534: 03 44 05 00  	lbu	s0, 0x0(a0)
+80000538: 33 46 87 00  	xor	a2, a4, s0
+8000053c: 13 54 16 00  	srli	s0, a2, 0x1
+80000540: 13 17 f6 01  	slli	a4, a2, 0x1f
+80000544: 7d 87        	srai	a4, a4, 0x1f
+80000546: 33 77 d7 01  	and	a4, a4, t4
+8000054a: 33 4f 87 00  	xor	t5, a4, s0
+8000054e: 13 57 1f 00  	srli	a4, t5, 0x1
+80000552: 13 14 e6 01  	slli	s0, a2, 0x1e
+80000556: 7d 84        	srai	s0, s0, 0x1f
+80000558: 33 74 d4 01  	and	s0, s0, t4
+8000055c: 21 8f        	xor	a4, a4, s0
+8000055e: 93 5f 67 00  	srli	t6, a4, 0x6
+80000562: 93 17 d6 01  	slli	a5, a2, 0x1d
+80000566: fd 87        	srai	a5, a5, 0x1f
+80000568: b3 f7 07 01  	and	a5, a5, a6
+8000056c: 93 16 c6 01  	slli	a3, a2, 0x1c
+80000570: fd 86        	srai	a3, a3, 0x1f
+80000572: b3 f6 16 01  	and	a3, a3, a7
+80000576: 93 15 b6 01  	slli	a1, a2, 0x1b
+8000057a: fd 85        	srai	a1, a1, 0x1f
+8000057c: b3 f5 55 00  	and	a1, a1, t0
+80000580: 6a 06        	slli	a2, a2, 0x1a
+80000582: 7d 86        	srai	a2, a2, 0x1f
+80000584: 33 76 66 00  	and	a2, a2, t1
+80000588: 6a 0f        	slli	t5, t5, 0x1a
+8000058a: 13 54 ff 41  	srai	s0, t5, 0x1f
+8000058e: 33 74 74 00  	and	s0, s0, t2
+80000592: 6a 07        	slli	a4, a4, 0x1a
+80000594: 7d 87        	srai	a4, a4, 0x1f
+80000596: 33 77 d7 01  	and	a4, a4, t4
+8000059a: bd 8e        	xor	a3, a3, a5
+8000059c: b1 8d        	xor	a1, a1, a2
+8000059e: b5 8d        	xor	a1, a1, a3
+800005a0: b3 c5 f5 01  	xor	a1, a1, t6
+800005a4: a1 8d        	xor	a1, a1, s0
+800005a6: 05 05        	addi	a0, a0, 0x1
+800005a8: 2d 8f        	xor	a4, a4, a1
+800005aa: e3 15 c5 f9  	bne	a0, t3, 0x80000534 <main+0x3fa>
+800005ae: 13 45 f7 ff  	not	a0, a4
+800005b2: b7 25 01 80  	lui	a1, 0x80012
+800005b6: 23 ae a5 c0  	sw	a0, -0x3e4(a1)
+800005ba: 21 46        	li	a2, 0x8
+800005bc: 37 05 de c0  	lui	a0, 0xc0de0
+800005c0: 05 05        	addi	a0, a0, 0x1
+800005c2: 23 ae c5 be  	sw	a2, -0x404(a1)
+800005c6: 32 44        	lw	s0, 0xc(sp)
+800005c8: 41 01        	addi	sp, sp, 0x10
+800005ca: 82 80        	ret
+
+800005cc <main.check>:
+800005cc: 31 32 33 34 35 36 37 38         12345678
+800005d4: 39 00                           9.
