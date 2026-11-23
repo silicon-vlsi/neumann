@@ -41,3 +41,7 @@ TEST/coverage/
 *.qpg
 work*/
 obj_dir*/
+verify/*/sim/
+covhtmlreport/
+transcript
+*.wlf
