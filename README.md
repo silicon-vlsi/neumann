@@ -39,23 +39,28 @@ Top module: `neumann_soc` (`rtl/top/neumann_soc.sv`). File list: `neumann_soc.f`
 
 ```
 neumann/
-├── README.md            this file
-├── neumann_soc.f        file list (paths relative to the repo root), top = neumann_soc
+├── README.md              this file
+├── neumann_soc.f          file list (paths relative to the repo root), top = neumann_soc
+├── rtlGuidelines.md       RTL coding guidelines
+├── config/config.vh       SoC configuration: memory map, which peripherals exist
 ├── rtl/
-│   ├── top/             neumann_soc.sv                      SoC top level
-│   ├── bus/             ebu3.sv, obi2ahb_i.v, obi2ahb_d.v   bus unit + OBI->AHB bridges
-│   ├── sys/             irq_enc.v, rst_sync.v               interrupt encoder, reset synchroniser
-│   ├── core/            rv32i_*.v, cluster_clock_gating.sv, rv32i_defines.vh   neumann core
-│   └── debug/           uart_debug_unit.v, uart_rx.v, uart_tx.v              UART debug unit
-├── config/config.vh     SoC configuration: memory map, which peripherals exist
-├── uncore_ip/           uncore IP: AHB/APB uncore, peripherals, generic cells
+│   ├── top/               neumann_soc.sv                      SoC top level
+│   ├── bus/               ebu3.sv, obi2ahb_i.v, obi2ahb_d.v   bus unit + OBI->AHB bridges
+│   ├── sys/               irq_enc.v, rst_sync.v               interrupt encoder, reset synchroniser
+│   ├── core/              rv32i_*.v, cluster_clock_gating.sv, rv32i_defines.vh   neumann core
+│   ├── debug/             uart_debug_unit.v, uart_rx.v, uart_tx.v              UART debug unit
+│   └── peripherals/       AHB/APB uncore, UART, SPI, GPIO, CLINT, PLIC, generic cells
 ├── sw/
-│   ├── boot/            rom.S, link_rom.ld, rom.hex (built boot ROM image)
-│   ├── app/             start.S, link_app.ld, soc.h   template for programs that run on the SoC
-│   └── bin2hex.py       binary -> one 32-bit word per line, for $readmemh
-├── Documentation/       zero-riscy module documents, SoC diagram
-├── verify/              per-module SystemVerilog testbenches (core units)
-└── rtlGuidelines.md     RTL coding guidelines
+│   ├── boot/              rom.S, link_rom.ld, rom.hex (built boot ROM image)
+│   ├── app/               start.S, link_app.ld, soc.h   template for programs that run on the SoC
+│   └── bin2hex.py         binary -> one 32-bit word per line, for $readmemh
+├── verification/
+│   ├── unit_level/        per-module SystemVerilog testbenches (core units), run_verification.py
+│   └── soc_level/         full-SoC test suites (hello, bus, boot, arch, random, peripherals),
+│                          run_all.py, run_coverage.py
+├── synth/                 synthesis bundle: neumann_soc_synth.f, SRAM/ROM/ICG wrappers,
+│                          SDC constraints, HANDOVER.md
+└── Docs/                  zero-riscy module documents, SoC architecture diagram
 ```
 
 ---
@@ -173,9 +178,9 @@ Debug commands:
 
 Every window must be a `2^n − 1` mask with an aligned base. An access to an unmapped address, or with the wrong size for the target, gets an AHB ERROR response. That becomes a load access fault (mcause 5) or a store access fault (mcause 7).
 
-### uncore_ip/
+### rtl/peripherals/
 
-Open-source AHB/APB uncore IP. License: Apache-2.0 WITH SHL-2.1. Origin and commit are in `uncore_ip/VERSION.txt`; see `uncore_ip/LICENSE`. Our changes are marked `neumann` in `src/uncore/uncore.sv`.
+Open-source AHB/APB uncore IP. License: Apache-2.0 WITH SHL-2.1. Origin and commit are in `rtl/peripherals/VERSION.txt`; see `rtl/peripherals/LICENSE`. Our changes are marked `neumann` in `src/uncore/uncore.sv`.
 
 | File(s) | Role |
 |---|---|
@@ -334,3 +339,12 @@ The SoC passes these regressions in Questa, with `CLK_GATING` both 1 and 0:
 | Boot | SDC flash boot (good and corrupted images), direct boot, debug-UART boot |
 | Peripherals & interrupts | CLINT timer/software interrupts, PLIC, all 32 GPIO pins, UART, SPI/SDC, exceptions, FreeRTOS soak test |
 | Bus | 3-master arbitration with debug traffic, unmapped and wrong-size accesses (ERROR response → trap) |
+
+Where the tests live and how to run them:
+
+| Folder | What | Run |
+|---|---|---|
+| `verification/soc_level/` | the SoC suites above, plus `Test_hello` (smallest example) | `python verification/soc_level/run_all.py --sim questa` (details in its `README.md`) |
+| `verification/unit_level/` | per-module testbenches for the core units | `python verification/unit_level/run_verification.py` |
+
+The synthesis file list, memory/ROM/clock-gate wrappers and constraints are in `synth/` (see `synth/HANDOVER.md`).
