@@ -18,6 +18,9 @@ Images and Spike goldens belong together: after a rebuild run run_spike.py again
 (it rebuilds, runs Spike and refreshes prebuilt/ and golden/ in one go).
 """
 import os, shutil, subprocess, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+import covhook
+covhook.add_riscv_paths()          # finds the RISC-V compiler on any machine
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)

@@ -13,6 +13,9 @@ riscv-none-elf-gcc, clang (+ ld.lld, llvm-objcopy). If none is found, the ready-
 images from prebuilt/ are copied to build/ (enough to run the simulation).
 """
 import os, shutil, subprocess, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+import covhook
+covhook.add_riscv_paths()          # finds the RISC-V compiler on any machine
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
@@ -59,7 +62,7 @@ def main():
     if tc is None:
         print('== no RISC-V compiler found: using prebuilt/ images')
         for f in IMAGES + ['gcd.dis']:
-            shutil.copy(os.path.join(HERE, 'prebuilt', f), p(f))
+            shutil.copyfile(os.path.join(HERE, 'prebuilt', f), p(f))
         print('done (prebuilt). To rebuild from source install riscv64-unknown-elf-gcc '
               'or run build.py inside the Docker.')
         return
@@ -71,7 +74,7 @@ def main():
     link(os.path.join(ROOT, 'sw', 'boot', 'link_rom.ld'), [p('rom.o')], p('rom.elf'))
     run([objcopy, '-O', 'binary', p('rom.elf'), p('rom.bin')])
     run([PY, os.path.join(ROOT, 'sw', 'bin2hex.py'), p('rom.bin'), p('rom.hex')])
-    shutil.copy(p('rom.hex'), os.path.join(ROOT, 'sw', 'boot', 'rom.hex'))
+    shutil.copyfile(p('rom.hex'), os.path.join(ROOT, 'sw', 'boot', 'rom.hex'))
 
     print('== gcd program')
     run(cc + ['-c', os.path.join(ROOT, 'sw', 'app', 'start.S'), '-o', p('start.o')])

@@ -19,6 +19,7 @@ full details.
 | `Test_periph_irq/` | back-door preload, direct boot (`01`) | `irq`: interrupt priority MEI > MSI > MTI, PLIC claim / complete / tie / threshold, `mtimecmp` rewrites, WFI wake, MSI + GPIO + timer stress. `periph`: UART loopback, SPI to a memory model, GPIO edge / level / write-1-to-clear. `gpio32`: all 32 pins, walking 1 / 0, `out_xor`, input / output enables, all-pin interrupts. `exc`: ecall / illegal-instruction traps with exact `mcause` / `mepc`, `mstatus` stacking, CSR edges. `rtos_soak`: 12.8 M-clock FreeRTOS run, no tick drift, no lost wake-ups |
 | `Test_bus/` | back-door preload, direct boot (`01`) + debug unit traffic | misaligned loads / stores (split by the core), bus errors on unmapped addresses (load / store access fault), ROM write ignored, address aliasing, three AHB masters (fetch, LSU, debug unit) at once |
 | `Test_random/` | back-door preload, direct boot (`01`) | 100 random RV32IC programs (40 blocks × 25 instructions, register dump after every block), signature compared word by word with Spike |
+| `Test_hello/` | back-door preload, direct boot (`01`) | the smallest test: 10 instructions compute 5 + 7, the testbench compares DRAM with the Python answer key. Start here to learn the 4 steps every suite uses |
 
 ## Results
 
@@ -54,6 +55,33 @@ The default simulator is Questa when `vsim` is on PATH, otherwise Verilator.
 `Test_via_sdc` and `Test_boot_programs` have no Questa CLK_GATING=0 option and are skipped there.
 
 Full Verilator regression: `run_all.py --sim verilator` — 6 / 6 suites, 188 / 188 runs PASS.
+
+## Finding Questa and Verilator (any machine)
+
+Every runner finds the simulator by itself, in this order:
+
+1. environment variable: `NEUMANN_QUESTA_BIN` (folder with `vsim`, `vlog`, `vlib`, `vcover`)
+   or `NEUMANN_VERILATOR_BIN` (folder with `verilator`); also `QUESTA_HOME`, `MODEL_TECH`, `VERILATOR_ROOT`
+2. `PATH`
+3. common install folders, e.g. `C:\intelFPGA*\*\questa_fse\win64`, `C:\questasim*\win64`,
+   `C:\msys64\mingw64\bin`, `/opt/questasim*/bin`, `~/intelFPGA*/*/questa_fse/bin`,
+   `/foss/tools/bin`, `/usr/local/bin`, `~/oss-cad-suite/bin`
+
+The folder it finds is printed (`== using vsim from ...`) and added to `PATH` for that run.
+If nothing is found the runner stops with a short message saying what to install or set.
+
+```
+set NEUMANN_QUESTA_BIN=C:\intelFPGA\23.1std\questa_fse\win64      (Windows cmd)
+$env:NEUMANN_QUESTA_BIN="C:\intelFPGA\23.1std\questa_fse\win64"   (PowerShell)
+export NEUMANN_VERILATOR_BIN=/opt/verilator/bin                    (Linux / Docker)
+```
+
+The same search is used for the RISC-V compiler (`build.py`: `riscv64-unknown-elf-gcc`,
+`riscv32-unknown-elf-gcc`, `riscv-none-elf-gcc` (xPack), or clang + ld.lld; override
+`NEUMANN_RISCV_BIN`, also `RISCV`) and for Spike (`run_spike.py`; override `NEUMANN_SPIKE_BIN`).
+No compiler found = the ready-made `prebuilt/` images are used, so Questa on Windows needs no compiler.
+
+Verilator on Windows needs MSYS2 or WSL; on Windows use the Questa runners, Verilator in Docker.
 
 ## Commands
 

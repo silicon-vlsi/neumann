@@ -32,7 +32,7 @@ def main():
     os.chdir(ROOT)
     B = tests.B
     work = B + '/work'
-    subprocess.run(['vlib', work], check=True)
+    subprocess.run([covhook.tool('vlib'), work], check=True)
     print('== vlog')
     with open(B + '/vlog.log', 'w') as log:
         r = covhook.run(['vlog', '-work', work, '-sv', '-timescale', '1ns/1ps', '-f', 'neumann_soc.f']

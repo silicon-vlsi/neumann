@@ -17,6 +17,8 @@ import argparse, os, shutil, subprocess, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import tests
+sys.path.insert(0, os.path.join(HERE, '..'))
+import covhook
 
 B, GOLD = tests.B, tests.GOLD
 
@@ -29,8 +31,11 @@ def main():
     ap.add_argument('--no-build', action='store_true')
     a = ap.parse_args()
     progs = tests.names(a.seeds)
-    if not shutil.which(a.spike) and not os.path.exists(a.spike):
-        sys.exit('spike not found (use --spike <path>)')
+    sp = covhook.find_spike(a.spike)
+    if not sp:
+        sys.exit('spike not found: install it, add it to PATH, set NEUMANN_SPIKE_BIN=<folder>, '
+                 'or use --spike <path>')
+    a.spike = sp
     if not a.no_build:
         subprocess.run([sys.executable, os.path.join(HERE, 'build.py'), '--rebuild'] + a.seeds, check=True)
     os.makedirs(GOLD, exist_ok=True)

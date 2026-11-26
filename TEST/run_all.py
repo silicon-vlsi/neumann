@@ -17,6 +17,8 @@ Test_random compares with Spike goldens that are already in Test_random/golden/
 Exit code 0 only if every suite passed.
 """
 import argparse, os, re, shutil, subprocess, sys, time
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import covhook
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 LOGS = os.path.join(HERE, 'run_all_logs')
@@ -43,7 +45,7 @@ def command(suite, sim, cg, quick):
 def main():
     ap = argparse.ArgumentParser(description='run every TEST suite one by one')
     ap.add_argument('--sim', choices=['questa', 'verilator'],
-                    default='questa' if shutil.which('vsim') else 'verilator')
+                    default='questa' if covhook.have('vsim') else 'verilator')
     ap.add_argument('--cg', choices=['1', '0', 'both'], default='1',
                     help='Questa: CLK_GATING value(s). Verilator runs 1 and 0 unless --quick')
     ap.add_argument('--quick', action='store_true', help='Verilator: CLK_GATING=1 only')

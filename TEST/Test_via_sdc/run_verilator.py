@@ -37,7 +37,7 @@ def main():
                                 '--timescale', '1ns/1ps', '--top-module', 'tb_sdc_boot',
                                 '-f', 'neumann_soc.f', T + '/flash/spiflash.v',
                                 T + '/tb/tb_sdc_boot.sv',
-                                os.path.join(ROOT, T, 'tb', 'dpi_getenv.c'),
+                                covhook.dpi_c(obj, os.path.join(ROOT, T, 'tb', 'dpi_getenv.c')),
                                 '--Mdir', obj, '-o', 'sim'],
                                stdout=log, stderr=subprocess.STDOUT)
         if r.returncode != 0:

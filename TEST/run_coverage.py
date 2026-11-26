@@ -21,6 +21,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..'))
 sys.path.insert(0, HERE)
 import run_all
+import covhook
 
 RTL_DIRS = ('rtl/', 'uncore_ip/')
 
@@ -48,15 +49,15 @@ def report_questa(d):
     if not ucdbs:
         sys.exit('no .ucdb files in ' + d)
     merged = os.path.join(d, 'merged.ucdb')
-    subprocess.run(['vcover', 'merge', '-out', merged] + [os.path.join(d, f) for f in ucdbs], check=True,
+    subprocess.run([covhook.tool('vcover'), 'merge', '-out', merged] + [os.path.join(d, f) for f in ucdbs], check=True,
                    stdout=subprocess.DEVNULL)
     with open(os.path.join(d, 'summary.txt'), 'w') as f:
-        subprocess.run(['vcover', 'report', '-summary', merged], stdout=f, stderr=subprocess.STDOUT)
+        subprocess.run([covhook.tool('vcover'), 'report', '-summary', merged], stdout=f, stderr=subprocess.STDOUT)
     with open(os.path.join(d, 'by_module.txt'), 'w') as f:
-        subprocess.run(['vcover', 'report', '-bydu', merged], stdout=f, stderr=subprocess.STDOUT)
+        subprocess.run([covhook.tool('vcover'), 'report', '-bydu', merged], stdout=f, stderr=subprocess.STDOUT)
     with open(os.path.join(d, 'uncovered.txt'), 'w') as f:
-        subprocess.run(['vcover', 'report', '-details', '-zeros', '-bydu', merged], stdout=f, stderr=subprocess.STDOUT)
-    subprocess.run(['vcover', 'report', '-html', '-output', os.path.join(d, 'html'), merged],
+        subprocess.run([covhook.tool('vcover'), 'report', '-details', '-zeros', '-bydu', merged], stdout=f, stderr=subprocess.STDOUT)
+    subprocess.run([covhook.tool('vcover'), 'report', '-html', '-output', os.path.join(d, 'html'), merged],
                    stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
     print('\nmerged %d runs -> %s' % (len(ucdbs), merged))
     print(open(os.path.join(d, 'summary.txt')).read()[-3000:])
@@ -81,14 +82,14 @@ def report_verilator(d):
             for line in src:
                 dst.write(pat.sub('\x01h\x02TOP.dut', line))
     merged = os.path.join(d, 'merged.dat')
-    subprocess.run(['verilator_coverage', '--write', merged] + [os.path.join(norm, f) for f in dats], check=True,
+    subprocess.run([covhook.tool('verilator_coverage'), '--write', merged] + [os.path.join(norm, f) for f in dats], check=True,
                    stdout=subprocess.DEVNULL)
     info = os.path.join(d, 'merged.info')
-    subprocess.run(['verilator_coverage', '--write-info', info, merged], check=True, stdout=subprocess.DEVNULL)
+    subprocess.run([covhook.tool('verilator_coverage'), '--write-info', info, merged], check=True, stdout=subprocess.DEVNULL)
     ann = os.path.join(d, 'annotated')
     if os.path.isdir(ann):
         shutil.rmtree(ann)
-    subprocess.run(['verilator_coverage', '--annotate', ann, '--annotate-min', '1', merged], cwd=ROOT,
+    subprocess.run([covhook.tool('verilator_coverage'), '--annotate', ann, '--annotate-min', '1', merged], cwd=ROOT,
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     # per-file line and toggle coverage, RTL only, from merged.dat
     per = {}
@@ -123,7 +124,7 @@ def report_verilator(d):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--sim', choices=['questa', 'verilator'],
-                    default='questa' if shutil.which('vsim') else 'verilator')
+                    default='questa' if covhook.have('vsim') else 'verilator')
     ap.add_argument('-s', '--suites', nargs='*', default=run_all.SUITES)
     ap.add_argument('--report-only', action='store_true')
     a = ap.parse_args()

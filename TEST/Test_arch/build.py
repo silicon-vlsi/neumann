@@ -18,6 +18,9 @@ Toolchain: first found of riscv64-unknown-elf-gcc, riscv32-unknown-elf-gcc, risc
 clang (+ ld.lld, llvm-objcopy, llvm-objdump). None found -> prebuilt/ is copied to build/.
 """
 import os, shutil, subprocess, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+import covhook
+covhook.add_riscv_paths()          # finds the RISC-V compiler on any machine
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -111,7 +114,28 @@ def main():
                 used = kind
                 break
         if used is None:
-            print('  %-24s BUILD FAILED: %s' % (t, (r.stderr.strip().splitlines() or ['?'])[-1]))
+            why = (r.stderr.strip().splitlines() or ['?'])[-1]
+            pre = os.path.join(HERE, 'prebuilt')
+            if all(os.path.exists(os.path.join(pre, t + x)) for x in ('_iram.hex', '_dram.hex')):
+                # some assemblers reject official sources (e.g. newer binutils: `la x0, label`
+                # in jalr-01.S). Use the ready-made image of this test, as on a machine without
+                # a compiler (same image Questa runs on Windows).
+                for x in ('_iram.hex', '_dram.hex'):
+                    shutil.copyfile(os.path.join(pre, t + x), b(t + x))
+                pm = {}
+                if os.path.exists(os.path.join(pre, 'manifest.txt')):
+                    for line in open(os.path.join(pre, 'manifest.txt')):
+                        p = line.split()
+                        if len(p) == 2:
+                            pm[p[0]] = p[1]
+                manifest[t] = pm.get(t, 'std')
+                print('  %-24s %s  compiler rejected the source (%s) -> prebuilt image' % (t, manifest[t], why[:60]))
+                continue
+            if t in tests.SKIP or (suite, tname) in tests.SKIP or tname in tests.SKIP:
+                print('  %-24s not built (%s); test is skipped anyway' % (t, why[:60]))
+                manifest[t] = 'std'
+                continue
+            print('  %-24s BUILD FAILED: %s' % (t, why))
             failed.append(t)
             continue
         run([objcopy, '-O', 'binary', '--only-section=.text', b(t + '.elf'), b(t + '_iram.bin')])

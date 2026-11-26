@@ -32,7 +32,7 @@ def main():
         subprocess.run([sys.executable, os.path.join(HERE, 'build.py')] + a.seeds, check=True)
     os.chdir(ROOT)
     work = T + '/build/work'          # relative: an absolute C:\ path in -lib breaks vopt
-    subprocess.run(['vlib', work], check=True, stdout=subprocess.DEVNULL)
+    subprocess.run([covhook.tool('vlib'), work], check=True, stdout=subprocess.DEVNULL)
     print('== vlog')
     logf = T + '/build/vlog.log'
     with open(logf, 'w') as log:

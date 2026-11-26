@@ -27,7 +27,7 @@ def compile_lib(kind):
     # ("No module name found": it reads the drive colon as lib.module)
     work = '%s/build/work_%s' % (T, kind)
     m = tests.MAPS[kind]
-    subprocess.run(['vlib', work], check=True, stdout=subprocess.DEVNULL)
+    subprocess.run([covhook.tool('vlib'), work], check=True, stdout=subprocess.DEVNULL)
     inc = ['+incdir+' + m['incdir']] if m['incdir'] else []
     print('== vlog (%s map)' % kind)
     logf = '%s/vlog_%s.log' % (B, kind)

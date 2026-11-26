@@ -10,6 +10,9 @@ Toolchain: first found of riscv64-unknown-elf-gcc, riscv32-unknown-elf-gcc, risc
 clang (+ ld.lld, llvm-objcopy, llvm-nm). None found -> prebuilt/ is copied to build/.
 """
 import os, shutil, subprocess, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+import covhook
+covhook.add_riscv_paths()          # finds the RISC-V compiler on any machine
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))

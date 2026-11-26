@@ -35,7 +35,7 @@ def main():
         subprocess.run([sys.executable, os.path.join(HERE, 'build.py')], check=True)
     os.chdir(ROOT)
     work = B + '/work'
-    subprocess.run(['vlib', work], check=True)
+    subprocess.run([covhook.tool('vlib'), work], check=True)
     print('== vlog')
     with open(B + '/vlog.log', 'w') as log:
         r = covhook.run(['vlog', '-work', work, '-sv', '-timescale', '1ns/1ps',

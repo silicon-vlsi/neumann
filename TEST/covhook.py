@@ -21,6 +21,199 @@ TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 _count = {'n': 0}
 
 
+# ---------------------------------------------------------------------------
+# Tool finder: makes every runner work on Windows, Linux and Docker without
+# editing PATH by hand. Order: 1) environment variable, 2) PATH, 3) common
+# install folders. A folder found this way is added to PATH for child tools
+# (vsim -> vopt, verilator -> make / g++).
+#   Override:  NEUMANN_QUESTA_BIN=<folder with vsim>   NEUMANN_VERILATOR_BIN=<folder with verilator>
+#   Also read: QUESTA_HOME, MODEL_TECH, VERILATOR_ROOT
+# ---------------------------------------------------------------------------
+import glob, shutil, sys
+
+QUESTA_TOOLS = ('vlib', 'vlog', 'vsim', 'vopt', 'vcover', 'vmap')
+VERILATOR_TOOLS = ('verilator', 'verilator_coverage')
+_found = {}
+
+
+def _home(*p):
+    return os.path.join(os.path.expanduser('~'), *p)
+
+
+def _questa_dirs():
+    d = []
+    for v in ('NEUMANN_QUESTA_BIN',):
+        if os.environ.get(v):
+            d.append(os.environ[v])
+    for v in ('QUESTA_HOME', 'MODEL_TECH', 'MTI_HOME'):
+        e = os.environ.get(v)
+        if e:
+            d += [e, os.path.join(e, 'bin'), os.path.join(e, 'win64'), os.path.join(e, 'linux_x86_64')]
+    if os.name == 'nt':
+        pats = [r'C:\intelFPGA*\*\questa_fse\win64', r'C:\intelFPGA_pro\*\questa_fe\win64',
+                r'C:\intelFPGA*\*\modelsim_ase\win32aloem', r'C:\altera*\*\questa_fse\win64',
+                r'C:\questasim*\win64', r'C:\questa_sim*\win64', r'C:\Program Files\questasim*\win64',
+                r'C:\Program Files\Mentor*\*\win64', r'C:\Siemens\*\questasim*\win64',
+                r'D:\intelFPGA*\*\questa_fse\win64', r'D:\questasim*\win64']
+    else:
+        pats = ['/opt/questasim*/bin', '/opt/questa*/questasim/bin', '/opt/mentor/*/questasim/bin',
+                '/opt/siemens/*/questasim/bin', '/tools/*/questasim/bin', '/eda/*/questasim/bin',
+                _home('intelFPGA*', '*', 'questa_fse', 'bin'), '/opt/intelFPGA*/*/questa_fse/bin',
+                _home('eda', '*', 'bin'), '/usr/local/bin']
+    for p in pats:
+        d += sorted(glob.glob(p), reverse=True)           # newest version first
+    return d
+
+
+def _verilator_dirs():
+    d = []
+    if os.environ.get('NEUMANN_VERILATOR_BIN'):
+        d.append(os.environ['NEUMANN_VERILATOR_BIN'])
+    if os.environ.get('VERILATOR_ROOT'):
+        d += [os.path.join(os.environ['VERILATOR_ROOT'], 'bin'), os.environ['VERILATOR_ROOT']]
+    if os.name == 'nt':
+        pats = [r'C:\msys64\mingw64\bin', r'C:\msys64\ucrt64\bin', r'C:\msys64\clang64\bin',
+                r'C:\verilator*\bin', r'C:\Program Files\verilator*\bin', r'C:\oss-cad-suite\bin']
+    else:
+        pats = ['/foss/tools/bin', '/foss/tools/verilator/bin', '/opt/verilator*/bin',
+                '/usr/local/bin', '/usr/bin', _home('oss-cad-suite', 'bin'), '/opt/oss-cad-suite/bin',
+                _home('eda', 'verilator*', 'bin'), _home('.local', 'bin')]
+    for p in pats:
+        d += sorted(glob.glob(p), reverse=True)
+    return d
+
+
+def _exe_in(folder, name):
+    for n in ([name + '.exe', name + '.bat', name] if os.name == 'nt' else [name]):
+        f = os.path.join(folder, n)
+        if os.path.isfile(f) and os.access(f, os.X_OK):
+            return f
+    return None
+
+
+def _hint(name):
+    if name in VERILATOR_TOOLS:
+        return ('Verilator not found. Install it (Linux: apt install verilator, or the oss-cad-suite;\n'
+                'Windows: MSYS2 "pacman -S mingw-w64-x86_64-verilator", or use Docker / WSL),\n'
+                'or set NEUMANN_VERILATOR_BIN=<folder that holds verilator>. On Windows the Questa\n'
+                'runners (run_questa.py) are the easy path.')
+    return ('Questa not found. Add its bin folder (the one with vsim / vlog) to PATH, or set\n'
+            'NEUMANN_QUESTA_BIN=<that folder> (Windows example: C:\\intelFPGA\\23.1std\\questa_fse\\win64).')
+
+
+def tool(name, required=True):
+    """full path of a simulator tool (vlib/vlog/vsim/vcover/verilator/...); exits with a
+    clear message if it cannot be found and required=True; None if not required."""
+    if name in _found:
+        return _found[name]
+    path = shutil.which(name)
+    if not path:
+        dirs = _questa_dirs() if name in QUESTA_TOOLS else _verilator_dirs() if name in VERILATOR_TOOLS else []
+        for d in dirs:
+            path = _exe_in(d, name)
+            if path:
+                break
+    if path:
+        folder = os.path.dirname(path)
+        if folder not in os.environ.get('PATH', '').split(os.pathsep):
+            os.environ['PATH'] = folder + os.pathsep + os.environ.get('PATH', '')
+            print('== using %s from %s' % (name, folder))
+        _found[name] = path
+        return path
+    if required:
+        sys.exit('\nERROR: cannot find "%s".\n%s\n' % (name, _hint(name)))
+    return None
+
+
+def have(name):
+    return tool(name, required=False) is not None
+
+
+
+# RISC-V compiler and Spike: their folders are added to PATH so build.py's
+# shutil.which() and run_spike.py find them without manual PATH setup.
+#   Override: NEUMANN_RISCV_BIN=<folder with riscv*-gcc or clang>   NEUMANN_SPIKE_BIN=<folder with spike>
+#   Also read: RISCV, RISCV_PATH, RISCV_TOOLCHAIN (folder or its bin/)
+RISCV_GCC = ('riscv64-unknown-elf-gcc', 'riscv32-unknown-elf-gcc', 'riscv-none-elf-gcc',
+             'riscv64-elf-gcc', 'riscv32-elf-gcc')
+
+
+def _riscv_dirs():
+    d = []
+    for v in ('NEUMANN_RISCV_BIN', 'RISCV', 'RISCV_PATH', 'RISCV_TOOLCHAIN'):
+        e = os.environ.get(v)
+        if e:
+            d += [e, os.path.join(e, 'bin')]
+    if os.name == 'nt':
+        a = os.environ.get('APPDATA', '')
+        pats = [os.path.join(a, 'xPacks', '@xpack-dev-tools', 'riscv-none-elf-gcc', '*', '.content', 'bin'),
+                r'C:\xpack*\riscv-none-elf-gcc*\bin', r'C:\xpack-riscv-none-elf-gcc*\bin',
+                r'C:\riscv*\bin', r'C:\SysGCC\risc-v\bin', r'C:\Program Files\LLVM\bin',
+                r'C:\msys64\mingw64\bin', r'C:\msys64\ucrt64\bin', r'C:\msys64\clang64\bin']
+    else:
+        pats = ['/opt/riscv*/bin', '/opt/riscv/*/bin', _home('riscv*', 'bin'), '/foss/tools/bin',
+                '/foss/tools/riscv-gnu-toolchain*/bin', '/foss/tools/riscv*/bin', '/usr/local/riscv*/bin',
+                _home('.local', 'xPacks', '@xpack-dev-tools', 'riscv-none-elf-gcc', '*', '.content', 'bin'),
+                _home('eda', 'riscv*', 'bin'), '/usr/local/bin', '/usr/bin']
+    for p in pats:
+        d += sorted(glob.glob(p), reverse=True)
+    return d
+
+
+def _prepend(folder):
+    if folder and folder not in os.environ.get('PATH', '').split(os.pathsep):
+        os.environ['PATH'] = folder + os.pathsep + os.environ.get('PATH', '')
+
+
+def add_riscv_paths():
+    """put the first folder holding a RISC-V GCC (or clang + ld.lld) on PATH. Safe to call
+    many times; does nothing if one is already on PATH."""
+    if any(shutil.which(g) for g in RISCV_GCC) or (shutil.which('clang') and shutil.which('ld.lld')):
+        return
+    for d in _riscv_dirs():
+        if any(_exe_in(d, g) for g in RISCV_GCC) or (_exe_in(d, 'clang') and _exe_in(d, 'ld.lld')):
+            _prepend(d)
+            print('== using RISC-V toolchain from %s' % d)
+            return
+
+
+def find_spike(name='spike'):
+    """full path of spike, or None."""
+    if os.path.exists(name):
+        return name
+    p = shutil.which(name)
+    if p:
+        return p
+    dirs = [os.environ.get('NEUMANN_SPIKE_BIN', '')] + _riscv_dirs() + \
+           (['/opt/spike/bin', '/foss/tools/spike/bin', _home('spike', 'bin')] if os.name != 'nt' else [])
+    for d in dirs:
+        if d:
+            f = _exe_in(d, name)
+            if f:
+                _prepend(os.path.dirname(f))
+                return f
+    return None
+
+
+
+def dpi_c(obj, src):
+    """copy the DPI C helper into Verilator's --Mdir and return that path. Some Verilator
+    versions (seen with 5.050 on a mounted folder) write a wrong path for user C files into
+    the generated makefile; a file inside the Mdir itself is always found."""
+    import shutil as _sh
+    os.makedirs(obj, exist_ok=True)
+    dst = os.path.join(obj, os.path.basename(src))
+    _sh.copyfile(src, dst)
+    return dst
+
+
+def _resolve(cmd):
+    cmd = list(cmd)
+    if cmd and os.path.basename(str(cmd[0])) in QUESTA_TOOLS + VERILATOR_TOOLS:
+        cmd[0] = tool(os.path.basename(str(cmd[0])))
+    return cmd
+
+
 def enabled():
     return bool(os.environ.get('NEUMANN_COV'))
 
@@ -109,9 +302,12 @@ def _cov_main(top):
 
 
 def run(cmd, **kw):
+    exe = os.path.basename(str(cmd[0]))
+    if exe.lower().endswith('.exe'):
+        exe = exe[:-4]
+    cmd = _resolve(cmd)
     if not enabled():
         return subprocess.run(cmd, **kw)
-    exe = os.path.basename(str(cmd[0]))
     if exe == 'vlog':
         r = None
         for c in _vlog(list(cmd), kw):

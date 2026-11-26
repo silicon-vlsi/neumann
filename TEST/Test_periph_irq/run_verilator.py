@@ -36,7 +36,7 @@ def main():
             r = covhook.run(['verilator', '--binary', '--timing', '-Wno-fatal', '-Wno-lint', '-Wno-style',
                                 '-Wno-MULTIDRIVEN', '-GCLK_GATING=%d' % cg, '--timescale', '1ns/1ps',
                                 '--top-module', 'tb_periph', '-f', 'neumann_soc.f'] + tests.SOURCES +
-                               [os.path.join(ROOT, tests.T, 'tb', 'dpi_getenv.c'), '--Mdir', obj, '-o', 'sim',
+                               [covhook.dpi_c(obj, os.path.join(ROOT, tests.T, 'tb', 'dpi_getenv.c')), '--Mdir', obj, '-o', 'sim',
                                 '-j', '0'], stdout=log, stderr=subprocess.STDOUT)
         if r.returncode != 0:
             print('\n'.join([l for l in open(obj + '.log').read().splitlines() if '%Error' in l][:10]))

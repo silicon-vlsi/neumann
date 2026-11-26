@@ -32,7 +32,7 @@ def build_sim(cg, kind):
                             '-Wno-MULTIDRIVEN', '-GCLK_GATING=%d' % cg, '-GIRAM_PHYS=%d' % m['iram_phys'],
                             '--timescale', '1ns/1ps', '--top-module', 'tb_arch'] + inc +
                            ['-f', 'neumann_soc.f', T + '/tb/tb_arch.sv',
-                            os.path.join(ROOT, T, 'tb', 'dpi_getenv.c'), '--Mdir', obj, '-o', 'sim', '-j', '0'],
+                            covhook.dpi_c(obj, os.path.join(ROOT, T, 'tb', 'dpi_getenv.c')), '--Mdir', obj, '-o', 'sim', '-j', '0'],
                            stdout=log, stderr=subprocess.STDOUT)
     if r.returncode != 0:
         print('\n'.join([l for l in open(obj + '.log').read().splitlines() if '%Error' in l][:10]))

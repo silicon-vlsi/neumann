@@ -13,6 +13,9 @@ Toolchain: first found of riscv64-unknown-elf-gcc, riscv32-unknown-elf-gcc, risc
 clang (+ ld.lld, llvm-objcopy, llvm-nm). None found -> prebuilt/ is copied to build/.
 """
 import os, shutil, subprocess, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+import covhook
+covhook.add_riscv_paths()          # finds the RISC-V compiler on any machine
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
@@ -86,7 +89,7 @@ def main():
     if tc is None:
         print('no RISC-V compiler found: copying prebuilt/ to build/')
         for f in os.listdir(os.path.join(HERE, 'prebuilt')):
-            shutil.copy(os.path.join(HERE, 'prebuilt', f), b(f))
+            shutil.copyfile(os.path.join(HERE, 'prebuilt', f), b(f))
         return
     name, cc, link, objcopy, objdump, nm, extra = tc
     print('toolchain: ' + name)
@@ -96,7 +99,7 @@ def main():
     link(os.path.join(ROOT, 'sw', 'boot', 'link_rom.ld'), [b('rom.o')], b('rom.elf'))
     run([objcopy, '-O', 'binary', b('rom.elf'), b('rom.bin')])
     run([PY, os.path.join(ROOT, 'sw', 'bin2hex.py'), b('rom.bin'), b('rom.hex')])
-    shutil.copy(b('rom.hex'), os.path.join(ROOT, 'sw', 'boot', 'rom.hex'))
+    shutil.copyfile(b('rom.hex'), os.path.join(ROOT, 'sw', 'boot', 'rom.hex'))
 
     for p in want:
         start, srcs, flags, opt = PROGRAMS[p]

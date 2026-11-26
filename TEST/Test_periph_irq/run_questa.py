@@ -31,7 +31,7 @@ def main():
     os.chdir(ROOT)
     B = tests.B                       # relative path: an absolute C:\ path in -lib breaks vopt
     work = B + '/work'
-    subprocess.run(['vlib', work], check=True, stdout=subprocess.DEVNULL)
+    subprocess.run([covhook.tool('vlib'), work], check=True, stdout=subprocess.DEVNULL)
     print('== vlog')
     with open(B + '/vlog.log', 'w') as log:
         r = covhook.run(['vlog', '-work', work, '-sv', '-timescale', '1ns/1ps', '-f', 'neumann_soc.f']
