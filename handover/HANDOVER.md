@@ -87,7 +87,7 @@ An unmapped address or a wrong access size returns an AHB ERROR, which traps wit
 
 ## 6. Verification status (RTL, Questa, final RTL)
 
-`TEST/run_all.py --sim questa --cg both`: 10 suite runs pass, 0 fail.
+`verification/soc_level/run_all.py --sim questa --cg both`: 10 suite runs pass, 0 fail.
 
 | Suite | Result |
 |---|---|
@@ -121,7 +121,7 @@ Also checked: `handover/check/tb_bootrom_eq.sv` confirms the synthesis ROM match
 
 ## 9. Nightly regression 
 
-From `neumann_soc/TEST/`: `python run_all.py --sim questa --cg both`. This needs Questa, Python 3 and a riscv32 GCC. All suites ship `prebuilt/` images, so GCC is only needed with `--rebuild`. Logs are written to `TEST/run_all_logs/`, and a suite passes when its "PASSED a / b" line has a == b.
+From `neumann_soc/verification/soc_level/`: `python run_all.py --sim questa --cg both`. This needs Questa, Python 3 and a riscv32 GCC. All suites ship `prebuilt/` images, so GCC is only needed with `--rebuild`. Logs are written to `TEST/run_all_logs/`, and a suite passes when its "PASSED a / b" line has a == b.
 
 The testbenches back-door load IRAM, DRAM and ROM by RTL hierarchy. For a **netlist** regression, those load paths must point at the macro models. We will adapt them once the macro names are known.
 
