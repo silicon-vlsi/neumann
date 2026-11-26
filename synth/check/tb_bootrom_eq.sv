@@ -1,7 +1,7 @@
-// tb_bootrom_eq.sv - checks handover/rtl_synth/rom1p1r_bootrom.sv == sw/boot/rom.hex
+// tb_bootrom_eq.sv - checks synth/rtl_synth/rom1p1r_bootrom.sv == sw/boot/rom.hex
 // for all 1024 words. Questa (run from neumann_soc/):
 //   vlib work_eq
-//   vlog -work work_eq -sv handover/rtl_synth/rom1p1r_bootrom.sv handover/check/tb_bootrom_eq.sv
+//   vlog -work work_eq -sv synth/rtl_synth/rom1p1r_bootrom.sv synth/check/tb_bootrom_eq.sv
 //   vsim -work work_eq -c tb_bootrom_eq -do "run -all; quit -f"
 // Expect: "BOOTROM EQ PASS 1024/1024"
 module tb_bootrom_eq;

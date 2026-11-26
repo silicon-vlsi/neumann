@@ -1,5 +1,5 @@
 // neumann_soc_synth.f - SYNTHESIS file list (paths relative to neumann_soc/).
-// = neumann_soc.f with 3 files swapped for handover/rtl_synth/ versions:
+// = neumann_soc.f with 3 files swapped for synth/rtl_synth/ versions:
 //   rom1p1r (boot ROM contents), ram1p1rwbe (SRAM macros), cluster_clock_gating (ICG).
 // Defines for tape-out: +define+NEUMANN_GF28_SRAM +define+NEUMANN_GF28_ICG
 // Top module: neumann_soc   (rtl/top/neumann_soc.sv), default parameters.
@@ -16,8 +16,8 @@ rtl/peripherals/src/generic/flop/flopenl.sv
 rtl/peripherals/src/generic/flop/flopenr.sv
 rtl/peripherals/src/generic/flop/flopr.sv
 rtl/peripherals/src/generic/flop/synchronizer.sv
-handover/rtl_synth/ram1p1rwbe_gf28.sv
-handover/rtl_synth/rom1p1r_bootrom.sv
+synth/rtl_synth/ram1p1rwbe_gf28.sv
+synth/rtl_synth/rom1p1r_bootrom.sv
 rtl/peripherals/src/mmu/adrdec.sv
 rtl/peripherals/src/mmu/adrdecs.sv
 rtl/peripherals/src/uncore/ahbapbbridge.sv
@@ -37,7 +37,7 @@ rtl/peripherals/src/uncore/uncore.sv
 //  needed with USE_SRAM = 1; not in this list)
 
 // ---- neumann core
-handover/rtl_synth/cluster_clock_gating_gf28.sv
+synth/rtl_synth/cluster_clock_gating_gf28.sv
 rtl/core/rv32i_alu.v
 rtl/core/rv32i_compressed_decoder.v
 rtl/core/rv32i_controller.v

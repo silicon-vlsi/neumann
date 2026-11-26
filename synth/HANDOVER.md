@@ -8,14 +8,14 @@ Owner: Pratyush Kumar Sahu. Guide: Saroj Rout Sir.
 | Item | Value |
 |---|---|
 | Top module | `neumann_soc` (`rtl/top/neumann_soc.sv`) |
-| File list | `handover/neumann_soc_synth.f` (paths relative to `neumann_soc/`) |
+| File list | `synth/neumann_soc_synth.f` (paths relative to `neumann_soc/`) |
 | Defines (tape-out) | `+define+NEUMANN_GF28_SRAM +define+NEUMANN_GF28_ICG` |
 | Parameters | keep defaults: `CLK_GATING=1`, `DBG_CLKS_PER_BIT=868`, `BOOT_ADDR=0x1000`, IRAM 16 KB, DRAM 8 KB |
 | Clock | 1 clock `clk_i`; verified at 100 MHz (10 ns) |
 | Reset | `rst_ni` active-low async, synchronised inside (`rtl/sys/rst_sync.v`) |
 | Language | SystemVerilog-2012 + Verilog-2001; package `rtl/peripherals/src/cvw.sv` must be read first (already first in the list) |
 
-`neumann_soc_synth.f` is the verified `neumann_soc.f` with **3 files swapped** (all in `handover/rtl_synth/`):
+`neumann_soc_synth.f` is the verified `neumann_soc.f` with **3 files swapped** (all in `synth/rtl_synth/`):
 
 | RTL file (simulation) | Synthesis file | Why |
 |---|---|---|
@@ -41,8 +41,8 @@ Without the defines, the 3 files fall back to behaviour identical to the RTL, so
    - no reset and no init contents.
 
    Any read-during-write mode is OK, because the bus stalls a read that follows a write. `ce` is tied to 1 (always enabled). A 2048 × 32 macro used twice (banked on `addr[11]`) is fine for the IRAM.
-3. **Boot ROM**: synthesised as standard cells from a case table (4 KB address space, 161 words used, 129 non-zero). No ROM macro is needed. If `sw/boot/rom.hex` ever changes, run `python handover/gen_bootrom.py` and re-synthesise.
-4. **SDC**: `handover/constraints/neumann_soc_gf28.sdc`. Fill in the uncertainty, the transition, the driving cell and the load. Mission mode uses `set_case_analysis 0 test_en_i`.
+3. **Boot ROM**: synthesised as standard cells from a case table (4 KB address space, 161 words used, 129 non-zero). No ROM macro is needed. If `sw/boot/rom.hex` ever changes, run `python synth/gen_bootrom.py` and re-synthesise.
+4. **SDC**: `synth/constraints/neumann_soc_gf28.sdc`. Fill in the uncertainty, the transition, the driving cell and the load. Mission mode uses `set_case_analysis 0 test_en_i`.
 
 ## 3. Pins (119 signal pins incl. clk/rst)
 
@@ -100,7 +100,7 @@ An unmapped address or a wrong access size returns an AHB ERROR, which traps wit
 
 Code coverage (Questa) on our own RTL, excluding the debug units: 87% statements, 79% branches.
 
-Also checked: `handover/check/tb_bootrom_eq.sv` confirms the synthesis ROM matches `rom.hex` (1024/1024 words). `neumann_soc_synth.f` lints clean.
+Also checked: `synth/check/tb_bootrom_eq.sv` confirms the synthesis ROM matches `rom.hex` (1024/1024 words). `neumann_soc_synth.f` lints clean.
 
 ## 7. Known errata (accepted, not bugs for PD)
 
@@ -127,4 +127,4 @@ The testbenches back-door load IRAM, DRAM and ROM by RTL hierarchy. For a **netl
 
 ## 10. Integrity
 
-`handover/MANIFEST.md5` lists the md5 of every file in the bundle. Check it with `md5sum -c handover/MANIFEST.md5`, run from `neumann_soc/`.
+`synth/MANIFEST.md5` lists the md5 of every file in the bundle. Check it with `md5sum -c synth/MANIFEST.md5`, run from `neumann_soc/`.
