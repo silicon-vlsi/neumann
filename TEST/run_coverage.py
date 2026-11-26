@@ -23,7 +23,7 @@ sys.path.insert(0, HERE)
 import run_all
 import covhook
 
-RTL_DIRS = ('rtl/', 'uncore_ip/')
+RTL_DIRS = ('rtl/', 'rtl/peripherals/')
 
 
 def run_suites(sim, suites):

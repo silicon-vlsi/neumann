@@ -1,4 +1,4 @@
-// ram1p1rwbe_gf28.sv - SYNTHESIS replacement for uncore_ip/src/generic/mem/ram1p1rwbe.sv
+// ram1p1rwbe_gf28.sv - SYNTHESIS replacement for rtl/peripherals/src/generic/mem/ram1p1rwbe.sv
 // Same module name, parameters and ports. Two instances in neumann_soc:
 //   IRAM  u_uncore.ram.ram.memory   DEPTH 4096 x 32  (16 KB, 0x8000_0000)
 //   DRAM  u_dram.memory             DEPTH 2048 x 32  ( 8 KB, 0x8001_0000)

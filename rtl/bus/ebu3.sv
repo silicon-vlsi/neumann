@@ -4,7 +4,7 @@
 //
 // Part of neumann_soc (neumann core on Wally uncore). Derived from the
 // CORE-V-Wally EBU (cvw src/ebu/ebu.sv, ebufsmarb.sv, Apache-2.0 WITH SHL-2.1;
-// not kept in uncore_ip/ here, see uncore_ip/VERSION.txt for the cvw commit):
+// not kept in rtl/peripherals/ here, see rtl/peripherals/VERSION.txt for the cvw commit):
 // same bus-side ports and output mux, so it drops into the Wally uncore in
 // place of `ebu`. The Wally files are not changed.
 //

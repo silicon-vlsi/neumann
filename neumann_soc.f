@@ -2,36 +2,36 @@
 // run the simulator / synthesis tool from there, or prefix the paths.
 // Top module: neumann_soc   (rtl/top/neumann_soc.sv)
 +incdir+config
-+incdir+uncore_ip/config/shared
++incdir+rtl/peripherals/config/shared
 +incdir+rtl/core
 
 // ---- CORE-V-Wally subset (package first)
-uncore_ip/src/cvw.sv
-uncore_ip/src/generic/mux.sv
-uncore_ip/src/generic/flop/flop.sv
-uncore_ip/src/generic/flop/flopen.sv
-uncore_ip/src/generic/flop/flopenl.sv
-uncore_ip/src/generic/flop/flopenr.sv
-uncore_ip/src/generic/flop/flopr.sv
-uncore_ip/src/generic/flop/synchronizer.sv
-uncore_ip/src/generic/mem/ram1p1rwbe.sv
-uncore_ip/src/generic/mem/rom1p1r.sv
-uncore_ip/src/mmu/adrdec.sv
-uncore_ip/src/mmu/adrdecs.sv
-uncore_ip/src/uncore/ahbapbbridge.sv
-uncore_ip/src/uncore/clint_apb.sv
-uncore_ip/src/uncore/plic_apb.sv
-uncore_ip/src/uncore/uartPC16550D.sv
-uncore_ip/src/uncore/uart_apb.sv
-uncore_ip/src/uncore/gpio_apb.sv
-uncore_ip/src/uncore/spi_fifo.sv
-uncore_ip/src/uncore/spi_controller.sv
-uncore_ip/src/uncore/spi_apb.sv
-uncore_ip/src/uncore/pwm_apb.sv
-uncore_ip/src/uncore/rom_ahb.sv
-uncore_ip/src/uncore/ram_ahb.sv
-uncore_ip/src/uncore/uncore.sv
-// (uncore_ip/src/generic/mem/*_64x*.sv, *_128x*.sv: SRAM-macro wrappers, only
+rtl/peripherals/src/cvw.sv
+rtl/peripherals/src/generic/mux.sv
+rtl/peripherals/src/generic/flop/flop.sv
+rtl/peripherals/src/generic/flop/flopen.sv
+rtl/peripherals/src/generic/flop/flopenl.sv
+rtl/peripherals/src/generic/flop/flopenr.sv
+rtl/peripherals/src/generic/flop/flopr.sv
+rtl/peripherals/src/generic/flop/synchronizer.sv
+rtl/peripherals/src/generic/mem/ram1p1rwbe.sv
+rtl/peripherals/src/generic/mem/rom1p1r.sv
+rtl/peripherals/src/mmu/adrdec.sv
+rtl/peripherals/src/mmu/adrdecs.sv
+rtl/peripherals/src/uncore/ahbapbbridge.sv
+rtl/peripherals/src/uncore/clint_apb.sv
+rtl/peripherals/src/uncore/plic_apb.sv
+rtl/peripherals/src/uncore/uartPC16550D.sv
+rtl/peripherals/src/uncore/uart_apb.sv
+rtl/peripherals/src/uncore/gpio_apb.sv
+rtl/peripherals/src/uncore/spi_fifo.sv
+rtl/peripherals/src/uncore/spi_controller.sv
+rtl/peripherals/src/uncore/spi_apb.sv
+rtl/peripherals/src/uncore/pwm_apb.sv
+rtl/peripherals/src/uncore/rom_ahb.sv
+rtl/peripherals/src/uncore/ram_ahb.sv
+rtl/peripherals/src/uncore/uncore.sv
+// (rtl/peripherals/src/generic/mem/*_64x*.sv, *_128x*.sv: SRAM-macro wrappers, only
 //  needed with USE_SRAM = 1; not in this list)
 
 // ---- neumann core

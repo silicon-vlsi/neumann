@@ -13,14 +13,14 @@ Owner: Pratyush Kumar Sahu. Guide: Saroj Rout Sir.
 | Parameters | keep defaults: `CLK_GATING=1`, `DBG_CLKS_PER_BIT=868`, `BOOT_ADDR=0x1000`, IRAM 16 KB, DRAM 8 KB |
 | Clock | 1 clock `clk_i`; verified at 100 MHz (10 ns) |
 | Reset | `rst_ni` active-low async, synchronised inside (`rtl/sys/rst_sync.v`) |
-| Language | SystemVerilog-2012 + Verilog-2001; package `uncore_ip/src/cvw.sv` must be read first (already first in the list) |
+| Language | SystemVerilog-2012 + Verilog-2001; package `rtl/peripherals/src/cvw.sv` must be read first (already first in the list) |
 
 `neumann_soc_synth.f` is the verified `neumann_soc.f` with **3 files swapped** (all in `handover/rtl_synth/`):
 
 | RTL file (simulation) | Synthesis file | Why |
 |---|---|---|
-| `uncore_ip/src/generic/mem/rom1p1r.sv` | `rom1p1r_bootrom.sv` | **RTL ROM is empty.** The testbenches back-door load `sw/boot/rom.hex`. Without this swap, silicon gets an all-zero ROM and **will not boot.** |
-| `uncore_ip/src/generic/mem/ram1p1rwbe.sv` | `ram1p1rwbe_gf28.sv` | IRAM/DRAM become SRAM macros. Without them you get 24 KB of flops. |
+| `rtl/peripherals/src/generic/mem/rom1p1r.sv` | `rom1p1r_bootrom.sv` | **RTL ROM is empty.** The testbenches back-door load `sw/boot/rom.hex`. Without this swap, silicon gets an all-zero ROM and **will not boot.** |
+| `rtl/peripherals/src/generic/mem/ram1p1rwbe.sv` | `ram1p1rwbe_gf28.sv` | IRAM/DRAM become SRAM macros. Without them you get 24 KB of flops. |
 | `rtl/core/cluster_clock_gating.sv` | `cluster_clock_gating_gf28.sv` | Library ICG cell in place of the behavioural latch + AND |
 
 Without the defines, the 3 files fall back to behaviour identical to the RTL, so the same list also simulates.
